@@ -1,0 +1,37 @@
+﻿@page "/workouts"
+@inject DataContext Context
+
+
+<h3>WorkoutList</h3>
+
+<PageTitle>Workouts</PageTitle>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@workoutSplit.Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var workout in workouts)
+        {
+            <tr>
+                <td>
+                    @workout.Name
+                </td>
+                <td><a href="edit-workout/@workout.Id">Edit</a></td>
+                <td>Delete Workout</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    WorkoutSplit workoutSplit = new();
+    List<Workout> workouts = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        workouts = await Context.Workouts.Include(workout => workout.ExerciseList).ToListAsync();
+    }
+}

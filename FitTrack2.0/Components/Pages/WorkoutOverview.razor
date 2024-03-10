@@ -1,0 +1,154 @@
+﻿@page "/edit-workout"
+@page "/edit-workout/{Id:int}"
+@inject DataContext Context
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+
+<head>
+    <script src="https://kit.fontawesome.com/8d42c9993f.js" crossorigin="anonymous"></script>
+</head>
+
+<style>
+    .tableSpacing {
+        border-collapse: separate;
+        border-spacing: 0 5px;
+    }
+</style>
+
+<PageTitle>Edit @CurrentWorkout.Name</PageTitle>
+<h3>Edit @CurrentWorkout.Name</h3>
+
+@if (Id is null)
+{
+    <p><em>Loading exercises...</em></p>
+}
+else
+{
+    <table class="table tableSpacing">
+        <tbody>
+            @foreach (var exercise in CurrentWorkout.ExerciseList)
+            {
+                <button type="submit" class="btn btn-danger" @onclick="() => RemoveExercise(exercise)">Remove Exercise</button>
+                <tr>
+                    <td>
+                        <InputText class="form-control" placeholder="Exercise Name" @bind-Value="@exercise.Name" />
+                    </td>
+                    <td>
+                        <InputText class="form-control" placeholder="Descrption" @bind-Value="@exercise.Description" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" class="btn btn-outline-primary btn-sm" @onclick="() => AddSet(exercise)">
+                            <span><i class="fa-solid fa-plus"></i></span>
+                        </button>
+                    </td>
+                </tr>
+
+                @foreach (var set in exercise.ExerciseSets)
+                {
+                    <tr>
+                        <td>set @countSet</td>
+                        <td>
+                            <InputNumber class="form-control" placeholder="Repetitions" @bind-Value="@set.Repetitions" />
+                        </td>
+                        <td>
+                            <InputNumber class="form-control" placeholder="Weight" @bind-Value="@set.Weight" />
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-outline-danger" @onclick="() => RemoveSet(exercise, set)">
+                                <span><i class="fa-regular fa-trash-can"></i></span>
+                            </button>
+                        </td>
+                    </tr>
+                    countSet++;
+                }
+                countSet = 1;
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary" @onclick="AddExercise">Add exercise</button>
+    <button type="submit" class="btn btn-primary" @onclick="HandleSubmit">Save workout</button>
+
+}
+
+<p>@status</p>
+
+@code {
+    [Parameter]
+    public int? Id { get; set; } = null;
+
+    public Workout CurrentWorkout { get; set; } = new();
+
+    List<Exercise> exercises = new();
+
+    private string status = string.Empty;
+
+    int countSet = 1;
+
+    protected override async Task OnInitializedAsync()
+    {
+        exercises = await Context.Exercises.Include(exercise => exercise.ExerciseSets).ToListAsync();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if(Id is not null)
+        {
+            var workouts = await Context.Workouts
+            .Include(workout => workout.ExerciseList)
+                .ThenInclude(exercise => exercise.ExerciseSets)
+            .ToListAsync();
+            var workout = workouts.FirstOrDefault(w => w.Id == Id);
+
+            if(workout is not null)
+            {
+                CurrentWorkout.Name = workout.Name;
+                CurrentWorkout.Description = workout.Description;
+                CurrentWorkout.ExerciseList = workout.ExerciseList;
+                CurrentWorkout.WorkoutSplitId = workout.WorkoutSplitId;
+            }
+        }
+    }
+
+    async Task HandleSubmit()
+    {
+        await Context.SaveChangesAsync();
+    }
+
+    async Task AddSet(Exercise exercise)
+    {
+        exercise.ExerciseSets.Add(new ExerciseSet(exercise.Id));
+        await Context.SaveChangesAsync();
+    }
+
+    async Task RemoveSet(Exercise currentExercise, ExerciseSet currentSet)
+    {
+        currentExercise.ExerciseSets.Remove(currentSet);
+        await Context.SaveChangesAsync();
+    }
+
+    async Task AddExercise()
+    {
+        Exercise lastExercise = new Exercise(workoutId: Id);
+
+        if (lastExercise != null)
+        {
+            lastExercise.ExerciseSets.Add(new ExerciseSet(lastExercise.Id));
+
+            Context.Exercises.Add(lastExercise);
+        }
+
+        await Context.SaveChangesAsync();
+    }
+
+
+    async Task RemoveExercise(Exercise exerciseToRemove)
+    {
+        Context.Exercises.Remove(exerciseToRemove);
+        await Context.SaveChangesAsync();
+
+        if(CurrentWorkout.ExerciseList != null)
+            CurrentWorkout.ExerciseList.Remove(exerciseToRemove);
+    }
+}
