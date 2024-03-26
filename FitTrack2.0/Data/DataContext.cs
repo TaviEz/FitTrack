@@ -59,5 +59,6 @@ namespace FitTrack2._0.Data
         public DbSet<Workout> Workouts { get; set; }
         public DbSet<Exercise> Exercises { get; set; }
         public DbSet<ExerciseSet> ExerciseSets { get; set; }
+        public DbSet<UserDetails> UserDetails { get; set; }
     }
 }

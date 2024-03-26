@@ -16,7 +16,6 @@
 
         public Exercise() 
         {
-
         }
 
         public Exercise(int? workoutId)

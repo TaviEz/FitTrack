@@ -23,6 +23,7 @@
         {
             Name = "New Workout";
             WorkoutSplitId = workoutSplitId;
+            ExerciseList.Add(new Exercise(workoutId: Id));
         }
     }
 }

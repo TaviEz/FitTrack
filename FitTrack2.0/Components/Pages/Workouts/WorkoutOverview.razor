@@ -27,7 +27,8 @@ else
         <tbody>
             <tr>
                 <td>
-                    <InputText class="form-control" placeholder="Workout Name" @bind-Value="@CurrentWorkout.Name"/>
+                    <InputText id="name" @bind-Value="@CurrentWorkout.Name" class="form-control" placeholder=""/>
+                    <label for="name" class="form-control">Workout Name</label>
                 </td>
             </tr>
             @foreach (var exercise in CurrentWorkout.ExerciseList)
@@ -76,7 +77,10 @@ else
 
 }
 
-<p>@status</p>
+
+@*TODO: add small labels instead of placeholder texts
+    suggestion: use editForms so that labels work
+*@
 
 @code {
     [Parameter]
@@ -86,14 +90,7 @@ else
 
     List<Exercise> exercises = new();
 
-    private string status = string.Empty;
-
     int countSet = 1;
-
-    /*protected override async Task OnInitializedAsync()
-        {
-        exercises = await Context.Exercises.Include(exercise => exercise.ExerciseSets).ToListAsync();
-    }*/
 
     protected override async Task OnParametersSetAsync()
     {
@@ -135,8 +132,6 @@ else
 
         if (exerciseToAdd != null)
         {
-            exerciseToAdd.ExerciseSets.Add(new ExerciseSet(exerciseToAdd.Id));
-
             Context.Exercises.Add(exerciseToAdd);
         }
 
