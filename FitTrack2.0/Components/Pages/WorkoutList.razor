@@ -1,10 +1,16 @@
-﻿@page "/workouts"
+﻿@page "/split-overview"
 @inject DataContext Context
+@inject NavigationManager NavigationManager
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<head>
+    <script src="https://kit.fontawesome.com/8d42c9993f.js" crossorigin="anonymous"></script>
+</head>
 
 
-<h3>WorkoutList</h3>
+<h3>Split Overview</h3>
 
-<PageTitle>Workouts</PageTitle>
+<PageTitle>Split Overview</PageTitle>
 
 <table class="table">
     <thead>
@@ -20,12 +26,23 @@
                     @workout.Name
                 </td>
                 <td><a href="edit-workout/@workout.Id">Edit</a></td>
-                <td>Delete Workout</td>
+                <td>
+                    <button type="submit" class="btn btn-outline-danger" @onclick="() => RemoveWorkout(workout)">
+                        <span><i class="fa-regular fa-trash-can"></i></span>
+                    </button>
+                </td>
             </tr>
         }
     </tbody>
 </table>
 
+
+@*consider creating separate interactive compononents for the buttons*@
+<button type="submit" class="btn btn-primary" @onclick="AddWorkout">Add workout</button>
+
+
+@*consider creating services to perform crud operations*@
+@*add a message after each operation is performed Ex: Workout Saved Succesfully*@
 @code {
     WorkoutSplit workoutSplit = new();
     List<Workout> workouts = new();
@@ -33,5 +50,33 @@
     protected override async Task OnInitializedAsync()
     {
         workouts = await Context.Workouts.Include(workout => workout.ExerciseList).ToListAsync();
+    }
+
+
+    //consider having multiple workout splits
+    async Task AddWorkout()
+    {
+        Workout workoutToAdd = new Workout(workoutSplitId: 1);
+
+        if (workoutToAdd != null)
+        {
+            workoutToAdd.ExerciseList.Add(new Exercise(workoutToAdd.Id));
+            Context.Workouts.Add(workoutToAdd);
+        }
+
+        await Context.SaveChangesAsync();
+        NavigationManager.NavigateTo($"/edit-workout/{workoutToAdd.Id}");
+    }
+
+    async Task RemoveWorkout(Workout workout)
+    {
+        if(Context.Workouts.Contains(workout))
+            Context.Workouts.Remove(workout);
+
+        await Context.SaveChangesAsync();
+
+        if (workouts.Contains(workout))
+            workouts.Remove(workout);
+
     }
 }

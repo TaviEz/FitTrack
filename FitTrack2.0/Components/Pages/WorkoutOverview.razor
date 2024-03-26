@@ -3,7 +3,6 @@
 @inject DataContext Context
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
 
-
 <head>
     <script src="https://kit.fontawesome.com/8d42c9993f.js" crossorigin="anonymous"></script>
 </head>
@@ -26,6 +25,11 @@ else
 {
     <table class="table tableSpacing">
         <tbody>
+            <tr>
+                <td>
+                    <InputText class="form-control" placeholder="Workout Name" @bind-Value="@CurrentWorkout.Name"/>
+                </td>
+            </tr>
             @foreach (var exercise in CurrentWorkout.ExerciseList)
             {
                 <button type="submit" class="btn btn-danger" @onclick="() => RemoveExercise(exercise)">Remove Exercise</button>
@@ -68,7 +72,7 @@ else
         </tbody>
     </table>
     <button type="submit" class="btn btn-primary" @onclick="AddExercise">Add exercise</button>
-    <button type="submit" class="btn btn-primary" @onclick="HandleSubmit">Save workout</button>
+    <button type="submit" class="btn btn-primary" @onclick="SaveWorkout">Save workout</button>
 
 }
 
@@ -86,10 +90,10 @@ else
 
     int countSet = 1;
 
-    protected override async Task OnInitializedAsync()
-    {
+    /*protected override async Task OnInitializedAsync()
+        {
         exercises = await Context.Exercises.Include(exercise => exercise.ExerciseSets).ToListAsync();
-    }
+    }*/
 
     protected override async Task OnParametersSetAsync()
     {
@@ -103,17 +107,14 @@ else
 
             if(workout is not null)
             {
-                CurrentWorkout.Name = workout.Name;
-                CurrentWorkout.Description = workout.Description;
-                CurrentWorkout.ExerciseList = workout.ExerciseList;
-                CurrentWorkout.WorkoutSplitId = workout.WorkoutSplitId;
+                CurrentWorkout = workout;
             }
         }
     }
 
-    async Task HandleSubmit()
+    async Task SaveWorkout()
     {
-        await Context.SaveChangesAsync();
+        var result = await Context.SaveChangesAsync();
     }
 
     async Task AddSet(Exercise exercise)
@@ -130,13 +131,13 @@ else
 
     async Task AddExercise()
     {
-        Exercise lastExercise = new Exercise(workoutId: Id);
+        Exercise exerciseToAdd = new Exercise(workoutId: Id);
 
-        if (lastExercise != null)
+        if (exerciseToAdd != null)
         {
-            lastExercise.ExerciseSets.Add(new ExerciseSet(lastExercise.Id));
+            exerciseToAdd.ExerciseSets.Add(new ExerciseSet(exerciseToAdd.Id));
 
-            Context.Exercises.Add(lastExercise);
+            Context.Exercises.Add(exerciseToAdd);
         }
 
         await Context.SaveChangesAsync();

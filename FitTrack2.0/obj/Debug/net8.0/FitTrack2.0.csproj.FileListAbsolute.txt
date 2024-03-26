@@ -133,3 +133,4 @@ E:\Developer\C#\FitTrack2.0\FitTrack2.0\obj\Debug\net8.0\refint\FitTrack2.0.dll
 E:\Developer\C#\FitTrack2.0\FitTrack2.0\obj\Debug\net8.0\FitTrack2.0.pdb
 E:\Developer\C#\FitTrack2.0\FitTrack2.0\obj\Debug\net8.0\FitTrack2.0.genruntimeconfig.cache
 E:\Developer\C#\FitTrack2.0\FitTrack2.0\obj\Debug\net8.0\ref\FitTrack2.0.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\obj\Debug\net8.0\FitTrack2.0.sourcelink.json

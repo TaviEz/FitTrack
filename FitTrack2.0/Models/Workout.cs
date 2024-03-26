@@ -19,11 +19,10 @@
             
         }
 
-        public Workout(int id, string name, ICollection<Exercise> exerciseList)
+        public Workout(int workoutSplitId)
         {
-            Id = id;
-            Name = name;
-            ExerciseList = exerciseList;
+            Name = "New Workout";
+            WorkoutSplitId = workoutSplitId;
         }
     }
 }

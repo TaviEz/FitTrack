@@ -18,7 +18,6 @@ namespace FitTrack2._0.Models
         public ExerciseSet(int exerciseId)
         {
             ExerciseId = exerciseId;
-            //Exercise = exercise;
         }
 
     }

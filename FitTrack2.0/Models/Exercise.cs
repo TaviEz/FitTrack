@@ -16,12 +16,13 @@
 
         public Exercise() 
         {
-            //ExerciseSets.Add(new ExerciseSet(this.Id, this));
+
         }
 
         public Exercise(int? workoutId)
         {
             WorkoutId = workoutId;
+            ExerciseSets.Add(new ExerciseSet(exerciseId: Id));
         }
 
     }
