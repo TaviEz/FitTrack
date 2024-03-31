@@ -10,7 +10,7 @@
 
         public ICollection<Exercise> ExerciseList { get; set; } = new List<Exercise>();
 
-        public int WorkoutSplitId { get; set; }
+        public int? WorkoutSplitId { get; set; }
 
         public WorkoutSplit? WorkoutSplit { get; set;}
 
@@ -19,7 +19,7 @@
             
         }
 
-        public Workout(int workoutSplitId)
+        public Workout(int? workoutSplitId)
         {
             Name = "New Workout";
             WorkoutSplitId = workoutSplitId;

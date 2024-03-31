@@ -1,15 +1,11 @@
 ﻿using FitTrack2._0.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitTrack2._0.Data
 {
-    public class DataContext: DbContext 
+    public class DataContext(DbContextOptions<DataContext> options) : IdentityDbContext<ApplicationUser>(options)
     {
-        public DataContext(DbContextOptions<DataContext> options): base(options)
-        {
-         
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -28,6 +24,11 @@ namespace FitTrack2._0.Data
                 .HasMany(e => e.Workouts)
                 .WithOne(es => es.WorkoutSplit)
                 .HasForeignKey(es => es.WorkoutSplitId);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(e => e.WorkoutSplits)
+                .WithOne(es => es.ApplicationUser)
+                .HasForeignKey(es => es.ApplicationUserId);
 
             modelBuilder.Entity<ExerciseSet>().HasData(
                 new ExerciseSet { Id = 1, Repetitions = 10, Weight = 80, ExerciseId = 1 },
@@ -50,15 +51,12 @@ namespace FitTrack2._0.Data
                 );
 
             modelBuilder.Entity<WorkoutSplit>().HasData(
-                new WorkoutSplit { Id = 1, Name = "Push Pull Legs"});
-
-            
+                new WorkoutSplit { Id = 1, Name = "Push Pull Legs", ApplicationUserId = "39c94707-a386-437c-8e09-b607d42d2a8f"});
         }
 
-
+        public DbSet<WorkoutSplit> WorkoutSplits { get; set; }
         public DbSet<Workout> Workouts { get; set; }
         public DbSet<Exercise> Exercises { get; set; }
         public DbSet<ExerciseSet> ExerciseSets { get; set; }
-        public DbSet<UserDetails> UserDetails { get; set; }
     }
 }

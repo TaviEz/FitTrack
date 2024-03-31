@@ -134,3 +134,10 @@ E:\Developer\C#\FitTrack2.0\FitTrack2.0\obj\Debug\net8.0\FitTrack2.0.pdb
 E:\Developer\C#\FitTrack2.0\FitTrack2.0\obj\Debug\net8.0\FitTrack2.0.genruntimeconfig.cache
 E:\Developer\C#\FitTrack2.0\FitTrack2.0\obj\Debug\net8.0\ref\FitTrack2.0.dll
 E:\Developer\C#\FitTrack2.0\FitTrack2.0\obj\Debug\net8.0\FitTrack2.0.sourcelink.json
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll

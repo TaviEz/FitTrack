@@ -1,7 +1,7 @@
 ﻿@page "/Account/Login"
-
-@inject SignInManager<ApplicationUser> SignInManager
 @inject NavigationManager NavigationManager
+@inject DataContext Context
+@inject SignInManager<ApplicationUser> SignInManager
 
 <PageTitle>Log in</PageTitle>
 
@@ -44,21 +44,38 @@
 @code {
     private string? errorMessage;
 
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    [SupplyParameterFromQuery]
+    private string? ReturnUrl { get; set; }
+
     [SupplyParameterFromForm]
     private InputModel Input { get; set; } = new();
+
+    [CascadingParameter]
+    private Task<AuthenticationState>? authenticationState { get; set; }
+
+        protected override async Task OnInitializedAsync()
+    {
+        if (HttpMethods.IsGet(HttpContext.Request.Method))
+        {
+            // Clear the existing external cookie to ensure a clean login process
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+        }
+    }
 
     public async Task LogInUser()
     {
         var result = await SignInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-        if(result.Succeeded)
+        if (result.Succeeded)
         {
-            NavigationManager.NavigateTo("/home");
+            NavigationManager.NavigateTo("Account/Manage");
         }
         else
         {
-            NavigationManager.NavigateTo("/weather");
+            errorMessage = "Error: Invalid credentials";
         }
-
     }
 
     private sealed class InputModel

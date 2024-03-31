@@ -1,4 +1,6 @@
 ﻿@page "/split-overview"
+@page "/split-overview/{Id:int}"
+
 @inject DataContext Context
 @inject NavigationManager NavigationManager
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
@@ -12,48 +14,67 @@
 
 <PageTitle>Split Overview</PageTitle>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>@workoutSplit.Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var workout in workouts)
-        {
+@if (Id is null)
+{
+    <p><em>Loading workouts...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @workout.Name
-                </td>
-                <td><a href="edit-workout/@workout.Id">Edit</a></td>
-                <td>
-                    <button type="submit" class="btn btn-outline-danger" @onclick="() => RemoveWorkout(workout)">
-                        <span><i class="fa-regular fa-trash-can"></i></span>
-                    </button>
-                </td>
+                <th>@CurrentWorkoutSplit.Name</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var workout in CurrentWorkoutSplit.Workouts)
+            {
+                <tr>
+                    <td>
+                        @workout.Name
+                    </td>
+                    <td><a href="edit-workout/@workout.Id">Edit</a></td>
+                    <td>
+                        <button type="submit" class="btn btn-outline-danger" @onclick="() => RemoveWorkout(workout)">
+                            <span><i class="fa-regular fa-trash-can"></i></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-
-@*consider creating separate interactive compononents for the buttons*@
-<button type="submit" class="btn btn-primary" @onclick="AddWorkout">Add workout</button>
+    @*consider creating separate interactive compononents for the buttons*@
+    <button type="submit" class="btn btn-primary" @onclick="AddWorkout">Add workout</button>
+}
 
 
 @*consider creating services to perform crud operations*@
 @*add a message after each operation is performed Ex: Workout Saved Succesfully*@
 @code {
-    WorkoutSplit workoutSplit = new();
-    List<Workout> workouts = new();
+    [Parameter]
+    public int? Id { get; set; } = null;
 
-    protected override async Task OnInitializedAsync()
+
+    WorkoutSplit CurrentWorkoutSplit = new();
+
+    protected override async Task OnParametersSetAsync()
     {
-        workouts = await Context.Workouts.Include(workout => workout.ExerciseList).ToListAsync();
+        if(Id is not null)
+        {
+            var workoutSplits = await Context.WorkoutSplits
+                .Include(workoutSplit => workoutSplit.Workouts)
+                .ThenInclude(workout => workout.ExerciseList)
+                .ToListAsync();
+            var workoutSplit = workoutSplits.FirstOrDefault(w => w.Id == Id);
+
+            if(workoutSplit != null)
+            {
+                CurrentWorkoutSplit = workoutSplit;
+            }
+        }
     }
 
-
-    //consider having multiple workout splits
     async Task AddWorkout()
     {
         Workout workoutToAdd = new Workout(workoutSplitId: 1);
@@ -61,10 +82,10 @@
         if (workoutToAdd != null)
         {
             Context.Workouts.Add(workoutToAdd);
+            await Context.SaveChangesAsync();
+            NavigationManager.NavigateTo($"/edit-workout/{workoutToAdd.Id}");
         }
 
-        await Context.SaveChangesAsync();
-        NavigationManager.NavigateTo($"/edit-workout/{workoutToAdd.Id}");
     }
 
     async Task RemoveWorkout(Workout workout)
@@ -74,8 +95,8 @@
 
         await Context.SaveChangesAsync();
 
-        if (workouts.Contains(workout))
-            workouts.Remove(workout);
+        if (CurrentWorkoutSplit.Workouts.Contains(workout))
+            CurrentWorkoutSplit.Workouts.Remove(workout);
 
     }
 }

@@ -4,6 +4,7 @@ using FitTrack2._0.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitTrack2._0.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240328141944_ApplicationUserWorkoutSplits")]
+    partial class ApplicationUserWorkoutSplits
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -220,7 +223,7 @@ namespace FitTrack2._0.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("WorkoutSplitId")
+                    b.Property<int>("WorkoutSplitId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -248,11 +251,11 @@ namespace FitTrack2._0.Migrations
 
             modelBuilder.Entity("FitTrack2._0.Models.WorkoutSplit", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
@@ -265,13 +268,12 @@ namespace FitTrack2._0.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("WorkoutSplits");
+                    b.ToTable("WorkoutSplit");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            ApplicationUserId = "39c94707-a386-437c-8e09-b607d42d2a8f",
                             Name = "Push Pull Legs"
                         });
                 });
@@ -433,7 +435,9 @@ namespace FitTrack2._0.Migrations
                 {
                     b.HasOne("FitTrack2._0.Models.WorkoutSplit", "WorkoutSplit")
                         .WithMany("Workouts")
-                        .HasForeignKey("WorkoutSplitId");
+                        .HasForeignKey("WorkoutSplitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("WorkoutSplit");
                 });

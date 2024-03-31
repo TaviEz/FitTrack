@@ -1,12 +1,16 @@
 ﻿@page "/Account/Register"
-@inject DataContext Context
+
+@inject NavigationManager NavigationManager
+@inject UserManager<ApplicationUser> UserManager
+@inject IUserStore<ApplicationUser> UserStore
+@inject SignInManager<ApplicationUser> SignInManager
 
 <h1>Register</h1>
 
 <div class="row">
     <div class="col-md-4">
-        @*<StatusMessage Message="@Message" />*@
-        <EditForm Model="Input" OnValidSubmit="RegisterUser" FormName="register">
+        <StatusMessage Message="@Message" />
+        <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" OnValidSubmit="RegisterUser" FormName="register">
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert" />
             <div class="form-floating mb-3">
@@ -30,23 +34,45 @@
 </div>
 
 @code {
+    // UserManager: default implementation for password format: one uppercase/lowercase + number + special character
+    private IEnumerable<IdentityError>? identityErrors;
+    private string? Message => identityErrors is null ? null : $"Error: {string.Join(", ", identityErrors.Select(error => error.Description))}";
+
+    [SupplyParameterFromQuery]
+    private string? ReturnUrl { get; set; }
+
     [SupplyParameterFromForm]
     private InputModel Input { get; set; } = new();
 
     public async Task RegisterUser()
     {
-        var username = Input.Email.Substring(0, Input.Email.IndexOf('@'));
-        var user = new UserDetails(name: username, email: Input.Email, password: Input.Password);
+        var user = Activator.CreateInstance<ApplicationUser>();
 
-        try
+        await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+        var emailStore = GetEmailStore();
+        await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+        var result = await UserManager.CreateAsync(user, Input.Password);
+
+        if (!result.Succeeded)
         {
-            Context.UserDetails.Add(user);
+            identityErrors = result.Errors;
+            return;
         }
-        catch
+
+
+        await SignInManager.SignInAsync(user, isPersistent: false);
+
+        if(ReturnUrl != null)
+            NavigationManager.NavigateTo(ReturnUrl);
+    }
+
+    private IUserEmailStore<ApplicationUser> GetEmailStore()
+    {
+        if (!UserManager.SupportsUserEmail)
         {
-            
+            throw new NotSupportedException("The default UI requires a user store with email support.");
         }
-        await Context.SaveChangesAsync();
+        return (IUserEmailStore<ApplicationUser>)UserStore;
     }
 
     private sealed class InputModel

@@ -4,6 +4,7 @@ using FitTrack2._0.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitTrack2._0.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240328124523_applicationUser")]
+    partial class applicationUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -204,6 +207,70 @@ namespace FitTrack2._0.Migrations
                         });
                 });
 
+            modelBuilder.Entity("FitTrack2._0.Models.UserDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserDetails");
+                });
+
             modelBuilder.Entity("FitTrack2._0.Models.Workout", b =>
                 {
                     b.Property<int?>("Id")
@@ -220,7 +287,7 @@ namespace FitTrack2._0.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("WorkoutSplitId")
+                    b.Property<int>("WorkoutSplitId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -248,14 +315,11 @@ namespace FitTrack2._0.Migrations
 
             modelBuilder.Entity("FitTrack2._0.Models.WorkoutSplit", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -263,15 +327,12 @@ namespace FitTrack2._0.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("WorkoutSplits");
+                    b.ToTable("WorkoutSplit");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            ApplicationUserId = "39c94707-a386-437c-8e09-b607d42d2a8f",
                             Name = "Push Pull Legs"
                         });
                 });
@@ -433,18 +494,11 @@ namespace FitTrack2._0.Migrations
                 {
                     b.HasOne("FitTrack2._0.Models.WorkoutSplit", "WorkoutSplit")
                         .WithMany("Workouts")
-                        .HasForeignKey("WorkoutSplitId");
+                        .HasForeignKey("WorkoutSplitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("WorkoutSplit");
-                });
-
-            modelBuilder.Entity("FitTrack2._0.Models.WorkoutSplit", b =>
-                {
-                    b.HasOne("FitTrack2._0.Data.ApplicationUser", "ApplicationUser")
-                        .WithMany("WorkoutSplits")
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -496,11 +550,6 @@ namespace FitTrack2._0.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("FitTrack2._0.Data.ApplicationUser", b =>
-                {
-                    b.Navigation("WorkoutSplits");
                 });
 
             modelBuilder.Entity("FitTrack2._0.Models.Exercise", b =>
