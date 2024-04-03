@@ -42,9 +42,14 @@
                     </NavLink>
                 </div>
                 <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="/show-image-1">
+                        <span class="bi-house-door-fill-nav-menu" aria-hidden="true"/>Show Anatomic Model
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
                     <form action="Account/Logout" method="post">
-                        <AntiforgeryToken/>
-                        <input type="hidden" name="ReturnUrl" value="@currentUrl"/>
+                        <AntiforgeryToken />
+                        <input type="hidden" name="ReturnUrl" value="@currentUrl" />
                         <button type="submit" class="nav-link">
                             <span class="bi bi-arrow-bar-left-nav-menu" aria-hidden="true"></span> Logout
                         </button>

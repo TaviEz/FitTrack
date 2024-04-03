@@ -1,0 +1,21 @@
+﻿@page "/show-image-1"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<PageTitle>Show Image 1</PageTitle>
+
+<h1>Show Image Example 1</h1>
+
+<div>
+    <img src="@imageSrc" @onclick="() => ShowAssociatedExercises()"/>
+</div>
+
+@code {
+    private string imageName1 = "part1";
+    private string imageSrc = "images/image1.png";
+
+    //display associated exercises for a specific muscle
+    private void ShowAssociatedExercises()
+    {
+        
+    }
+}

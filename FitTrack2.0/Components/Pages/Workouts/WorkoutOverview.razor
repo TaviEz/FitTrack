@@ -7,15 +7,13 @@
     <script src="https://kit.fontawesome.com/8d42c9993f.js" crossorigin="anonymous"></script>
 </head>
 
-<style>
-    .tableSpacing {
-        border-collapse: separate;
-        border-spacing: 0 5px;
-    }
-</style>
 
 <PageTitle>Edit @CurrentWorkout.Name</PageTitle>
-<h3>Edit @CurrentWorkout.Name</h3>
+<div class="form-floating mb-3">
+    <InputText class="form-control" id="workoutName" @bind-Value="@CurrentWorkout.Name" placeholder="" />
+    <label for="workoutName" class="form-control">Workout</label>
+</div>
+
 
 @if (Id is null)
 {
@@ -23,23 +21,23 @@
 }
 else
 {
-    <table class="table tableSpacing">
+    <table class="table">
         <tbody>
-            <tr>
-                <td>
-                    <InputText id="name" @bind-Value="@CurrentWorkout.Name" class="form-control" placeholder=""/>
-                    <label for="name" class="form-control">Workout Name</label>
-                </td>
-            </tr>
             @foreach (var exercise in CurrentWorkout.ExerciseList)
             {
-                <button type="submit" class="btn btn-danger" @onclick="() => RemoveExercise(exercise)">Remove Exercise</button>
                 <tr>
                     <td>
-                        <InputText class="form-control" placeholder="Exercise Name" @bind-Value="@exercise.Name" />
-                    </td>
-                    <td>
-                        <InputText class="form-control" placeholder="Descrption" @bind-Value="@exercise.Description" />
+                        <div>
+                            <button type="submit" class="btn btn-danger mb-2" @onclick="() => RemoveExercise(exercise)">Remove Exercise</button>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <InputText class="form-control" placeholder="Exercise Name" @bind-Value="@exercise.Name" />
+                            <label class="form-label">Exercise </label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <InputText class="form-control" @bind-Value="@exercise.Description" />
+                            <label class="form-label">Description</label>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -72,15 +70,11 @@ else
             }
         </tbody>
     </table>
+
     <button type="submit" class="btn btn-primary" @onclick="AddExercise">Add exercise</button>
     <button type="submit" class="btn btn-primary" @onclick="SaveWorkout">Save workout</button>
 
 }
-
-
-@*TODO: add small labels instead of placeholder texts
-    suggestion: use editForms so that labels work
-*@
 
 @code {
     [Parameter]
