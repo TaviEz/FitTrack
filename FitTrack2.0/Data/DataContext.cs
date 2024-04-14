@@ -10,6 +10,10 @@ namespace FitTrack2._0.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<MuscleGroup>()
+                .HasMany(m => m.AssociatedExcercises)
+                .WithMany(e => e.MuscleGroups);
+
             modelBuilder.Entity<Exercise>()
                 .HasMany(e => e.ExerciseSets)
                 .WithOne(es => es.Exercise)
@@ -52,11 +56,26 @@ namespace FitTrack2._0.Data
 
             modelBuilder.Entity<WorkoutSplit>().HasData(
                 new WorkoutSplit { Id = 1, Name = "Push Pull Legs", ApplicationUserId = "39c94707-a386-437c-8e09-b607d42d2a8f"});
+
+            modelBuilder.Entity<MuscleGroup>().HasData(
+                new MuscleGroup { Id = 1, Name = "Chest", Description = "Chest muscle group" },
+                new MuscleGroup { Id = 2, Name = "Front Shoulders", Description = "Front shoulder muscle group" },
+                new MuscleGroup { Id = 3, Name = "Biceps", Description = "Biceps muscle group" },
+                new MuscleGroup { Id = 4, Name = "Abs", Description = "Abdominal muscle group" },
+                new MuscleGroup { Id = 5, Name = "Posterior Shoulders", Description = "Posterior shoulder muscle group" },
+                new MuscleGroup { Id = 6, Name = "Quads", Description = "Quadriceps muscle group" },
+                new MuscleGroup { Id = 7, Name = "Back", Description = "Hamstrings muscle group" },
+                new MuscleGroup { Id = 8, Name = "Traps", Description = "Calf muscle group" },
+                new MuscleGroup { Id = 9, Name = "Triceps", Description = "Triceps muscle group" },
+                new MuscleGroup { Id = 10, Name = "Hams", Description = "Hams muscle group" },
+                new MuscleGroup { Id = 11, Name = "Calves", Description = "Calves muscle group" }
+            );
         }
 
         public DbSet<WorkoutSplit> WorkoutSplits { get; set; }
         public DbSet<Workout> Workouts { get; set; }
         public DbSet<Exercise> Exercises { get; set; }
         public DbSet<ExerciseSet> ExerciseSets { get; set; }
+        public DbSet<MuscleGroup> MuscleGroups { get; set;}
     }
 }

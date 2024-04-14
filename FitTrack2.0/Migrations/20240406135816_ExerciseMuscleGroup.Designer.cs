@@ -4,6 +4,7 @@ using FitTrack2._0.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitTrack2._0.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240406135816_ExerciseMuscleGroup")]
+    partial class ExerciseMuscleGroup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,74 +241,6 @@ namespace FitTrack2._0.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MuscleGroups");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Chest muscle group",
-                            Name = "Chest"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Front shoulder muscle group",
-                            Name = "Front Shoulders"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Biceps muscle group",
-                            Name = "Biceps"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Abdominal muscle group",
-                            Name = "Abs"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "Posterior shoulder muscle group",
-                            Name = "Posterior Shoulders"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Description = "Quadriceps muscle group",
-                            Name = "Quads"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Description = "Hamstrings muscle group",
-                            Name = "Back"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Description = "Calf muscle group",
-                            Name = "Traps"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Description = "Triceps muscle group",
-                            Name = "Triceps"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Description = "Hams muscle group",
-                            Name = "Hams"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Description = "Calves muscle group",
-                            Name = "Calves"
-                        });
                 });
 
             modelBuilder.Entity("FitTrack2._0.Models.Workout", b =>

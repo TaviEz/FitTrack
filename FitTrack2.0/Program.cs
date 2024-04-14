@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Syncfusion.Blazor;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -26,6 +29,10 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<DataContext>()
     .AddSignInManager();
+
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXtfcXVVRWdfUkBzXUY=");
+builder.Services.AddSyncfusionBlazor();
+
 
 var app = builder.Build();
 

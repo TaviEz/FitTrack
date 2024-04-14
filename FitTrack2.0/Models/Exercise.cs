@@ -14,6 +14,8 @@
 
         public Workout? Workout { get; set; }
 
+        public List<MuscleGroup> MuscleGroups { get; set; } = new();
+
         public Exercise() 
         {
         }

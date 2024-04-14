@@ -141,3 +141,15 @@ E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Microsoft.Extensions.Id
 E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
 E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\libman.json
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.Blazor.Buttons.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.Blazor.Core.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.Blazor.Data.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.Blazor.DropDowns.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.Blazor.Inputs.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.Blazor.Notifications.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.Blazor.Popups.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.Blazor.Spinner.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.Blazor.SplitButtons.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.Licensing.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.Blazor.Themes.dll

@@ -1,7 +1,58 @@
 ﻿@page "/Account/Manage"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
 
-<h3>ManageAccount</h3>
+<SfMultiSelect @ref="MultiSelectObj" TItem="Games" TValue="List<Games>" Placeholder="Favorite Sports" DataSource="@LocalData" EnableChangeOnBlur="false"
+               @bind-Value="SelectedData">
+    <MultiSelectEvents TItem="Games" TValue="List<Games>"></MultiSelectEvents>
+    <MultiSelectFieldSettings Text="Text"></MultiSelectFieldSettings>
+</SfMultiSelect>
 
 @code {
+    SfMultiSelect<List<Games>, Games> MultiSelectObj = new SfMultiSelect<List<Games>, Games>();
 
+    Exercise test = new Exercise();
+
+    public class Games
+    {
+        public string ID { get; set; } = string.Empty;
+        public string Text { get; set; } = string.Empty;
+    }
+
+    List<Games> LocalData = new List<Games> {
+        new Games() { ID= "Game1", Text= "American Football" },
+        new Games() { ID= "Game2", Text= "Badminton" },
+        new Games() { ID= "Game3", Text= "Basketball" },
+        new Games() { ID= "Game4", Text= "Cricket" },
+        new Games() { ID= "Game5", Text= "Football" },
+        new Games() { ID= "Game6", Text= "Golf" },
+        new Games() { ID= "Game7", Text= "Hockey" },
+        new Games() { ID= "Game8", Text= "Rugby"},
+        new Games() { ID= "Game9", Text= "Snooker" },
+        new Games() { ID= "Game10", Text= "Tennis"},
+    };
+
+    List<Games> SelectedData = new List<Games> {
+        new Games() { ID= "Game1", Text= "American Football" },
+        new Games() { ID= "Game2", Text= "Badminton" },
+    };
+
+    /*async Task Test(MultiSelectChangeEventArgs<List<Games>> args, Exercise e)
+    {
+        var newMuscleGroups = args.Value;
+        var oldMuscleGroups = args.OldValue;
+
+        // daca numarul de elemente a crescut, s-a adaugat un element nou
+        if (oldMuscleGroups == null || oldMuscleGroups.Count == 0 || newMuscleGroups.Count > oldMuscleGroups.Count)
+        {
+            var addedItem = newMuscleGroups.Except(oldMuscleGroups).FirstOrDefault();
+            SelectedData.Add(addedItem);
+
+        }
+        // daca numarul de elemente a scazut, s-a sters un element
+        else if (newMuscleGroups.Count < oldMuscleGroups.Count)
+        {
+            var removedItem = oldMuscleGroups.Except(newMuscleGroups).FirstOrDefault();
+            SelectedData.Remove(removedItem);
+        }
+    }*/
 }

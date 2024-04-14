@@ -1,21 +1,184 @@
 ﻿@page "/show-image-1"
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
 
-<PageTitle>Show Image 1</PageTitle>
+@inject DataContext Context;
 
-<h1>Show Image Example 1</h1>
+<PageTitle>Vizualize anatomic model</PageTitle>
+
+<h1>Show @SelectedMuscleGroup exercises</h1>
 
 <div>
-    <img src="@imageSrc" @onclick="() => ShowAssociatedExercises()"/>
+    <img src="@chestImg" @onclick='() => GetAssociatedExercises(1, "Chest")' alt="Chest" />
+    <img src="@frontShouldersImg" @onclick='() => GetAssociatedExercises(2, "Front shoulders")' alt="Front Shoulders" />
+    <img src="@bicepsImg" @onclick='() => GetAssociatedExercises(3, "Biceps")' alt="Biceps" />
+    <img src="@absImg" @onclick='() => GetAssociatedExercises(4, "Abs")' alt="Abs" />
+    <img src="@posteriorShouldersImg" @onclick='() => GetAssociatedExercises(5, "Posterior Shoulders")' alt="Posterior Shoulders" />
+    <img src="@quadsImg" @onclick='() => GetAssociatedExercises(6, "Quads")' alt="Quads" />
+    <img src="@backImg" @onclick='() => GetAssociatedExercises(7, "Back")' alt="Back" />
+    <img src="@trapsImg" @onclick='() => GetAssociatedExercises(8, "Traps")' alt="Traps" />
+    <img src="@tricepsImg" @onclick='() => GetAssociatedExercises(9, "Triceps")' alt="Triceps" />
+    <img src="@hamsImg" @onclick='() => GetAssociatedExercises(10, "Hamstrings")' alt="Hams" />
+    <img src="@calvesImg" @onclick='() => GetAssociatedExercises(11, "Calves")' alt="Calves" />
 </div>
 
-@code {
-    private string imageName1 = "part1";
-    private string imageSrc = "images/image1.png";
 
-    //display associated exercises for a specific muscle
-    private void ShowAssociatedExercises()
+<table class="table">
+    <tbody>
+        @foreach (var exercise in Exercises)
+        {
+            <tr>
+                <td>@exercise.Name</td>
+                <td>@exercise.Description</td>
+                <td>
+                    <!-- Dropdown pentru alegerea workout split-ului -->
+                    <div class="dropdown mb-1">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownWorkoutSplit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                            @if(!SelectedWorkoutSplit.ContainsKey(exercise.Id))
+                            {
+                                SelectedWorkoutSplit[exercise.Id] = DefaultWorkoutSplitName;
+
+                                @*daca nu exista o asociere intre dropdownul al doilea al exercitiului si vizibilitatea lui atunci o initializez cu fals*@
+                                @if (!IsButtonVisible.ContainsKey(exercise.Id))
+                                {
+                                    IsButtonVisible[exercise.Id] = false;
+                                }
+                            }
+                            @SelectedWorkoutSplit[exercise.Id]
+
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownWorkoutSplit">
+                            <!-- Adauga fiecare workoutSplit in dropdown -->
+                            @foreach (var workoutSplit in WorkoutSplits)
+                            {
+                                <button class="dropdown-item" type="button" @onclick="() => AddToWorkoutSplit(workoutSplit, exercise.Id)">
+                                    @workoutSplit.Name
+                                </button>
+                            }
+
+                            @*Daca este selectat workout split atunci fac vizibil al doilea dropdown*@
+                            @if (SelectedWorkoutSplit[exercise.Id] != DefaultWorkoutSplitName)
+                            {
+                                IsButtonVisible[exercise.Id] = true;
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Dropdown pentru alegerea workout-ului asociat workout split-ului selectat -->
+                    @if (IsButtonVisible[exercise.Id] == true)
+                    {
+                        <div class="dropdown mb-1">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownWorkout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                @if (!SelectedWorkout.ContainsKey(exercise.Id))
+                                {
+                                    SelectedWorkout[exercise.Id] = DefaultWorkoutName;
+                                }
+                                @SelectedWorkout[exercise.Id]
+
+                            </button>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownWorkout" id="dropdownWorkoutMenu">
+                                @foreach (var workout in CorrespondingWorkouts)
+                                {
+
+                                    <button class="dropdown-item" type="button" @onclick="() => AddToWorkout(workout, exercise)">
+                                        @workout.Name
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private string chestImg = string.Empty;
+
+    private string frontShouldersImg = string.Empty;
+
+    private string bicepsImg = string.Empty;
+
+    private string absImg = string.Empty;
+
+    private string posteriorShouldersImg = string.Empty;
+
+    private string quadsImg = string.Empty;
+
+    private string backImg = string.Empty;
+
+    private string trapsImg = string.Empty;
+
+    private string tricepsImg = string.Empty;
+
+    private string hamsImg = string.Empty;
+
+    private string calvesImg = string.Empty;
+
+    private string SelectedMuscleGroup = string.Empty;
+
+    public ICollection<Exercise> Exercises = new List<Exercise>();
+
+    public ICollection<WorkoutSplit> WorkoutSplits = new List<WorkoutSplit>();
+
+    public ICollection<Workout> CorrespondingWorkouts = new List<Workout>();
+
+    public Dictionary<int, string> SelectedWorkoutSplit = new Dictionary<int, string>();
+
+    public Dictionary<int, string> SelectedWorkout = new Dictionary<int, string>();
+
+    public Dictionary<int, bool> IsButtonVisible = new Dictionary<int, bool>();
+
+    public string DefaultWorkoutSplitName = "Alege workout split";
+
+    public string DefaultWorkoutName = "Alege workout";
+
+
+    protected override async Task OnInitializedAsync()
     {
-        
+        WorkoutSplits = await Context.WorkoutSplits.Include(workoutSplit => workoutSplit.Workouts).ToListAsync();
+        chestImg = "images/image1.png";
+        frontShouldersImg = "images/image1.png";
+        bicepsImg = "images/image1.png";
+        absImg = "images/image1.png";
+        posteriorShouldersImg = "images/image1.png";
+        quadsImg = "images/image1.png";
+        backImg = "images/image1.png";
+        trapsImg = "images/image1.png";
+        tricepsImg = "images/image1.png";
+        hamsImg = "images/image1.png";
+        calvesImg = "images/image1.png";
+    }
+
+    async Task GetAssociatedExercises(int muscleGroupId, string muscleGroup)
+    {
+        Exercises = await Context.Exercises
+        .Where(exercise => exercise.MuscleGroups.Any(mg => mg.Id == muscleGroupId))
+        .Include(exercise => exercise.MuscleGroups) // Include lista de grupe musculare asociate fiecărui exercițiu
+        .ToListAsync();
+
+        SelectedMuscleGroup = muscleGroup;
+    }
+
+    private void AddToWorkoutSplit(WorkoutSplit workoutSplit, int id)
+    {
+        SelectedWorkoutSplit[id] = workoutSplit.Name;
+        CorrespondingWorkouts = workoutSplit.Workouts;
+    }
+
+    private async void AddToWorkout(Workout workout, Exercise exercise)
+    {
+        SelectedWorkout[exercise.Id] = workout.Name;
+
+        Exercise exerciseToAdd = new Exercise(workoutId: workout.Id);
+        exerciseToAdd.Name = exercise.Name;
+        exerciseToAdd.Description = exercise.Description;
+        exerciseToAdd.MuscleGroups = exercise.MuscleGroups;
+
+        workout.ExerciseList.Add(exerciseToAdd);
+        await Context.SaveChangesAsync();
     }
 }

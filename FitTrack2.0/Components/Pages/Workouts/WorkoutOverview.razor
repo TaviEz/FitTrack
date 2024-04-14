@@ -25,6 +25,10 @@ else
         <tbody>
             @foreach (var exercise in CurrentWorkout.ExerciseList)
             {
+                @if(SelectedMuscleGroups.Count == 0)
+                {
+                    SelectedMuscleGroups = exercise.MuscleGroups;
+                }
                 <tr>
                     <td>
                         <div>
@@ -39,6 +43,13 @@ else
                             <label class="form-label">Description</label>
                         </div>
                     </td>
+                </tr>
+                <tr>
+                    <SfMultiSelect @ref="MultiSelectMuscleGroup" TItem="MuscleGroup" TValue="List<MuscleGroup>" Placeholder="Select muscle group" DataSource="@MuscleGroups" EnableChangeOnBlur="false"
+                                   @bind-Value="exercise.MuscleGroups">
+                        <MultiSelectEvents TItem="MuscleGroup" TValue="List<MuscleGroup>" ValueChange="((e) => ModifyAssociatedMuscleGroups(e, exercise))"></MultiSelectEvents>
+                        <MultiSelectFieldSettings Text="Name"></MultiSelectFieldSettings>
+                    </SfMultiSelect>
                 </tr>
                 <tr>
                     <td>
@@ -77,31 +88,45 @@ else
 }
 
 @code {
+
+    SfMultiSelect<List<MuscleGroup>, MuscleGroup> MultiSelectMuscleGroup = new SfMultiSelect<List<MuscleGroup>, MuscleGroup>();
+
+    List<MuscleGroup> SelectedMuscleGroups = new();
+
     [Parameter]
     public int? Id { get; set; } = null;
 
     public Workout CurrentWorkout { get; set; } = new();
 
-    List<Exercise> exercises = new();
+    List<MuscleGroup> MuscleGroups = new();
+
+    Dictionary<int, List<MuscleGroup>> ExerciseMuscleGroups = new Dictionary<int, List<MuscleGroup>>();
 
     int countSet = 1;
 
     protected override async Task OnParametersSetAsync()
     {
-        if(Id is not null)
+        if (Id is not null)
         {
             var workouts = await Context.Workouts
-            .Include(workout => workout.ExerciseList)
-                .ThenInclude(exercise => exercise.ExerciseSets)
-            .ToListAsync();
+                .Include(workout => workout.ExerciseList)
+                    .ThenInclude(exercise => exercise.ExerciseSets)
+                .Include(workout => workout.ExerciseList)
+                    .ThenInclude(exercise => exercise.MuscleGroups)
+                        .ThenInclude(muscleGroup => muscleGroup.AssociatedExcercises)
+                .ToListAsync();
+
             var workout = workouts.FirstOrDefault(w => w.Id == Id);
 
-            if(workout is not null)
+            if (workout is not null)
             {
                 CurrentWorkout = workout;
             }
+
+            MuscleGroups = await Context.MuscleGroups.ToListAsync();
         }
     }
+
 
     async Task SaveWorkout()
     {
@@ -141,4 +166,49 @@ else
         if(CurrentWorkout.ExerciseList != null)
             CurrentWorkout.ExerciseList.Remove(exerciseToRemove);
     }
+
+    async Task ModifyAssociatedMuscleGroups(MultiSelectChangeEventArgs<List<MuscleGroup>> args, Exercise e)
+    {
+        var newMuscleGroups = args.Value;
+        var oldMuscleGroups = args.OldValue;
+
+        // Daca nu exista grupuri musculare vechi, adaugam prima data
+        if (oldMuscleGroups == null || oldMuscleGroups.Count == 0)
+        {
+            var addedItem = newMuscleGroups.FirstOrDefault();
+            if (addedItem != null)
+            {
+                e.MuscleGroups.Add(addedItem);
+                SelectedMuscleGroups = e.MuscleGroups;
+                addedItem.AssociatedExcercises.Add(e);
+            }
+        }
+        else
+        {
+            // Daca numarul de elemente a crescut, adaugam grupa musculara noua
+            if (newMuscleGroups.Count > oldMuscleGroups.Count)
+            {
+                var addedItem = newMuscleGroups.Except(oldMuscleGroups).FirstOrDefault();
+                if (addedItem != null)
+                {
+                    e.MuscleGroups.Add(addedItem);
+                    addedItem.AssociatedExcercises.Add(e);
+                }
+            }
+            // Daca numarul de elemente a scazut, elimina grupa musculara stearsa de utilizator
+            else if (newMuscleGroups.Count < oldMuscleGroups.Count)
+            {
+                var removedItems= oldMuscleGroups.Except(newMuscleGroups).FirstOrDefault();
+                if (removedItems != null)
+                {
+                    e.MuscleGroups.Add(removedItems);
+                    removedItems.AssociatedExcercises.Add(e);
+                }
+            }
+        }
+        await Context.SaveChangesAsync();
+    }
+
+
+
 }

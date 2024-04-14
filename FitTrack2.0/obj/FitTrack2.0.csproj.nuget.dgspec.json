@@ -66,6 +66,14 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.3, )"
+            },
+            "Syncfusion.Blazor.DropDowns": {
+              "target": "Package",
+              "version": "[25.1.39, )"
+            },
+            "Syncfusion.Blazor.Themes": {
+              "target": "Package",
+              "version": "[25.1.39, )"
             }
           },
           "imports": [

@@ -9,5 +9,10 @@
         public string Description { get; set; } = string.Empty;
 
         public List<Exercise> AssociatedExcercises { get; set; } = new();
+
+        public MuscleGroup()
+        {
+        }
+
     }
 }
