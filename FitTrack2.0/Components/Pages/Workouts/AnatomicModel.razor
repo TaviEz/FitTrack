@@ -1,24 +1,33 @@
-﻿@page "/show-image-1"
+﻿@page "/anatomic-model"
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
 
 @inject DataContext Context;
+@inject AuthenticationStateProvider AuthenticationState
+@inject UserManager<ApplicationUser> UserManager
+
 
 <PageTitle>Vizualize anatomic model</PageTitle>
 
 <h1>Show @SelectedMuscleGroup exercises</h1>
 
 <div>
+    @*<asp.ImageMap @ref="this.WorkMap" ImageUrl="images/image1.png" OnClick="this.WorkMap_Clicked"
+        HotSpotMode="HotSpotMode.PostBack">
+
+    </asp.ImageMap>*@
+
     <img src="@chestImg" @onclick='() => GetAssociatedExercises(1, "Chest")' alt="Chest" />
     <img src="@frontShouldersImg" @onclick='() => GetAssociatedExercises(2, "Front shoulders")' alt="Front Shoulders" />
     <img src="@bicepsImg" @onclick='() => GetAssociatedExercises(3, "Biceps")' alt="Biceps" />
     <img src="@absImg" @onclick='() => GetAssociatedExercises(4, "Abs")' alt="Abs" />
     <img src="@posteriorShouldersImg" @onclick='() => GetAssociatedExercises(5, "Posterior Shoulders")' alt="Posterior Shoulders" />
-    <img src="@quadsImg" @onclick='() => GetAssociatedExercises(6, "Quads")' alt="Quads" />
-    <img src="@backImg" @onclick='() => GetAssociatedExercises(7, "Back")' alt="Back" />
-    <img src="@trapsImg" @onclick='() => GetAssociatedExercises(8, "Traps")' alt="Traps" />
-    <img src="@tricepsImg" @onclick='() => GetAssociatedExercises(9, "Triceps")' alt="Triceps" />
-    <img src="@hamsImg" @onclick='() => GetAssociatedExercises(10, "Hamstrings")' alt="Hams" />
-    <img src="@calvesImg" @onclick='() => GetAssociatedExercises(11, "Calves")' alt="Calves" />
+    <img src="@quadsImg" @onclick='() => GetAssociatedExercises(6, "Quads")' alt="Quads"/>
+    <img src="@backImg" @onclick='() => GetAssociatedExercises(7, "Back")' alt="Back"/>
+    <img src="@trapsImg" @onclick='() => GetAssociatedExercises(8, "Traps")' alt="Traps"/>
+    <img src="@tricepsImg" @onclick='() => GetAssociatedExercises(9, "Triceps")' alt="Triceps"/>
+    <img src="@hamsImg" @onclick='() => GetAssociatedExercises(10, "Hamstrings")' alt="Hams"/>
+    <img src="@calvesImg" @onclick='() => GetAssociatedExercises(11, "Calves")' alt="Calves"/>
+
 </div>
 
 
@@ -96,6 +105,8 @@
 </table>
 
 @code {
+
+    #region constant strings
     private string chestImg = string.Empty;
 
     private string frontShouldersImg = string.Empty;
@@ -120,6 +131,14 @@
 
     private string SelectedMuscleGroup = string.Empty;
 
+    public string DefaultWorkoutSplitName = "Alege workout split";
+
+    public string DefaultWorkoutName = "Alege workout";
+
+    #endregion
+
+    //public ImageMap WorkMap { get; set; } = new();
+
     public ICollection<Exercise> Exercises = new List<Exercise>();
 
     public ICollection<WorkoutSplit> WorkoutSplits = new List<WorkoutSplit>();
@@ -132,14 +151,11 @@
 
     public Dictionary<int, bool> IsButtonVisible = new Dictionary<int, bool>();
 
-    public string DefaultWorkoutSplitName = "Alege workout split";
-
-    public string DefaultWorkoutName = "Alege workout";
-
+    public ApplicationUser CurrentUser = new();
 
     protected override async Task OnInitializedAsync()
     {
-        WorkoutSplits = await Context.WorkoutSplits.Include(workoutSplit => workoutSplit.Workouts).ToListAsync();
+        #region Initialize muscle images
         chestImg = "images/image1.png";
         frontShouldersImg = "images/image1.png";
         bicepsImg = "images/image1.png";
@@ -151,12 +167,26 @@
         tricepsImg = "images/image1.png";
         hamsImg = "images/image1.png";
         calvesImg = "images/image1.png";
+        #endregion
+
+        var authstate = await AuthenticationState.GetAuthenticationStateAsync();
+        var user = await UserManager.GetUserAsync(authstate.User);
+
+        if (user != null)
+            CurrentUser = user;
+
+        WorkoutSplits = await Context.WorkoutSplits
+        .Where(ws => ws.ApplicationUserId == CurrentUser.Id)
+        .Include(workoutSplit => workoutSplit.Workouts).ToListAsync();
     }
 
     async Task GetAssociatedExercises(int muscleGroupId, string muscleGroup)
     {
         Exercises = await Context.Exercises
-        .Where(exercise => exercise.MuscleGroups.Any(mg => mg.Id == muscleGroupId))
+        .Where(exercise => exercise.Workout != null &&
+            exercise.Workout.WorkoutSplit != null &&
+            exercise.Workout.WorkoutSplit.ApplicationUserId == CurrentUser.Id &&
+            exercise.MuscleGroups.Any(mg => mg.Id == muscleGroupId))
         .Include(exercise => exercise.MuscleGroups) // Include lista de grupe musculare asociate fiecărui exercițiu
         .ToListAsync();
 

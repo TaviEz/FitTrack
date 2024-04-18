@@ -1117,6 +1117,23 @@
           "buildMultiTargeting/Syncfusion.Blazor.Buttons.props": {}
         }
       },
+      "Syncfusion.Blazor.Cards/25.1.39": {
+        "type": "package",
+        "dependencies": {
+          "Syncfusion.Blazor.Core": "25.1.39",
+          "Syncfusion.Blazor.Data": "25.1.39"
+        },
+        "compile": {
+          "lib/net8.0/Syncfusion.Blazor.Cards.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Syncfusion.Blazor.Cards.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Syncfusion.Blazor.Core/25.1.39": {
         "type": "package",
         "dependencies": {
@@ -3617,6 +3634,26 @@
         "syncfusion_logo.png"
       ]
     },
+    "Syncfusion.Blazor.Cards/25.1.39": {
+      "sha512": "qK3jw5y+2EmjtAGlwqx6ZDF7T39cNa/G/XHkpYpdSW/knFjwrN7iE5tDUe1mGFqqejUmqmaAzB/byeGXrOOZqA==",
+      "type": "package",
+      "path": "syncfusion.blazor.cards/25.1.39",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "README.md",
+        "lib/net6.0/Syncfusion.Blazor.Cards.dll",
+        "lib/net6.0/Syncfusion.Blazor.Cards.xml",
+        "lib/net7.0/Syncfusion.Blazor.Cards.dll",
+        "lib/net7.0/Syncfusion.Blazor.Cards.xml",
+        "lib/net8.0/Syncfusion.Blazor.Cards.dll",
+        "lib/net8.0/Syncfusion.Blazor.Cards.xml",
+        "syncfusion.blazor.cards.25.1.39.nupkg.sha512",
+        "syncfusion.blazor.cards.nuspec",
+        "syncfusion_logo.png"
+      ]
+    },
     "Syncfusion.Blazor.Core/25.1.39": {
       "sha512": "tW0Us6WKAU7dpsCYXM+6gYFon81H2ZFbazAkrKos/NI18wfkuUqj/JUvJoBSOEzJXYFCeNLuNIJNV23RQhlNUw==",
       "type": "package",
@@ -5089,6 +5126,7 @@
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 8.0.3",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.3",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.3",
+      "Syncfusion.Blazor.Cards >= 25.1.39",
       "Syncfusion.Blazor.DropDowns >= 25.1.39",
       "Syncfusion.Blazor.Themes >= 25.1.39"
     ]
@@ -5159,6 +5197,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[8.0.3, )"
+          },
+          "Syncfusion.Blazor.Cards": {
+            "target": "Package",
+            "version": "[25.1.39, )"
           },
           "Syncfusion.Blazor.DropDowns": {
             "target": "Package",

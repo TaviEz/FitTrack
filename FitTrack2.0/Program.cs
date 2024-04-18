@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Components.Server;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Syncfusion.Blazor;
+using Microsoft.AspNetCore.Components.Server.Circuits;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,8 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(conne
 
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<AuthenticationStateProvider, ServerAuthenticationStateProvider>();
+
+//builder.Services.AddScoped<CircuitHandler, ScriptManagerCircuitHandler>();
 
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(options =>

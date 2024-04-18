@@ -12,6 +12,7 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.3",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.3",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.3",
+          "Syncfusion.Blazor.Cards": "25.1.39",
           "Syncfusion.Blazor.DropDowns": "25.1.39",
           "Syncfusion.Blazor.Themes": "25.1.39"
         },
@@ -717,6 +718,18 @@
         },
         "runtime": {
           "lib/net8.0/Syncfusion.Blazor.Buttons.dll": {
+            "assemblyVersion": "25.1.39.0",
+            "fileVersion": "25.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.Blazor.Cards/25.1.39": {
+        "dependencies": {
+          "Syncfusion.Blazor.Core": "25.1.39",
+          "Syncfusion.Blazor.Data": "25.1.39"
+        },
+        "runtime": {
+          "lib/net8.0/Syncfusion.Blazor.Cards.dll": {
             "assemblyVersion": "25.1.39.0",
             "fileVersion": "25.1.39.0"
           }
@@ -1495,6 +1508,13 @@
       "sha512": "sha512-E4ovHVjVLDKBmKEJAkaUtU3if4HdzfWKp+txviU4mZzHpimsSOGU8awfbB5DLTwjr+gF972GQRHT3PoS+s/JNw==",
       "path": "syncfusion.blazor.buttons/25.1.39",
       "hashPath": "syncfusion.blazor.buttons.25.1.39.nupkg.sha512"
+    },
+    "Syncfusion.Blazor.Cards/25.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qK3jw5y+2EmjtAGlwqx6ZDF7T39cNa/G/XHkpYpdSW/knFjwrN7iE5tDUe1mGFqqejUmqmaAzB/byeGXrOOZqA==",
+      "path": "syncfusion.blazor.cards/25.1.39",
+      "hashPath": "syncfusion.blazor.cards.25.1.39.nupkg.sha512"
     },
     "Syncfusion.Blazor.Core/25.1.39": {
       "type": "package",

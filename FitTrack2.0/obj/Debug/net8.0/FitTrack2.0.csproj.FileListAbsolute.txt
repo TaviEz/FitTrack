@@ -153,3 +153,4 @@ E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.Blazor.Spinn
 E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.Blazor.SplitButtons.dll
 E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.Licensing.dll
 E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.Blazor.Themes.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.Blazor.Cards.dll

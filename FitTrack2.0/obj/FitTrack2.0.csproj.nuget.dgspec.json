@@ -67,6 +67,10 @@
               "target": "Package",
               "version": "[8.0.3, )"
             },
+            "Syncfusion.Blazor.Cards": {
+              "target": "Package",
+              "version": "[25.1.39, )"
+            },
             "Syncfusion.Blazor.DropDowns": {
               "target": "Package",
               "version": "[25.1.39, )"

@@ -201,8 +201,8 @@ else
                 var removedItems= oldMuscleGroups.Except(newMuscleGroups).FirstOrDefault();
                 if (removedItems != null)
                 {
-                    e.MuscleGroups.Add(removedItems);
-                    removedItems.AssociatedExcercises.Add(e);
+                    e.MuscleGroups.Remove(removedItems);
+                    removedItems.AssociatedExcercises.Remove(e);
                 }
             }
         }

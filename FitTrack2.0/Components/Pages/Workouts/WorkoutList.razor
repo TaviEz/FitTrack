@@ -3,6 +3,9 @@
 
 @inject DataContext Context
 @inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationState
+@inject UserManager<ApplicationUser> UserManager
+
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
 
 <head>
@@ -10,7 +13,7 @@
 </head>
 
 
-<h3>Split Overview</h3>
+<h3>@CurrentWorkoutSplit.Name</h3>
 
 <PageTitle>Split Overview</PageTitle>
 
@@ -23,7 +26,22 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>@CurrentWorkoutSplit.Name</th>
+                <th>
+                    <div class="dropdown mb-1">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Select the workout split
+                        </button>
+
+                        <div class="dropdown-menu">
+                            @foreach (var workoutSplit in WorkoutSplits)
+                            {
+                                <button class="dropdown-item" type="button" @onclick="() => Test()">
+                                    @workoutSplit.Name
+                                </button>
+                            }
+                        </div>
+                    </div>
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -58,15 +76,27 @@ else
 
     WorkoutSplit CurrentWorkoutSplit = new();
 
+    public ApplicationUser CurrentUser = new();
+
+    public List<WorkoutSplit> WorkoutSplits = new();
+
     protected override async Task OnParametersSetAsync()
     {
         if(Id is not null)
         {
-            var workoutSplits = await Context.WorkoutSplits
+            var authstate = await AuthenticationState.GetAuthenticationStateAsync();
+            var user = await UserManager.GetUserAsync(authstate.User);
+
+            if (user != null)
+                CurrentUser = user;
+
+            WorkoutSplits = await Context.WorkoutSplits
+                .Where(ws => ws.ApplicationUserId == CurrentUser.Id)
                 .Include(workoutSplit => workoutSplit.Workouts)
                 .ThenInclude(workout => workout.ExerciseList)
                 .ToListAsync();
-            var workoutSplit = workoutSplits.FirstOrDefault(w => w.Id == Id);
+
+            var workoutSplit = WorkoutSplits.FirstOrDefault();
 
             if(workoutSplit != null)
             {
@@ -98,5 +128,10 @@ else
         if (CurrentWorkoutSplit.Workouts.Contains(workout))
             CurrentWorkoutSplit.Workouts.Remove(workout);
 
+    }
+
+    async void Test()
+    {
+        
     }
 }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "0s9ejBqmJg9uwpk/Ky0w6kudK/Tv0+v1UMyGrwes9Pvmpt6byA0WTXAzpdB0I95q+2gYyPF6PF0AxAQ2YDB5/Q==",
+  "dgSpecHash": "Ra/yXT8emQy2FgF9kDt6RkKk/00mO6JpbL3VrlLOZsOO1tEEPrpmTSwTGpnPQp588jarxo/KXNA7OUVmNSWC8Q==",
   "success": true,
   "projectFilePath": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\FitTrack2.0.csproj",
   "expectedPackageFiles": [
@@ -60,6 +60,7 @@
     "C:\\Users\\tavic\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\tavic\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\tavic\\.nuget\\packages\\syncfusion.blazor.buttons\\25.1.39\\syncfusion.blazor.buttons.25.1.39.nupkg.sha512",
+    "C:\\Users\\tavic\\.nuget\\packages\\syncfusion.blazor.cards\\25.1.39\\syncfusion.blazor.cards.25.1.39.nupkg.sha512",
     "C:\\Users\\tavic\\.nuget\\packages\\syncfusion.blazor.core\\25.1.39\\syncfusion.blazor.core.25.1.39.nupkg.sha512",
     "C:\\Users\\tavic\\.nuget\\packages\\syncfusion.blazor.data\\25.1.39\\syncfusion.blazor.data.25.1.39.nupkg.sha512",
     "C:\\Users\\tavic\\.nuget\\packages\\syncfusion.blazor.dropdowns\\25.1.39\\syncfusion.blazor.dropdowns.25.1.39.nupkg.sha512",
