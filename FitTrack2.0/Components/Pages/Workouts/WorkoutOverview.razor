@@ -9,10 +9,6 @@
 
 
 <PageTitle>Edit @CurrentWorkout.Name</PageTitle>
-<div class="form-floating mb-3">
-    <InputText class="form-control" id="workoutName" @bind-Value="@CurrentWorkout.Name" placeholder="" />
-    <label for="workoutName" class="form-control">Workout</label>
-</div>
 
 
 @if (Id is null)
@@ -21,6 +17,12 @@
 }
 else
 {
+    @*TODO: fix form floating here*@
+    <div class="form-floating mb-3">
+        <InputText class="form-control w-auto" id="workoutName" @bind-Value="@CurrentWorkout.Name"/>
+        <label for="workoutName" class="form-control">Workout</label>
+    </div>
+
     <table class="table">
         <tbody>
             @foreach (var exercise in CurrentWorkout.ExerciseList)
@@ -64,10 +66,16 @@ else
                     <tr>
                         <td>set @countSet</td>
                         <td>
-                            <InputNumber class="form-control" placeholder="Repetitions" @bind-Value="@set.Repetitions" />
+                            <div class="form-floating mb-3">
+                                <InputNumber class="form-control" placeholder="Repetitions" @bind-Value="@set.Repetitions" />
+                                <label class="form-label">Repetitions</label>
+                            </div>
                         </td>
                         <td>
-                            <InputNumber class="form-control" placeholder="Weight" @bind-Value="@set.Weight" />
+                            <div class="form-floating mb-3">
+                                <InputNumber class="form-control" placeholder="Weight" @bind-Value="@set.Weight" />
+                                <label class="form-label">Weight(kg)</label>
+                            </div>
                         </td>
                         <td>
                             <button type="submit" class="btn btn-outline-danger" @onclick="() => RemoveSet(exercise, set)">

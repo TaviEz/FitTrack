@@ -13,7 +13,7 @@
 </head>
 
 
-<h3>@CurrentWorkoutSplit.Name</h3>
+<InputText class="form-control w-auto" @bind-Value="@CurrentWorkoutSplit.Name" @onblur="WorkoutSplitNameChanged"/>
 
 <PageTitle>Split Overview</PageTitle>
 
@@ -28,19 +28,23 @@ else
             <tr>
                 <th>
                     <div class="dropdown mb-1">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Select the workout split
                         </button>
 
                         <div class="dropdown-menu">
                             @foreach (var workoutSplit in WorkoutSplits)
                             {
-                                <button class="dropdown-item" type="button" @onclick="() => Test()">
+                                <button class="dropdown-item" type="button" @onclick="() => SelectWorkoutSplit(workoutSplit)">
                                     @workoutSplit.Name
                                 </button>
                             }
                         </div>
                     </div>
+
+                    <button class="btn btn-primary" @onclick="() => AddWorkoutSplit()">
+                        New workout split
+                    </button>
                 </th>
             </tr>
         </thead>
@@ -64,15 +68,14 @@ else
 
     @*consider creating separate interactive compononents for the buttons*@
     <button type="submit" class="btn btn-primary" @onclick="AddWorkout">Add workout</button>
+    <button type="button" class="btn btn-primary" @onclick="() => DeleteWorkoutSplit()">Delete workout split</button>
 }
 
 
-@*consider creating services to perform crud operations*@
-@*add a message after each operation is performed Ex: Workout Saved Succesfully*@
+@*TODO: add a message after each operation is performed Ex: Workout Saved Succesfully*@
 @code {
     [Parameter]
     public int? Id { get; set; } = null;
-
 
     WorkoutSplit CurrentWorkoutSplit = new();
 
@@ -96,13 +99,23 @@ else
                 .ThenInclude(workout => workout.ExerciseList)
                 .ToListAsync();
 
-            var workoutSplit = WorkoutSplits.FirstOrDefault();
+            var defaultWorkoutSplit = WorkoutSplits.FirstOrDefault(w => w.Id == Id);
 
-            if(workoutSplit != null)
-            {
-                CurrentWorkoutSplit = workoutSplit;
-            }
+            if (defaultWorkoutSplit != null)
+                CurrentWorkoutSplit = defaultWorkoutSplit;
         }
+    }
+
+    // TODO: vezi daca are loc navigarea catre noul workout split
+    async Task AddWorkoutSplit()
+    {
+        WorkoutSplit workoutSplitToAdd = new WorkoutSplit(userId: CurrentUser.Id);
+
+        Context.WorkoutSplits.Add(workoutSplitToAdd);
+        await Context.SaveChangesAsync();
+
+        CurrentWorkoutSplit = workoutSplitToAdd;
+        NavigationManager.NavigateTo($"/split-overview/{workoutSplitToAdd.Id}");
     }
 
     async Task AddWorkout()
@@ -115,7 +128,6 @@ else
             await Context.SaveChangesAsync();
             NavigationManager.NavigateTo($"/edit-workout/{workoutToAdd.Id}");
         }
-
     }
 
     async Task RemoveWorkout(Workout workout)
@@ -130,8 +142,19 @@ else
 
     }
 
-    async void Test()
+    void SelectWorkoutSplit(WorkoutSplit workoutSplit)
     {
-        
+        NavigationManager.NavigateTo($"/split-overview/{workoutSplit.Id}");    
+    }
+
+    async void DeleteWorkoutSplit()
+    {
+        Context.WorkoutSplits.Remove(CurrentWorkoutSplit);
+        await Context.SaveChangesAsync();
+    }
+
+    async void WorkoutSplitNameChanged()
+    {
+        await Context.SaveChangesAsync();
     }
 }
