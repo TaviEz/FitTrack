@@ -1117,21 +1117,30 @@
           "buildMultiTargeting/Syncfusion.Blazor.Buttons.props": {}
         }
       },
-      "Syncfusion.Blazor.Cards/25.1.39": {
+      "Syncfusion.Blazor.Charts/25.1.39": {
         "type": "package",
         "dependencies": {
           "Syncfusion.Blazor.Core": "25.1.39",
-          "Syncfusion.Blazor.Data": "25.1.39"
+          "Syncfusion.Blazor.Data": "25.1.39",
+          "Syncfusion.Blazor.DataVizCommon": "25.1.39",
+          "Syncfusion.ExcelExport.Net.Core": "25.1.39",
+          "Syncfusion.PdfExport.Net.Core": "25.1.39"
         },
         "compile": {
-          "lib/net8.0/Syncfusion.Blazor.Cards.dll": {
+          "lib/net8.0/Syncfusion.Blazor.Charts.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/Syncfusion.Blazor.Cards.dll": {
+          "lib/net8.0/Syncfusion.Blazor.Charts.dll": {
             "related": ".xml"
           }
+        },
+        "build": {
+          "buildTransitive/Syncfusion.Blazor.Charts.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/Syncfusion.Blazor.Charts.props": {}
         }
       },
       "Syncfusion.Blazor.Core/25.1.39": {
@@ -1178,6 +1187,22 @@
         },
         "buildMultiTargeting": {
           "buildMultiTargeting/Syncfusion.Blazor.Data.props": {}
+        }
+      },
+      "Syncfusion.Blazor.DataVizCommon/25.1.39": {
+        "type": "package",
+        "dependencies": {
+          "Syncfusion.Blazor.Core": "25.1.39"
+        },
+        "compile": {
+          "lib/net8.0/Syncfusion.Blazor.DataVizCommon.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Syncfusion.Blazor.DataVizCommon.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Syncfusion.Blazor.DropDowns/25.1.39": {
@@ -1345,6 +1370,19 @@
           "buildMultiTargeting/Syncfusion.Blazor.Themes.props": {}
         }
       },
+      "Syncfusion.ExcelExport.Net.Core/25.1.39": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Syncfusion.ExcelExport.Net.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Syncfusion.ExcelExport.Net.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Syncfusion.Licensing/25.1.39": {
         "type": "package",
         "compile": {
@@ -1352,6 +1390,19 @@
         },
         "runtime": {
           "lib/net8.0/Syncfusion.Licensing.dll": {}
+        }
+      },
+      "Syncfusion.PdfExport.Net.Core/25.1.39": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/Syncfusion.PdfExport.Net.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/Syncfusion.PdfExport.Net.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.CodeDom/4.4.0": {
@@ -3634,23 +3685,29 @@
         "syncfusion_logo.png"
       ]
     },
-    "Syncfusion.Blazor.Cards/25.1.39": {
-      "sha512": "qK3jw5y+2EmjtAGlwqx6ZDF7T39cNa/G/XHkpYpdSW/knFjwrN7iE5tDUe1mGFqqejUmqmaAzB/byeGXrOOZqA==",
+    "Syncfusion.Blazor.Charts/25.1.39": {
+      "sha512": "spbQ6eGTtEIW9pJPRIq4rbNnpHik5xMBv4suOFl7cjOHKpOBhmOPPcskeH1WNLDvrANsOh6bbKR3WC5C5DJPFQ==",
       "type": "package",
-      "path": "syncfusion.blazor.cards/25.1.39",
+      "path": "syncfusion.blazor.charts/25.1.39",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.txt",
         "README.md",
-        "lib/net6.0/Syncfusion.Blazor.Cards.dll",
-        "lib/net6.0/Syncfusion.Blazor.Cards.xml",
-        "lib/net7.0/Syncfusion.Blazor.Cards.dll",
-        "lib/net7.0/Syncfusion.Blazor.Cards.xml",
-        "lib/net8.0/Syncfusion.Blazor.Cards.dll",
-        "lib/net8.0/Syncfusion.Blazor.Cards.xml",
-        "syncfusion.blazor.cards.25.1.39.nupkg.sha512",
-        "syncfusion.blazor.cards.nuspec",
+        "build/Microsoft.AspNetCore.StaticWebAssets.props",
+        "build/Syncfusion.Blazor.Charts.props",
+        "buildMultiTargeting/Syncfusion.Blazor.Charts.props",
+        "buildTransitive/Syncfusion.Blazor.Charts.props",
+        "lib/net6.0/Syncfusion.Blazor.Charts.dll",
+        "lib/net6.0/Syncfusion.Blazor.Charts.xml",
+        "lib/net7.0/Syncfusion.Blazor.Charts.dll",
+        "lib/net7.0/Syncfusion.Blazor.Charts.xml",
+        "lib/net8.0/Syncfusion.Blazor.Charts.dll",
+        "lib/net8.0/Syncfusion.Blazor.Charts.xml",
+        "staticwebassets/scripts/sf-accumulation-chart.min.js",
+        "staticwebassets/scripts/sf-chart.min.js",
+        "syncfusion.blazor.charts.25.1.39.nupkg.sha512",
+        "syncfusion.blazor.charts.nuspec",
         "syncfusion_logo.png"
       ]
     },
@@ -3706,6 +3763,25 @@
         "staticwebassets/scripts/data.min.js",
         "syncfusion.blazor.data.25.1.39.nupkg.sha512",
         "syncfusion.blazor.data.nuspec",
+        "syncfusion_logo.png"
+      ]
+    },
+    "Syncfusion.Blazor.DataVizCommon/25.1.39": {
+      "sha512": "wk6SrT86e25idkhB569VpHiZjlxYAvs+gI4dmYvW2TjbJLvAKjfkCifksDUBr/T2VpoxKuoRE+0g3avY3TcDWQ==",
+      "type": "package",
+      "path": "syncfusion.blazor.datavizcommon/25.1.39",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "lib/net6.0/Syncfusion.Blazor.DataVizCommon.dll",
+        "lib/net6.0/Syncfusion.Blazor.DataVizCommon.xml",
+        "lib/net7.0/Syncfusion.Blazor.DataVizCommon.dll",
+        "lib/net7.0/Syncfusion.Blazor.DataVizCommon.xml",
+        "lib/net8.0/Syncfusion.Blazor.DataVizCommon.dll",
+        "lib/net8.0/Syncfusion.Blazor.DataVizCommon.xml",
+        "syncfusion.blazor.datavizcommon.25.1.39.nupkg.sha512",
+        "syncfusion.blazor.datavizcommon.nuspec",
         "syncfusion_logo.png"
       ]
     },
@@ -3917,6 +3993,27 @@
         "syncfusion_logo.png"
       ]
     },
+    "Syncfusion.ExcelExport.Net.Core/25.1.39": {
+      "sha512": "ZnZRl7hACOH1fuil40KTbZXCr60L5U+CcnmFukyhzkQlzGUH60e3agPMUU+fRnS0j8vleiKeAoGJBVbJ7AdCWQ==",
+      "type": "package",
+      "path": "syncfusion.excelexport.net.core/25.1.39",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "lib/net6.0/Syncfusion.ExcelExport.Net.dll",
+        "lib/net6.0/Syncfusion.ExcelExport.Net.xml",
+        "lib/net7.0/Syncfusion.ExcelExport.Net.dll",
+        "lib/net7.0/Syncfusion.ExcelExport.Net.xml",
+        "lib/net8.0/Syncfusion.ExcelExport.Net.dll",
+        "lib/net8.0/Syncfusion.ExcelExport.Net.xml",
+        "lib/netstandard2.0/Syncfusion.ExcelExport.Net.dll",
+        "lib/netstandard2.0/Syncfusion.ExcelExport.Net.xml",
+        "syncfusion.excelexport.net.core.25.1.39.nupkg.sha512",
+        "syncfusion.excelexport.net.core.nuspec",
+        "syncfusion_logo.png"
+      ]
+    },
     "Syncfusion.Licensing/25.1.39": {
       "sha512": "i8krFQ2ElmL27dOwoPwwi8BZBX9hxaVgXVeVQZMvHp/U5k9Pn0UDp7/edzDkLmsIQFZHXx1J56VxR+4T+UKarA==",
       "type": "package",
@@ -3939,6 +4036,25 @@
         "lib/uap10.0/Syncfusion.Licensing.dll",
         "syncfusion.licensing.25.1.39.nupkg.sha512",
         "syncfusion.licensing.nuspec",
+        "syncfusion_logo.png"
+      ]
+    },
+    "Syncfusion.PdfExport.Net.Core/25.1.39": {
+      "sha512": "hZA3Az5yBpcLSTBkj8uWCutW8BPLDzdQc8nIxzi1z1e0nhd6FfselHn0ER1UXZemlechRP9SqVsxzv7iHYiJHA==",
+      "type": "package",
+      "path": "syncfusion.pdfexport.net.core/25.1.39",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "lib/net6.0/Syncfusion.PdfExport.Net.dll",
+        "lib/net6.0/Syncfusion.PdfExport.Net.xml",
+        "lib/net7.0/Syncfusion.PdfExport.Net.dll",
+        "lib/net7.0/Syncfusion.PdfExport.Net.xml",
+        "lib/netstandard2.0/Syncfusion.PdfExport.Net.dll",
+        "lib/netstandard2.0/Syncfusion.PdfExport.Net.xml",
+        "syncfusion.pdfexport.net.core.25.1.39.nupkg.sha512",
+        "syncfusion.pdfexport.net.core.nuspec",
         "syncfusion_logo.png"
       ]
     },
@@ -5126,7 +5242,7 @@
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 8.0.3",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.3",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.3",
-      "Syncfusion.Blazor.Cards >= 25.1.39",
+      "Syncfusion.Blazor.Charts >= 25.1.39",
       "Syncfusion.Blazor.DropDowns >= 25.1.39",
       "Syncfusion.Blazor.Themes >= 25.1.39"
     ]
@@ -5198,7 +5314,7 @@
             "target": "Package",
             "version": "[8.0.3, )"
           },
-          "Syncfusion.Blazor.Cards": {
+          "Syncfusion.Blazor.Charts": {
             "target": "Package",
             "version": "[25.1.39, )"
           },

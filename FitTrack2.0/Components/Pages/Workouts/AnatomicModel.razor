@@ -6,128 +6,250 @@
 @inject UserManager<ApplicationUser> UserManager
 
 
-<PageTitle>Vizualize anatomic model</PageTitle>
+<PageTitle>Visualize anatomic model</PageTitle>
 
 <h1>Show @SelectedMuscleGroup exercises</h1>
 
-<div>
-    @*<asp.ImageMap @ref="this.WorkMap" ImageUrl="images/image1.png" OnClick="this.WorkMap_Clicked"
-        HotSpotMode="HotSpotMode.PostBack">
 
-    </asp.ImageMap>*@
+<button class="btn btn-primary mb-3" @onclick="ToggleAnatomicModelVisibility">Toggle Model</button>
 
-    <img src="@chestImg" @onclick='() => GetAssociatedExercises(1, "Chest")' alt="Chest" />
-    <img src="@frontShouldersImg" @onclick='() => GetAssociatedExercises(2, "Front shoulders")' alt="Front Shoulders" />
-    <img src="@bicepsImg" @onclick='() => GetAssociatedExercises(3, "Biceps")' alt="Biceps" />
-    <img src="@absImg" @onclick='() => GetAssociatedExercises(4, "Abs")' alt="Abs" />
-    <img src="@posteriorShouldersImg" @onclick='() => GetAssociatedExercises(5, "Posterior Shoulders")' alt="Posterior Shoulders" />
-    <img src="@quadsImg" @onclick='() => GetAssociatedExercises(6, "Quads")' alt="Quads"/>
-    <img src="@backImg" @onclick='() => GetAssociatedExercises(7, "Back")' alt="Back"/>
-    <img src="@trapsImg" @onclick='() => GetAssociatedExercises(8, "Traps")' alt="Traps"/>
-    <img src="@tricepsImg" @onclick='() => GetAssociatedExercises(9, "Triceps")' alt="Triceps"/>
-    <img src="@hamsImg" @onclick='() => GetAssociatedExercises(10, "Hamstrings")' alt="Hams"/>
-    <img src="@calvesImg" @onclick='() => GetAssociatedExercises(11, "Calves")' alt="Calves"/>
+@*
+    TODO: aranjeaza mai bine tabela cu exercitiile asociate muschiului selectat
+*@
 
-</div>
+<table>
+    <tr>
+        <td>
+            @if(IsFrontModelVisible)
+            {
+                <table>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <img src="@headImg" alt="head" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="display: flex; flex-direction: column;">
+                                <img src="@leftFrontShoulder" @onclick='() => GetAssociatedExercises(2, "Front shoulders")' alt="Front Shoulders" />
+                                <img src="@leftBicepsImg" @onclick='() => GetAssociatedExercises(3, "Biceps")' alt="Biceps" />
+                            </td>
+                            <td>
+                                <img src="@chestImg" @onclick='() => GetAssociatedExercises(1, "Chest")' alt="Chest" />
+                            </td>
+                            <td style="display: flex; flex-direction: column;">
+                                <img src="@rightFrontShoulder" @onclick='() => GetAssociatedExercises(2, "Front shoulders")' alt="Front Shoulders" />
+                                <img src="@rightBicepsImg" @onclick='() => GetAssociatedExercises(3, "Biceps")' alt="Biceps" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="@leftForearmImg" />
+                            </td>
+                            <td>
+                                <img src="@absImg" @onclick='() => GetAssociatedExercises(4, "Abs")' alt="Abs" />
+                            </td>
+                            <td>
+                                <img src="@rightForearmImg" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <img src="@quadsImg" @onclick='() => GetAssociatedExercises(6, "Quads")' alt="Quads" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="@tibieImg" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-<table class="table">
-    <tbody>
-        @foreach (var exercise in Exercises)
-        {
-            <tr>
-                <td>@exercise.Name</td>
-                <td>@exercise.Description</td>
-                <td>
-                    <!-- Dropdown pentru alegerea workout split-ului -->
-                    <div class="dropdown mb-1">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownWorkoutSplit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            }
+            else
+            {
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <img src="@leftPostShoulder" @onclick='() => GetAssociatedExercises(5, "Posterior Shoulders")' alt="Posterior Shoulders" />
+                            </td>
+                            <td>
+                                <img src="@trapsImg" @onclick='() => GetAssociatedExercises(8, "Traps")' alt="Traps" />
+                            </td>
+                            <td>
+                                <img src="@rightPostShoulder" @onclick='() => GetAssociatedExercises(5, "Posterior Shoulders")' alt="Posterior Shoulders" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="@leftTricepsImg" @onclick='() => GetAssociatedExercises(9, "Triceps")' alt="Triceps" />
+                            </td>
+                            <td>
+                                <img src="@backImg" @onclick='() => GetAssociatedExercises(7, "Back")' alt="Back" />
+                            </td>
+                            <td>
+                                <img src="@rightTricepsImg" @onclick='() => GetAssociatedExercises(9, "Triceps")' alt="Triceps" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-                            @if(!SelectedWorkoutSplit.ContainsKey(exercise.Id))
-                            {
-                                SelectedWorkoutSplit[exercise.Id] = DefaultWorkoutSplitName;
-
-                                @*daca nu exista o asociere intre dropdownul al doilea al exercitiului si vizibilitatea lui atunci o initializez cu fals*@
-                                @if (!IsButtonVisible.ContainsKey(exercise.Id))
-                                {
-                                    IsButtonVisible[exercise.Id] = false;
-                                }
-                            }
-                            @SelectedWorkoutSplit[exercise.Id]
-
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownWorkoutSplit">
-                            <!-- Adauga fiecare workoutSplit in dropdown -->
-                            @foreach (var workoutSplit in WorkoutSplits)
-                            {
-                                <button class="dropdown-item" type="button" @onclick="() => AddToWorkoutSplit(workoutSplit, exercise.Id)">
-                                    @workoutSplit.Name
-                                </button>
-                            }
-
-                            @*Daca este selectat workout split atunci fac vizibil al doilea dropdown*@
-                            @if (SelectedWorkoutSplit[exercise.Id] != DefaultWorkoutSplitName)
-                            {
-                                IsButtonVisible[exercise.Id] = true;
-                            }
-                        </div>
-                    </div>
-
-                    <!-- Dropdown pentru alegerea workout-ului asociat workout split-ului selectat -->
-                    @if (IsButtonVisible[exercise.Id] == true)
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <img src="@buttockImg" alt="Butt" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="@hamsImg" @onclick='() => GetAssociatedExercises(10, "Hamstrings")' alt="Hamstrings" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="@calvesImg" @onclick='() => GetAssociatedExercises(11, "Calves")' alt="Calves" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="@ahileImg" alt="ahile" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+        </td>
+        <td>
+            <table class="table">
+                <tbody>
+                    @foreach (var exercise in Exercises)
                     {
-                        <div class="dropdown mb-1">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownWorkout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <tr>
+                            <td>@exercise.Name</td>
+                            <td>@exercise.Description</td>
+                            <td>
+                                <!-- Dropdown pentru alegerea workout split-ului -->
+                                <div class="dropdown mb-1">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownWorkoutSplit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                                @if (!SelectedWorkout.ContainsKey(exercise.Id))
-                                {
-                                    SelectedWorkout[exercise.Id] = DefaultWorkoutName;
-                                }
-                                @SelectedWorkout[exercise.Id]
+                                        @if (!SelectedWorkoutSplit.ContainsKey(exercise.Id))
+                                        {
+                                            SelectedWorkoutSplit[exercise.Id] = DefaultWorkoutSplitName;
 
-                            </button>
+                                            @*daca nu exista o asociere intre dropdownul al doilea al exercitiului si vizibilitatea lui atunci o initializez cu fals*@
+                                            @if (!IsButtonVisible.ContainsKey(exercise.Id))
+                                            {
+                                                IsButtonVisible[exercise.Id] = false;
+                                            }
+                                        }
+                                        @SelectedWorkoutSplit[exercise.Id]
 
-                            <div class="dropdown-menu" aria-labelledby="dropdownWorkout" id="dropdownWorkoutMenu">
-                                @foreach (var workout in CorrespondingWorkouts)
-                                {
-
-                                    <button class="dropdown-item" type="button" @onclick="() => AddToWorkout(workout, exercise)">
-                                        @workout.Name
                                     </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownWorkoutSplit">
+                                        <!-- Adauga fiecare workoutSplit in dropdown -->
+                                        @foreach (var workoutSplit in WorkoutSplits)
+                                        {
+                                            <button class="dropdown-item" type="button" @onclick="() => AddToWorkoutSplit(workoutSplit, exercise.Id)">
+                                                @workoutSplit.Name
+                                            </button>
+                                        }
+
+                                        @*Daca este selectat workout split atunci fac vizibil al doilea dropdown*@
+                                        @if (SelectedWorkoutSplit[exercise.Id] != DefaultWorkoutSplitName)
+                                        {
+                                            IsButtonVisible[exercise.Id] = true;
+                                        }
+                                    </div>
+                                </div>
+
+                                <!-- Dropdown pentru alegerea workout-ului asociat workout split-ului selectat -->
+                                @if (IsButtonVisible[exercise.Id] == true)
+                                {
+                                    <div class="dropdown mb-1">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownWorkout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                            @if (!SelectedWorkout.ContainsKey(exercise.Id))
+                                            {
+                                                SelectedWorkout[exercise.Id] = DefaultWorkoutName;
+                                            }
+                                            @SelectedWorkout[exercise.Id]
+
+                                        </button>
+
+                                        <div class="dropdown-menu" aria-labelledby="dropdownWorkout" id="dropdownWorkoutMenu">
+                                            @foreach (var workout in CorrespondingWorkouts)
+                                            {
+
+                                                <button class="dropdown-item" type="button" @onclick="() => AddToWorkout(workout, exercise)">
+                                                    @workout.Name
+                                                </button>
+                                            }
+                                        </div>
+                                    </div>
                                 }
-                            </div>
-                        </div>
+                            </td>
+                        </tr>
                     }
-                </td>
-            </tr>
-        }
-    </tbody>
+                </tbody>
+            </table>
+        </td>
+    </tr>
 </table>
 
-@code {
 
+
+@code {
     #region constant strings
+    private string headImg = string.Empty;
+
+    private string leftFrontShoulder = string.Empty;
+
+    private string leftBicepsImg = string.Empty;
+
     private string chestImg = string.Empty;
 
-    private string frontShouldersImg = string.Empty;
+    private string rightFrontShoulder = string.Empty;
 
-    private string bicepsImg = string.Empty;
+    private string rightBicepsImg = string.Empty;
+
+    private string leftForearmImg = string.Empty;
 
     private string absImg = string.Empty;
 
-    private string posteriorShouldersImg = string.Empty;
+    private string rightForearmImg = string.Empty;
 
     private string quadsImg = string.Empty;
 
-    private string backImg = string.Empty;
+    private string tibieImg = string.Empty;
+
+    private string leftPostShoulder = string.Empty;
 
     private string trapsImg = string.Empty;
 
-    private string tricepsImg = string.Empty;
+    private string rightPostShoulder = string.Empty;
+
+    private string leftTricepsImg = string.Empty;
+
+    private string backImg = string.Empty;
+
+    private string rightTricepsImg = string.Empty;
+
+    private string buttockImg = string.Empty;
 
     private string hamsImg = string.Empty;
 
     private string calvesImg = string.Empty;
+
+    private string ahileImg = string.Empty;
 
     private string SelectedMuscleGroup = string.Empty;
 
@@ -136,8 +258,6 @@
     public string DefaultWorkoutName = "Alege workout";
 
     #endregion
-
-    //public ImageMap WorkMap { get; set; } = new();
 
     public ICollection<Exercise> Exercises = new List<Exercise>();
 
@@ -153,20 +273,43 @@
 
     public ApplicationUser CurrentUser = new();
 
+    private bool IsFrontModelVisible = true;
+
     protected override async Task OnInitializedAsync()
     {
-        #region Initialize muscle images
-        chestImg = "images/image1.png";
-        frontShouldersImg = "images/image1.png";
-        bicepsImg = "images/image1.png";
-        absImg = "images/image1.png";
-        posteriorShouldersImg = "images/image1.png";
-        quadsImg = "images/image1.png";
-        backImg = "images/image1.png";
-        trapsImg = "images/image1.png";
-        tricepsImg = "images/image1.png";
-        hamsImg = "images/image1.png";
-        calvesImg = "images/image1.png";
+        #region frontAnatomy
+        var frontUpper = "images/frontAnatomy/upperModel/";
+
+        headImg = frontUpper + "head.png";
+        leftFrontShoulder = frontUpper + "leftFrontShoulder.png";
+        leftBicepsImg = frontUpper + "leftBiceps.png";
+        chestImg = frontUpper + "chest.png";
+        rightFrontShoulder = frontUpper + "rightFrontShoulder.png";
+        rightBicepsImg = frontUpper + "rightBiceps.png";
+        leftForearmImg = frontUpper + "leftForearm.png";
+        absImg = frontUpper + "abs.png";
+        rightForearmImg = frontUpper + "rightForearm.png";
+
+        var frontLower = "images/frontAnatomy/lowerModel/";
+        quadsImg = frontLower + "quads.png";
+        tibieImg = frontLower + "tibie.png";
+        #endregion
+
+        #region backAnatomy
+        var backUpper = "images/backAnatomy/upperModel/";
+
+        leftPostShoulder = backUpper + "leftPostShoulder.png";
+        trapsImg = backUpper + "traps.png";
+        rightPostShoulder = backUpper + "rightPostShoulder.png";
+        leftTricepsImg = backUpper + "leftTriceps.png";
+        backImg = backUpper + "back.png";
+        rightTricepsImg = backUpper + "rightTriceps.png";
+
+        var backLower = "images/backAnatomy/lowerModel/";
+        buttockImg = backLower + "buttock.png";
+        hamsImg = backLower + "hamstring.png";
+        calvesImg = backLower + "calves.png";
+        ahileImg = backLower + "ahile.png";
         #endregion
 
         var authstate = await AuthenticationState.GetAuthenticationStateAsync();
@@ -210,5 +353,10 @@
 
         workout.ExerciseList.Add(exerciseToAdd);
         await Context.SaveChangesAsync();
+    }
+
+    private void ToggleAnatomicModelVisibility()
+    {
+        IsFrontModelVisible = !IsFrontModelVisible;
     }
 }
