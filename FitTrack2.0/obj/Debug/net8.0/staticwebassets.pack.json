@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {
+      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\LandingPage\\genericGym.jpg",
+      "PackagePath": "staticwebassets\\images\\LandingPage\\genericGym.jpg"
+    },
+    {
       "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\anatomic.png",
       "PackagePath": "staticwebassets\\images\\anatomic.png"
     },

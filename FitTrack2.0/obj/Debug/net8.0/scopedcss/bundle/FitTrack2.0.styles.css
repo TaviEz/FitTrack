@@ -10,14 +10,14 @@ main[b-bht8j7cdk6] {
 }
 
 .sidebar[b-bht8j7cdk6] {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    background-image: linear-gradient(180deg, #0d47a1 0%, #004d40 70%);
 }
 
 .top-row[b-bht8j7cdk6] {
     background-color: #f7f7f7;
     border-bottom: 1px solid #d6d5d5;
     justify-content: flex-end;
-    height: 3.5rem;
+    height: 0;
     display: flex;
     align-items: center;
 }
@@ -28,23 +28,23 @@ main[b-bht8j7cdk6] {
         text-decoration: none;
     }
 
-    .top-row[b-bht8j7cdk6]  a:hover, .top-row[b-bht8j7cdk6]  .btn-link:hover {
-        text-decoration: underline;
-    }
+        .top-row[b-bht8j7cdk6]  a:hover, .top-row[b-bht8j7cdk6]  .btn-link:hover {
+            text-decoration: underline;
+        }
 
-    .top-row[b-bht8j7cdk6]  a:first-child {
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+        .top-row[b-bht8j7cdk6]  a:first-child {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
 @media (max-width: 640.98px) {
     .top-row[b-bht8j7cdk6] {
         justify-content: space-between;
     }
 
-    .top-row[b-bht8j7cdk6]  a, .top-row[b-bht8j7cdk6]  .btn-link {
-        margin-left: 0;
-    }
+        .top-row[b-bht8j7cdk6]  a, .top-row[b-bht8j7cdk6]  .btn-link {
+            margin-left: 0;
+        }
 }
 
 @media (min-width: 641px) {
@@ -65,13 +65,17 @@ main[b-bht8j7cdk6] {
         z-index: 1;
     }
 
-    .top-row.auth[b-bht8j7cdk6]  a:first-child {
-        flex: 1;
-        text-align: right;
-        width: 0;
-    }
+        .top-row.auth[b-bht8j7cdk6]  a:first-child {
+            flex: 1;
+            text-align: right;
+            width: 0;
+        }
+        
+    /*MAJOR CHANGE:
+        deleted article in order to fix image on landing page => no padding left-right on any new page
+    */
 
-    .top-row[b-bht8j7cdk6], article[b-bht8j7cdk6] {
+    .top-row[b-bht8j7cdk6]{
         padding-left: 2rem !important;
         padding-right: 1.5rem !important;
     }
@@ -95,6 +99,7 @@ main[b-bht8j7cdk6] {
         right: 0.75rem;
         top: 0.5rem;
     }
+
 /* _content/FitTrack2.0/Components/Layout/NavMenu.razor.rz.scp.css */
 .navbar-toggler[b-785smq7yz0] {
     appearance: none;
@@ -201,3 +206,64 @@ main[b-bht8j7cdk6] {
         overflow-y: auto;
     }
 }
+/* _content/FitTrack2.0/Components/Pages/Account/Pages/Login.razor.rz.scp.css */
+.indentAccount[b-qo2swrd61l]
+{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1[b-qo2swrd61l]
+{
+    text-align: center;
+    margin-bottom: 25px;
+}
+/* _content/FitTrack2.0/Components/Pages/Home.razor.rz.scp.css */
+.hero-image[b-1xlzoqqpl2] {
+    text-align: center;
+    height: 100vh;
+    width: 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("images/LandingPage/genericGym.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.hero-text[b-1xlzoqqpl2] {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+}
+
+
+.hero-text h1[b-1xlzoqqpl2] {
+    color: aliceblue;
+    font-size: 50px;
+    margin-bottom: 40px;
+    line-height: 1.3;
+}
+
+.hero-text p[b-1xlzoqqpl2] {
+    color: aliceblue;
+    font-size: 26px;
+    margin: 10px;
+}
+
+.hero-text button[b-1xlzoqqpl2]
+{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#signIn[b-1xlzoqqpl2]
+{
+    font-size: 16px;
+}
+
+

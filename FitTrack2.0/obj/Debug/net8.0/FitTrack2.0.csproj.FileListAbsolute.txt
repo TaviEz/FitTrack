@@ -157,3 +157,5 @@ E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.Blazor.Chart
 E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.Blazor.DataVizCommon.dll
 E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.ExcelExport.Net.dll
 E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.PdfExport.Net.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\obj\Debug\net8.0\scopedcss\Components\Pages\Home.razor.rz.scp.css
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\obj\Debug\net8.0\scopedcss\Components\Pages\Account\Pages\Login.razor.rz.scp.css

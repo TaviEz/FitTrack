@@ -85,25 +85,28 @@ else
 
     protected override async Task OnParametersSetAsync()
     {
-        if(Id is not null)
-        {
-            var authstate = await AuthenticationState.GetAuthenticationStateAsync();
-            var user = await UserManager.GetUserAsync(authstate.User);
+        var authstate = await AuthenticationState.GetAuthenticationStateAsync();
+        var user = await UserManager.GetUserAsync(authstate.User);
 
-            if (user != null)
-                CurrentUser = user;
+        if (user != null)
+            CurrentUser = user;
 
-            WorkoutSplits = await Context.WorkoutSplits
+        WorkoutSplits = await Context.WorkoutSplits
                 .Where(ws => ws.ApplicationUserId == CurrentUser.Id)
                 .Include(workoutSplit => workoutSplit.Workouts)
                 .ThenInclude(workout => workout.ExerciseList)
                 .ToListAsync();
 
+        if (Id is not null)
+        {
             var defaultWorkoutSplit = WorkoutSplits.FirstOrDefault(w => w.Id == Id);
 
             if (defaultWorkoutSplit != null)
                 CurrentWorkoutSplit = defaultWorkoutSplit;
         }
+        else
+            NavigationManager.NavigateTo($"split-overview/{WorkoutSplits.FirstOrDefault().Id}");
+
     }
 
     async Task AddWorkoutSplit()

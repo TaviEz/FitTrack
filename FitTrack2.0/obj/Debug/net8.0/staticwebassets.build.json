@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "UI0dapYDKBzzs6UTVe4hoGEoYWm/+D1/ssX4mFn6gho=",
+  "Hash": "7CrzGzrpskmcd90jSWorxe+yYW97oEBV/Y0yaTvZ4Kw=",
   "Source": "FitTrack2.0",
   "BasePath": "_content/FitTrack2.0",
   "Mode": "Default",
@@ -1877,6 +1877,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\frontAnatomy\\upperModel\\rightFrontShoulder.png"
+    },
+    {
+      "Identity": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\LandingPage\\genericGym.jpg",
+      "SourceId": "FitTrack2.0",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\",
+      "BasePath": "_content/FitTrack2.0",
+      "RelativePath": "images/LandingPage/genericGym.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\LandingPage\\genericGym.jpg"
     }
   ]
 }

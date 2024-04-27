@@ -1,0 +1,46 @@
+.hero-image[b-1xlzoqqpl2] {
+    text-align: center;
+    height: 100vh;
+    width: 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("images/LandingPage/genericGym.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.hero-text[b-1xlzoqqpl2] {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+}
+
+
+.hero-text h1[b-1xlzoqqpl2] {
+    color: aliceblue;
+    font-size: 50px;
+    margin-bottom: 40px;
+    line-height: 1.3;
+}
+
+.hero-text p[b-1xlzoqqpl2] {
+    color: aliceblue;
+    font-size: 26px;
+    margin: 10px;
+}
+
+.hero-text button[b-1xlzoqqpl2]
+{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#signIn[b-1xlzoqqpl2]
+{
+    font-size: 16px;
+}
+
+
