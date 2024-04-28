@@ -17,82 +17,83 @@
 }
 else
 {
-    @*TODO: fix form floating here*@
-    <div class="form-floating mb-3">
-        <InputText class="form-control w-auto" id="workoutName" @bind-Value="@CurrentWorkout.Name"/>
-        <label for="workoutName" class="form-control">Workout</label>
-    </div>
+    <div class="p-3">
+        @*TODO: fix form floating here*@
+        <div class="form-floating mb-3">
+            <InputText class="form-control w-auto" id="workoutName" @bind-Value="@CurrentWorkout.Name" />
+            <label for="workoutName" class="form-control">Workout</label>
+        </div>
 
-    <table class="table">
-        <tbody>
-            @foreach (var exercise in CurrentWorkout.ExerciseList)
-            {
-                @if(SelectedMuscleGroups.Count == 0)
+        <table class="table">
+            <tbody>
+                @foreach (var exercise in CurrentWorkout.ExerciseList)
                 {
-                    SelectedMuscleGroups = exercise.MuscleGroups;
-                }
-                <tr>
-                    <td>
-                        <div>
-                            <button type="submit" class="btn btn-danger mb-2" @onclick="() => RemoveExercise(exercise)">Remove Exercise</button>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <InputText class="form-control" placeholder="Exercise Name" @bind-Value="@exercise.Name" />
-                            <label class="form-label">Exercise </label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <InputText class="form-control" @bind-Value="@exercise.Description" />
-                            <label class="form-label">Description</label>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <SfMultiSelect @ref="MultiSelectMuscleGroup" TItem="MuscleGroup" TValue="List<MuscleGroup>" Placeholder="Select muscle group" DataSource="@MuscleGroups" EnableChangeOnBlur="false"
-                                   @bind-Value="exercise.MuscleGroups">
-                        <MultiSelectEvents TItem="MuscleGroup" TValue="List<MuscleGroup>" ValueChange="((e) => ModifyAssociatedMuscleGroups(e, exercise))"></MultiSelectEvents>
-                        <MultiSelectFieldSettings Text="Name"></MultiSelectFieldSettings>
-                    </SfMultiSelect>
-                </tr>
-                <tr>
-                    <td>
-                        <button type="button" class="btn btn-outline-primary btn-sm" @onclick="() => AddSet(exercise)">
-                            <span><i class="fa-solid fa-plus"></i></span>
-                        </button>
-                    </td>
-                </tr>
-
-                @foreach (var set in exercise.ExerciseSets)
-                {
+                    @if (SelectedMuscleGroups.Count == 0)
+                    {
+                        SelectedMuscleGroups = exercise.MuscleGroups;
+                    }
                     <tr>
-                        <td>set @countSet</td>
                         <td>
+                            <div>
+                                <button type="submit" class="btn btn-danger mb-2" @onclick="() => RemoveExercise(exercise)">Remove Exercise</button>
+                            </div>
                             <div class="form-floating mb-3">
-                                <InputNumber class="form-control" placeholder="Repetitions" @bind-Value="@set.Repetitions" />
-                                <label class="form-label">Repetitions</label>
+                                <InputText class="form-control" placeholder="Exercise Name" @bind-Value="@exercise.Name" />
+                                <label class="form-label">Exercise </label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <InputText class="form-control" @bind-Value="@exercise.Description" />
+                                <label class="form-label">Description</label>
                             </div>
                         </td>
+                    </tr>
+                    <tr>
+                        <SfMultiSelect @ref="MultiSelectMuscleGroup" TItem="MuscleGroup" TValue="List<MuscleGroup>" Placeholder="Select muscle group" DataSource="@MuscleGroups" EnableChangeOnBlur="false"
+                                       @bind-Value="exercise.MuscleGroups">
+                            <MultiSelectEvents TItem="MuscleGroup" TValue="List<MuscleGroup>" ValueChange="((e) => ModifyAssociatedMuscleGroups(e, exercise))"></MultiSelectEvents>
+                            <MultiSelectFieldSettings Text="Name"></MultiSelectFieldSettings>
+                        </SfMultiSelect>
+                    </tr>
+                    <tr>
                         <td>
-                            <div class="form-floating mb-3">
-                                <InputNumber class="form-control" placeholder="Weight" @bind-Value="@set.Weight" />
-                                <label class="form-label">Weight(kg)</label>
-                            </div>
-                        </td>
-                        <td>
-                            <button type="submit" class="btn btn-outline-danger" @onclick="() => RemoveSet(exercise, set)">
-                                <span><i class="fa-regular fa-trash-can"></i></span>
+                            <button type="button" class="btn btn-outline-primary btn-sm" @onclick="() => AddSet(exercise)">
+                                <span><i class="fa-solid fa-plus"></i></span>
                             </button>
                         </td>
                     </tr>
-                    countSet++;
+
+                    @foreach (var set in exercise.ExerciseSets)
+                    {
+                        <tr>
+                            <td>set @countSet</td>
+                            <td>
+                                <div class="form-floating mb-3">
+                                    <InputNumber class="form-control" placeholder="Repetitions" @bind-Value="@set.Repetitions" />
+                                    <label class="form-label">Repetitions</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-floating mb-3">
+                                    <InputNumber class="form-control" placeholder="Weight" @bind-Value="@set.Weight" />
+                                    <label class="form-label">Weight(kg)</label>
+                                </div>
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-outline-danger" @onclick="() => RemoveSet(exercise, set)">
+                                    <span><i class="fa-regular fa-trash-can"></i></span>
+                                </button>
+                            </td>
+                        </tr>
+                        countSet++;
+                    }
+                    countSet = 1;
                 }
-                countSet = 1;
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
-    <button type="submit" class="btn btn-primary" @onclick="AddExercise">Add exercise</button>
-    <button type="submit" class="btn btn-primary" @onclick="SaveWorkout">Save workout</button>
-
+        <button type="submit" class="btn btn-primary" @onclick="AddExercise">Add exercise</button>
+        <button type="submit" class="btn btn-primary" @onclick="SaveWorkout">Save workout</button>
+    </div>
 }
 
 @code {

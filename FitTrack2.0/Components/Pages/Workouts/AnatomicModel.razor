@@ -8,203 +8,213 @@
 
 <PageTitle>Visualize anatomic model</PageTitle>
 
-<h1>Show @SelectedMuscleGroup exercises</h1>
+<div class="p-3">
+    <h1>Show @SelectedMuscleGroup exercises</h1>
 
+    <button class="btn btn-primary mb-3" @onclick="ToggleAnatomicModelVisibility">Toggle Model</button>
 
-<button class="btn btn-primary mb-3" @onclick="ToggleAnatomicModelVisibility">Toggle Model</button>
-
-@*
+    @*
     TODO: aranjeaza mai bine tabela cu exercitiile asociate muschiului selectat
-*@
+    Observ ca:
+    selectez un ex de piept si l adaug intrun workout dupa ce dau din nou click pe piept apare de 2 ori acelasi exercitiu
+    *@
 
-<table>
-    <tr>
-        <td>
-            @if(IsFrontModelVisible)
-            {
-                <table>
+    <table>
+        <tr>
+            <td>
+                @if (IsFrontModelVisible)
+                {
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <img src="@headImg" alt="head" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="display: flex; flex-direction: column;">
+                                    <img src="@leftFrontShoulder" @onclick='() => GetAssociatedExercises(2, "Front shoulders")' alt="Front Shoulders" />
+                                    <img src="@leftBicepsImg" @onclick='() => GetAssociatedExercises(3, "Biceps")' alt="Biceps" />
+                                </td>
+                                <td>
+                                    <img src="@chestImg" @onclick='() => GetAssociatedExercises(1, "Chest")' alt="Chest" />
+                                </td>
+                                <td style="display: flex; flex-direction: column;">
+                                    <img src="@rightFrontShoulder" @onclick='() => GetAssociatedExercises(2, "Front shoulders")' alt="Front Shoulders" />
+                                    <img src="@rightBicepsImg" @onclick='() => GetAssociatedExercises(3, "Biceps")' alt="Biceps" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="@leftForearmImg" />
+                                </td>
+                                <td>
+                                    <img src="@absImg" @onclick='() => GetAssociatedExercises(4, "Abs")' alt="Abs" />
+                                </td>
+                                <td>
+                                    <img src="@rightForearmImg" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img src="@quadsImg" @onclick='() => GetAssociatedExercises(6, "Quads")' alt="Quads" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="@tibieImg" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                }
+                else
+                {
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img src="@leftPostShoulder" @onclick='() => GetAssociatedExercises(5, "Posterior Shoulders")' alt="Posterior Shoulders" />
+                                </td>
+                                <td>
+                                    <img src="@trapsImg" @onclick='() => GetAssociatedExercises(8, "Traps")' alt="Traps" />
+                                </td>
+                                <td>
+                                    <img src="@rightPostShoulder" @onclick='() => GetAssociatedExercises(5, "Posterior Shoulders")' alt="Posterior Shoulders" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="@leftTricepsImg" @onclick='() => GetAssociatedExercises(9, "Triceps")' alt="Triceps" />
+                                </td>
+                                <td>
+                                    <img src="@backImg" @onclick='() => GetAssociatedExercises(7, "Back")' alt="Back" />
+                                </td>
+                                <td>
+                                    <img src="@rightTricepsImg" @onclick='() => GetAssociatedExercises(9, "Triceps")' alt="Triceps" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img src="@buttockImg" alt="Butt" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="@hamsImg" @onclick='() => GetAssociatedExercises(10, "Hamstrings")' alt="Hamstrings" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="@calvesImg" @onclick='() => GetAssociatedExercises(11, "Calves")' alt="Calves" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="@ahileImg" alt="ahile" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+            </td>
+            <td>
+                <p class="anatomicModel">
+                    Explore our anatomical model page, where you can interact with a 2D anatomical diagram to select desired 
+                    muscle groups. 
+                    Once you've selected an exercise, you can directly add it to your preferred workout split. 
+                    Confidently choose your desired workout split, then select the workout in which you want to add the exercise to 
+                    customize your training based on your specific goals and needs.
+                </p>
+
+                <table class="table">
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <img src="@headImg" alt="head" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="display: flex; flex-direction: column;">
-                                <img src="@leftFrontShoulder" @onclick='() => GetAssociatedExercises(2, "Front shoulders")' alt="Front Shoulders" />
-                                <img src="@leftBicepsImg" @onclick='() => GetAssociatedExercises(3, "Biceps")' alt="Biceps" />
-                            </td>
-                            <td>
-                                <img src="@chestImg" @onclick='() => GetAssociatedExercises(1, "Chest")' alt="Chest" />
-                            </td>
-                            <td style="display: flex; flex-direction: column;">
-                                <img src="@rightFrontShoulder" @onclick='() => GetAssociatedExercises(2, "Front shoulders")' alt="Front Shoulders" />
-                                <img src="@rightBicepsImg" @onclick='() => GetAssociatedExercises(3, "Biceps")' alt="Biceps" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="@leftForearmImg" />
-                            </td>
-                            <td>
-                                <img src="@absImg" @onclick='() => GetAssociatedExercises(4, "Abs")' alt="Abs" />
-                            </td>
-                            <td>
-                                <img src="@rightForearmImg" />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <img src="@quadsImg" @onclick='() => GetAssociatedExercises(6, "Quads")' alt="Quads" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="@tibieImg" />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            }
-            else
-            {
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <img src="@leftPostShoulder" @onclick='() => GetAssociatedExercises(5, "Posterior Shoulders")' alt="Posterior Shoulders" />
-                            </td>
-                            <td>
-                                <img src="@trapsImg" @onclick='() => GetAssociatedExercises(8, "Traps")' alt="Traps" />
-                            </td>
-                            <td>
-                                <img src="@rightPostShoulder" @onclick='() => GetAssociatedExercises(5, "Posterior Shoulders")' alt="Posterior Shoulders" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="@leftTricepsImg" @onclick='() => GetAssociatedExercises(9, "Triceps")' alt="Triceps" />
-                            </td>
-                            <td>
-                                <img src="@backImg" @onclick='() => GetAssociatedExercises(7, "Back")' alt="Back" />
-                            </td>
-                            <td>
-                                <img src="@rightTricepsImg" @onclick='() => GetAssociatedExercises(9, "Triceps")' alt="Triceps" />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <img src="@buttockImg" alt="Butt" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="@hamsImg" @onclick='() => GetAssociatedExercises(10, "Hamstrings")' alt="Hamstrings" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="@calvesImg" @onclick='() => GetAssociatedExercises(11, "Calves")' alt="Calves" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="@ahileImg" alt="ahile" />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            }
-        </td>
-        <td>
-            <table class="table">
-                <tbody>
-                    @foreach (var exercise in Exercises)
-                    {
-                        <tr>
-                            <td>@exercise.Name</td>
-                            <td>@exercise.Description</td>
-                            <td>
-                                <!-- Dropdown pentru alegerea workout split-ului -->
-                                <div class="dropdown mb-1">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownWorkoutSplit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                                        @if (!SelectedWorkoutSplit.ContainsKey(exercise.Id))
-                                        {
-                                            SelectedWorkoutSplit[exercise.Id] = DefaultWorkoutSplitName;
-
-                                            @*daca nu exista o asociere intre dropdownul al doilea al exercitiului si vizibilitatea lui atunci o initializez cu fals*@
-                                            @if (!IsButtonVisible.ContainsKey(exercise.Id))
-                                            {
-                                                IsButtonVisible[exercise.Id] = false;
-                                            }
-                                        }
-                                        @SelectedWorkoutSplit[exercise.Id]
-
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownWorkoutSplit">
-                                        <!-- Adauga fiecare workoutSplit in dropdown -->
-                                        @foreach (var workoutSplit in WorkoutSplits)
-                                        {
-                                            <button class="dropdown-item" type="button" @onclick="() => AddToWorkoutSplit(workoutSplit, exercise.Id)">
-                                                @workoutSplit.Name
-                                            </button>
-                                        }
-
-                                        @*Daca este selectat workout split atunci fac vizibil al doilea dropdown*@
-                                        @if (SelectedWorkoutSplit[exercise.Id] != DefaultWorkoutSplitName)
-                                        {
-                                            IsButtonVisible[exercise.Id] = true;
-                                        }
-                                    </div>
-                                </div>
-
-                                <!-- Dropdown pentru alegerea workout-ului asociat workout split-ului selectat -->
-                                @if (IsButtonVisible[exercise.Id] == true)
-                                {
+                        @foreach (var exercise in Exercises)
+                        {
+                            <tr>
+                                <td>@exercise.Name</td>
+                                <td>@exercise.Description</td>
+                                <td>
+                                    <!-- Dropdown pentru alegerea workout split-ului -->
                                     <div class="dropdown mb-1">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownWorkout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownWorkoutSplit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                                            @if (!SelectedWorkout.ContainsKey(exercise.Id))
+                                            @if (!SelectedWorkoutSplit.ContainsKey(exercise.Id))
                                             {
-                                                SelectedWorkout[exercise.Id] = DefaultWorkoutName;
+                                                SelectedWorkoutSplit[exercise.Id] = DefaultWorkoutSplitName;
+
+                                                @*daca nu exista o asociere intre dropdownul al doilea al exercitiului si vizibilitatea lui atunci o initializez cu fals*@
+                                                @if (!IsButtonVisible.ContainsKey(exercise.Id))
+                                                {
+                                                    IsButtonVisible[exercise.Id] = false;
+                                                }
                                             }
-                                            @SelectedWorkout[exercise.Id]
+                                            @SelectedWorkoutSplit[exercise.Id]
 
                                         </button>
-
-                                        <div class="dropdown-menu" aria-labelledby="dropdownWorkout" id="dropdownWorkoutMenu">
-                                            @foreach (var workout in CorrespondingWorkouts)
+                                        <div class="dropdown-menu" aria-labelledby="dropdownWorkoutSplit">
+                                            <!-- Adauga fiecare workoutSplit in dropdown -->
+                                            @foreach (var workoutSplit in WorkoutSplits)
                                             {
-
-                                                <button class="dropdown-item" type="button" @onclick="() => AddToWorkout(workout, exercise)">
-                                                    @workout.Name
+                                                <button class="dropdown-item" type="button" @onclick="() => AddToWorkoutSplit(workoutSplit, exercise.Id)">
+                                                    @workoutSplit.Name
                                                 </button>
+                                            }
+
+                                            @*Daca este selectat workout split atunci fac vizibil al doilea dropdown*@
+                                            @if (SelectedWorkoutSplit[exercise.Id] != DefaultWorkoutSplitName)
+                                            {
+                                                IsButtonVisible[exercise.Id] = true;
                                             }
                                         </div>
                                     </div>
-                                }
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </td>
-    </tr>
-</table>
 
+                                    <!-- Dropdown pentru alegerea workout-ului asociat workout split-ului selectat -->
+                                    @if (IsButtonVisible[exercise.Id] == true)
+                                    {
+                                        <div class="dropdown mb-1">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownWorkout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                                @if (!SelectedWorkout.ContainsKey(exercise.Id))
+                                                {
+                                                    SelectedWorkout[exercise.Id] = DefaultWorkoutName;
+                                                }
+                                                @SelectedWorkout[exercise.Id]
+
+                                            </button>
+
+                                            <div class="dropdown-menu" aria-labelledby="dropdownWorkout" id="dropdownWorkoutMenu">
+                                                @foreach (var workout in CorrespondingWorkouts)
+                                                {
+
+                                                    <button class="dropdown-item" type="button" @onclick="() => AddToWorkout(workout, exercise)">
+                                                        @workout.Name
+                                                    </button>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
 
 
 @code {

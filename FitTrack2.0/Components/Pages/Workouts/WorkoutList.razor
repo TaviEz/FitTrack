@@ -12,9 +12,6 @@
     <script src="https://kit.fontawesome.com/8d42c9993f.js" crossorigin="anonymous"></script>
 </head>
 
-
-<InputText class="form-control w-auto" @bind-Value="@CurrentWorkoutSplit.Name" @onblur="WorkoutSplitNameChanged"/>
-
 <PageTitle>Split Overview</PageTitle>
 
 @if (Id is null)
@@ -23,52 +20,55 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    <div class="dropdown mb-1">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Select the workout split
-                        </button>
-
-                        <div class="dropdown-menu">
-                            @foreach (var workoutSplit in WorkoutSplits)
-                            {
-                                <button class="dropdown-item" type="button" @onclick="() => SelectWorkoutSplit(workoutSplit)">
-                                    @workoutSplit.Name
-                                </button>
-                            }
-                        </div>
-                    </div>
-
-                    <button class="btn btn-primary" @onclick="() => AddWorkoutSplit()">
-                        New workout split
-                    </button>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var workout in CurrentWorkoutSplit.Workouts)
-            {
+    <div class="p-3">
+        <InputText class="form-control w-auto" @bind-Value="@CurrentWorkoutSplit.Name" @onblur="WorkoutSplitNameChanged" />
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>
-                        @workout.Name
-                    </td>
-                    <td><a href="edit-workout/@workout.Id">Edit</a></td>
-                    <td>
-                        <button type="submit" class="btn btn-outline-danger" @onclick="() => RemoveWorkout(workout)">
-                            <span><i class="fa-regular fa-trash-can"></i></span>
-                        </button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                    <th>
+                        <div class="dropdown mb-1">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Select the workout split
+                            </button>
 
-    @*consider creating separate interactive compononents for the buttons*@
-    <button type="submit" class="btn btn-primary" @onclick="AddWorkout">Add workout</button>
-    <button type="button" class="btn btn-primary" @onclick="() => DeleteWorkoutSplit()">Delete workout split</button>
+                            <div class="dropdown-menu">
+                                @foreach (var workoutSplit in WorkoutSplits)
+                                {
+                                    <button class="dropdown-item" type="button" @onclick="() => SelectWorkoutSplit(workoutSplit)">
+                                        @workoutSplit.Name
+                                    </button>
+                                }
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" @onclick="() => AddWorkoutSplit()">
+                            New workout split
+                        </button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var workout in CurrentWorkoutSplit.Workouts)
+                {
+                    <tr>
+                        <td>
+                            @workout.Name
+                        </td>
+                        <td><a href="edit-workout/@workout.Id">Edit</a></td>
+                        <td>
+                            <button type="submit" class="btn btn-outline-danger" @onclick="() => RemoveWorkout(workout)">
+                                <span><i class="fa-regular fa-trash-can"></i></span>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @*consider creating separate interactive compononents for the buttons*@
+        <button type="submit" class="btn btn-primary" @onclick="AddWorkout">Add workout</button>
+        <button type="button" class="btn btn-primary" @onclick="() => DeleteWorkoutSplit()">Delete workout split</button>
+    </div>
 }
 
 

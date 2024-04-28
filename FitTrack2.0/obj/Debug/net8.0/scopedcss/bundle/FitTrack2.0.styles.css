@@ -206,20 +206,6 @@ main[b-bht8j7cdk6] {
         overflow-y: auto;
     }
 }
-/* _content/FitTrack2.0/Components/Pages/Account/Pages/Login.razor.rz.scp.css */
-.indentAccount[b-qo2swrd61l]
-{
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-h1[b-qo2swrd61l]
-{
-    text-align: center;
-    margin-bottom: 25px;
-}
 /* _content/FitTrack2.0/Components/Pages/Home.razor.rz.scp.css */
 .hero-image[b-1xlzoqqpl2] {
     text-align: center;
