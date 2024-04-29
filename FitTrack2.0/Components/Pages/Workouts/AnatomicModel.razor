@@ -8,13 +8,12 @@
 
 <PageTitle>Visualize anatomic model</PageTitle>
 
-<div class="p-3">
-    <h1>Show @SelectedMuscleGroup exercises</h1>
 
-    <button class="btn btn-primary mb-3" @onclick="ToggleAnatomicModelVisibility">Toggle Model</button>
+<div class="p-3">
+    <button class="btn btn-primary mb-3" @onclick="ToggleAnatomicModelVisibility">Toggle View</button>
 
     @*
-    TODO: aranjeaza mai bine tabela cu exercitiile asociate muschiului selectat
+
     Observ ca:
     selectez un ex de piept si l adaug intrun workout dupa ce dau din nou click pe piept apare de 2 ori acelasi exercitiu
     *@
@@ -24,7 +23,7 @@
             <td>
                 @if (IsFrontModelVisible)
                 {
-                    <table>
+                    <table cellspacing="0" cellpadding="0" style="border: none;">
                         <tbody>
                             <tr>
                                 <td></td>
@@ -59,15 +58,11 @@
                         </tbody>
                     </table>
 
-                    <table>
+                    <table cellspacing="0" cellpadding="0" style="border: none;">
                         <tbody>
                             <tr>
                                 <td>
                                     <img src="@quadsImg" @onclick='() => GetAssociatedExercises(6, "Quads")' alt="Quads" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
                                     <img src="@tibieImg" />
                                 </td>
                             </tr>
@@ -77,7 +72,7 @@
                 }
                 else
                 {
-                    <table>
+                    <table cellspacing="0" cellpadding="0" style="border: none;">
                         <tbody>
                             <tr>
                                 <td>
@@ -104,7 +99,7 @@
                         </tbody>
                     </table>
 
-                    <table>
+                    <table cellspacing="0" cellpadding="0" style="border: none;">
                         <tbody>
                             <tr>
                                 <td>
@@ -130,16 +125,29 @@
                     </table>
                 }
             </td>
-            <td>
-                <p class="anatomicModel">
-                    Explore our anatomical model page, where you can interact with a 2D anatomical diagram to select desired 
-                    muscle groups. 
-                    Once you've selected an exercise, you can directly add it to your preferred workout split. 
-                    Confidently choose your desired workout split, then select the workout in which you want to add the exercise to 
-                    customize your training based on your specific goals and needs.
+            <td id="anatomicModel">
+                <p id="anatomicModelDescription" class="mx-5">
+                    After selecting an exercise, add it directly to your chosen workout split. Pick your preferred workout split, 
+                    then select the workout to customize your training according to your goals.
                 </p>
 
-                <table class="table">
+                <table class="table mx-5">
+                    @if (!String.IsNullOrEmpty(SelectedMuscleGroup))
+                    {
+                        @if (Exercises.Count > 0)
+                        {
+                            <p>
+                                Showing @SelectedMuscleGroup exercises
+                            </p>
+                        }
+
+                        else if (Exercises.Count == 0)
+                        {
+                            <p>
+                                Whoops, @SelectedMuscleGroup does not have any associated exercises.
+                            </p>
+                        }
+                    }
                     <tbody>
                         @foreach (var exercise in Exercises)
                         {
@@ -263,9 +271,9 @@
 
     private string SelectedMuscleGroup = string.Empty;
 
-    public string DefaultWorkoutSplitName = "Alege workout split";
+    public string DefaultWorkoutSplitName = "Choose workout split";
 
-    public string DefaultWorkoutName = "Alege workout";
+    public string DefaultWorkoutName = "Choose workout";
 
     #endregion
 

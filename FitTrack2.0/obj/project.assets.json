@@ -5242,25 +5242,31 @@
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 8.0.3",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.3",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.3",
+      "Syncfusion.Blazor.Buttons >= 25.1.39",
       "Syncfusion.Blazor.Charts >= 25.1.39",
       "Syncfusion.Blazor.DropDowns >= 25.1.39",
       "Syncfusion.Blazor.Themes >= 25.1.39"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\taviC\\.nuget\\packages\\": {}
+    "C:\\Users\\tavic\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Repos\\FitTrack\\FitTrack2.0\\FitTrack2.0.csproj",
+      "projectUniqueName": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\FitTrack2.0.csproj",
       "projectName": "FitTrack2.0",
-      "projectPath": "D:\\Repos\\FitTrack\\FitTrack2.0\\FitTrack2.0.csproj",
-      "packagesPath": "C:\\Users\\taviC\\.nuget\\packages\\",
-      "outputPath": "D:\\Repos\\FitTrack\\FitTrack2.0\\obj\\",
+      "projectPath": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\FitTrack2.0.csproj",
+      "packagesPath": "C:\\Users\\tavic\\.nuget\\packages\\",
+      "outputPath": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\taviC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\tavic\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5309,6 +5315,10 @@
             "target": "Package",
             "version": "[8.0.3, )"
           },
+          "Syncfusion.Blazor.Buttons": {
+            "target": "Package",
+            "version": "[25.1.39, )"
+          },
           "Syncfusion.Blazor.Charts": {
             "target": "Package",
             "version": "[25.1.39, )"
@@ -5341,7 +5351,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

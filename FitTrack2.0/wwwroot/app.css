@@ -63,9 +63,21 @@ h1:focus {
     margin-bottom: 25px;
 }
 
-.anatomicModel{
-    justify-content: right;
-    align-items: center;
-    font-size: 25px;
+#anatomicModel {
+    font-size: 30px;
 }
+
+#anatomicModel table
+{
+    font-size: 20px;
+}
+
+#anatomicModelDescription
+{
+    margin-left: 5px;
+    margin-bottom: 70px;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
 
