@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace FitTrack2._0.Models
+﻿namespace FitTrack2._0.Models
 {
     public class ExerciseSet
     {

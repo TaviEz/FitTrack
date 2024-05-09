@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Syncfusion.Blazor;
 using Microsoft.AspNetCore.Components.Server.Circuits;
+using FitTrack2._0.Services;
 
 
+//TODO: aranjeaza in ordinea recomandata de microsoft injecturile si page urlurile din fiecare page
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +38,8 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 
 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXtfcXVVRWdfUkBzXUY=");
 builder.Services.AddSyncfusionBlazor();
+
+builder.Services.AddSingleton<NotificatonMessage>();
 
 
 var app = builder.Build();

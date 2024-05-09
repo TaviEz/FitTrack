@@ -1,7 +1,16 @@
 ﻿@page "/edit-workout"
 @page "/edit-workout/{Id:int}"
+
 @inject DataContext Context
+
+@*
+    @inject NotificationMessage NotificationMessage
+    TODO: vezi cum dai inject la serviciu NotificationMessage ca sa poti sa folosesti controalele de SfToast in toate paginile
+    Adauga SfToast si in pagina de workoutList si in pagina de AnatomicModel
+*@
+
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
+
 
 <head>
     <script src="https://kit.fontawesome.com/8d42c9993f.js" crossorigin="anonymous"></script>
@@ -17,6 +26,11 @@
 }
 else
 {
+    <div class="control-section toast-default-section">
+        <SfToast ID="toast_default" @ref="ToastObj" Timeout="2000">
+            <ToastPosition X="Center"></ToastPosition>
+        </SfToast>
+    </div>
     <div class="p-3">
         @*TODO: fix form floating here*@
         <div class="form-floating mb-3">
@@ -98,7 +112,26 @@ else
 
 @code {
 
+    #region SyncFusion controls
+
+    SfToast ToastObj;
+
+    ToastModel toastModelSuccessfull = new ToastModel
+        {
+            Title = "Success!",
+            CssClass = "e-toast-success",
+        };
+
+    ToastModel toastModelFailed = new ToastModel
+        {
+            Title = "Failed!",
+            CssClass = "e-toast-danger",
+        };
+
     SfMultiSelect<List<MuscleGroup>, MuscleGroup> MultiSelectMuscleGroup = new SfMultiSelect<List<MuscleGroup>, MuscleGroup>();
+
+    #endregion
+
 
     List<MuscleGroup> SelectedMuscleGroups = new();
 
@@ -140,6 +173,12 @@ else
     async Task SaveWorkout()
     {
         var result = await Context.SaveChangesAsync();
+
+        if(result != 0)
+        {
+            toastModelSuccessfull.Content = "Your workout has been saved successfully";
+            await this.ToastObj.ShowAsync(toastModelSuccessfull);
+        } 
     }
 
     async Task AddSet(Exercise exercise)
@@ -164,6 +203,9 @@ else
         }
 
         await Context.SaveChangesAsync();
+
+        toastModelSuccessfull.Content = "Successfully added an empty exercise";
+        await this.ToastObj.ShowAsync(toastModelSuccessfull);
     }
 
 
@@ -174,6 +216,9 @@ else
 
         if(CurrentWorkout.ExerciseList != null)
             CurrentWorkout.ExerciseList.Remove(exerciseToRemove);
+
+        toastModelSuccessfull.Content = $"Successfully removed {exerciseToRemove.Name}";
+        await this.ToastObj.ShowAsync(toastModelSuccessfull);
     }
 
     async Task ModifyAssociatedMuscleGroups(MultiSelectChangeEventArgs<List<MuscleGroup>> args, Exercise e)
@@ -217,7 +262,4 @@ else
         }
         await Context.SaveChangesAsync();
     }
-
-
-
 }

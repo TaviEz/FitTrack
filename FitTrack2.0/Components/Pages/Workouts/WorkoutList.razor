@@ -65,14 +65,12 @@ else
             </tbody>
         </table>
 
-        @*consider creating separate interactive compononents for the buttons*@
         <button type="submit" class="btn btn-primary" @onclick="AddWorkout">Add workout</button>
         <button type="button" class="btn btn-primary" @onclick="() => DeleteWorkoutSplit()">Delete workout split</button>
     </div>
 }
 
 
-@*TODO: add a message after each operation is performed Ex: Workout Saved Succesfully*@
 @code {
     [Parameter]
     public int? Id { get; set; } = null;

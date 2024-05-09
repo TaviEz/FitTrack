@@ -5245,28 +5245,24 @@
       "Syncfusion.Blazor.Buttons >= 25.1.39",
       "Syncfusion.Blazor.Charts >= 25.1.39",
       "Syncfusion.Blazor.DropDowns >= 25.1.39",
+      "Syncfusion.Blazor.Notifications >= 25.1.39",
       "Syncfusion.Blazor.Themes >= 25.1.39"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\tavic\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\taviC\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\FitTrack2.0.csproj",
+      "projectUniqueName": "D:\\Repos\\FitTrack\\FitTrack2.0\\FitTrack2.0.csproj",
       "projectName": "FitTrack2.0",
-      "projectPath": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\FitTrack2.0.csproj",
-      "packagesPath": "C:\\Users\\tavic\\.nuget\\packages\\",
-      "outputPath": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\obj\\",
+      "projectPath": "D:\\Repos\\FitTrack\\FitTrack2.0\\FitTrack2.0.csproj",
+      "packagesPath": "C:\\Users\\taviC\\.nuget\\packages\\",
+      "outputPath": "D:\\Repos\\FitTrack\\FitTrack2.0\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\tavic\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\taviC\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5327,6 +5323,10 @@
             "target": "Package",
             "version": "[25.1.39, )"
           },
+          "Syncfusion.Blazor.Notifications": {
+            "target": "Package",
+            "version": "[25.1.39, )"
+          },
           "Syncfusion.Blazor.Themes": {
             "target": "Package",
             "version": "[25.1.39, )"
@@ -5351,7 +5351,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

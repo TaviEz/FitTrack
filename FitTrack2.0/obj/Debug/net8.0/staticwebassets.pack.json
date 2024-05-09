@@ -1,191 +1,191 @@
 {
   "Files": [
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\FitTrack2.0.bundle.scp.css",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\FitTrack2.0.bundle.scp.css",
       "PackagePath": "staticwebassets\\FitTrack2.0.bundle.scp.css"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\app.css",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\app.css",
       "PackagePath": "staticwebassets\\app.css"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\bootstrap\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\favicon.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\favicon.png",
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\LandingPage\\genericGym.jpg",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\LandingPage\\genericGym.jpg",
       "PackagePath": "staticwebassets\\images\\LandingPage\\genericGym.jpg"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\anatomic.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\anatomic.png",
       "PackagePath": "staticwebassets\\images\\anatomic.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\anatomicBack.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\anatomicBack.png",
       "PackagePath": "staticwebassets\\images\\anatomicBack.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backAnatomy\\lowerModel\\ahile.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backAnatomy\\lowerModel\\ahile.png",
       "PackagePath": "staticwebassets\\images\\backAnatomy\\lowerModel\\ahile.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backAnatomy\\lowerModel\\buttock.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backAnatomy\\lowerModel\\buttock.png",
       "PackagePath": "staticwebassets\\images\\backAnatomy\\lowerModel\\buttock.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backAnatomy\\lowerModel\\calves.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backAnatomy\\lowerModel\\calves.png",
       "PackagePath": "staticwebassets\\images\\backAnatomy\\lowerModel\\calves.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backAnatomy\\lowerModel\\hamstring.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backAnatomy\\lowerModel\\hamstring.png",
       "PackagePath": "staticwebassets\\images\\backAnatomy\\lowerModel\\hamstring.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backAnatomy\\upperModel\\back.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backAnatomy\\upperModel\\back.png",
       "PackagePath": "staticwebassets\\images\\backAnatomy\\upperModel\\back.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backAnatomy\\upperModel\\leftPostShoulder.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backAnatomy\\upperModel\\leftPostShoulder.png",
       "PackagePath": "staticwebassets\\images\\backAnatomy\\upperModel\\leftPostShoulder.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backAnatomy\\upperModel\\leftTriceps.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backAnatomy\\upperModel\\leftTriceps.png",
       "PackagePath": "staticwebassets\\images\\backAnatomy\\upperModel\\leftTriceps.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backAnatomy\\upperModel\\rightPostShoulder.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backAnatomy\\upperModel\\rightPostShoulder.png",
       "PackagePath": "staticwebassets\\images\\backAnatomy\\upperModel\\rightPostShoulder.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backAnatomy\\upperModel\\rightTriceps.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backAnatomy\\upperModel\\rightTriceps.png",
       "PackagePath": "staticwebassets\\images\\backAnatomy\\upperModel\\rightTriceps.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backAnatomy\\upperModel\\traps.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backAnatomy\\upperModel\\traps.png",
       "PackagePath": "staticwebassets\\images\\backAnatomy\\upperModel\\traps.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backup\\abs.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backup\\abs.png",
       "PackagePath": "staticwebassets\\images\\backup\\abs.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backup\\back.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backup\\back.png",
       "PackagePath": "staticwebassets\\images\\backup\\back.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backup\\chest.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backup\\chest.png",
       "PackagePath": "staticwebassets\\images\\backup\\chest.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backup\\head.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backup\\head.png",
       "PackagePath": "staticwebassets\\images\\backup\\head.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backup\\image1.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backup\\image1.png",
       "PackagePath": "staticwebassets\\images\\backup\\image1.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backup\\leftBiceps.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backup\\leftBiceps.png",
       "PackagePath": "staticwebassets\\images\\backup\\leftBiceps.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backup\\leftForearm.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backup\\leftForearm.png",
       "PackagePath": "staticwebassets\\images\\backup\\leftForearm.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backup\\leftFrontShoulder.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backup\\leftFrontShoulder.png",
       "PackagePath": "staticwebassets\\images\\backup\\leftFrontShoulder.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backup\\leftPostShoulder.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backup\\leftPostShoulder.png",
       "PackagePath": "staticwebassets\\images\\backup\\leftPostShoulder.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backup\\leftTriceps.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backup\\leftTriceps.png",
       "PackagePath": "staticwebassets\\images\\backup\\leftTriceps.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backup\\quads.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backup\\quads.png",
       "PackagePath": "staticwebassets\\images\\backup\\quads.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backup\\rightBiceps.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backup\\rightBiceps.png",
       "PackagePath": "staticwebassets\\images\\backup\\rightBiceps.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backup\\rightForearm.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backup\\rightForearm.png",
       "PackagePath": "staticwebassets\\images\\backup\\rightForearm.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backup\\rightPostShoulder.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backup\\rightPostShoulder.png",
       "PackagePath": "staticwebassets\\images\\backup\\rightPostShoulder.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backup\\rightTriceps.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backup\\rightTriceps.png",
       "PackagePath": "staticwebassets\\images\\backup\\rightTriceps.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backup\\tibie.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backup\\tibie.png",
       "PackagePath": "staticwebassets\\images\\backup\\tibie.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\backup\\traps.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\backup\\traps.png",
       "PackagePath": "staticwebassets\\images\\backup\\traps.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\lowerModel\\quads.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\lowerModel\\quads.png",
       "PackagePath": "staticwebassets\\images\\frontAnatomy\\lowerModel\\quads.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\lowerModel\\tibie.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\lowerModel\\tibie.png",
       "PackagePath": "staticwebassets\\images\\frontAnatomy\\lowerModel\\tibie.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\upperModel\\abs.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\upperModel\\abs.png",
       "PackagePath": "staticwebassets\\images\\frontAnatomy\\upperModel\\abs.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\upperModel\\chest.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\upperModel\\chest.png",
       "PackagePath": "staticwebassets\\images\\frontAnatomy\\upperModel\\chest.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\upperModel\\head.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\upperModel\\head.png",
       "PackagePath": "staticwebassets\\images\\frontAnatomy\\upperModel\\head.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\upperModel\\image1.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\upperModel\\image1.png",
       "PackagePath": "staticwebassets\\images\\frontAnatomy\\upperModel\\image1.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\upperModel\\leftBiceps.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\upperModel\\leftBiceps.png",
       "PackagePath": "staticwebassets\\images\\frontAnatomy\\upperModel\\leftBiceps.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\upperModel\\leftForearm.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\upperModel\\leftForearm.png",
       "PackagePath": "staticwebassets\\images\\frontAnatomy\\upperModel\\leftForearm.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\upperModel\\leftFrontShoulder.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\upperModel\\leftFrontShoulder.png",
       "PackagePath": "staticwebassets\\images\\frontAnatomy\\upperModel\\leftFrontShoulder.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\upperModel\\rightBiceps.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\upperModel\\rightBiceps.png",
       "PackagePath": "staticwebassets\\images\\frontAnatomy\\upperModel\\rightBiceps.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\upperModel\\rightForearm.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\upperModel\\rightForearm.png",
       "PackagePath": "staticwebassets\\images\\frontAnatomy\\upperModel\\rightForearm.png"
     },
     {
-      "Id": "E:\\Developer\\C#\\FitTrack2.0\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\upperModel\\rightFrontShoulder.png",
+      "Id": "D:\\Repos\\FitTrack\\FitTrack2.0\\wwwroot\\images\\frontAnatomy\\upperModel\\rightFrontShoulder.png",
       "PackagePath": "staticwebassets\\images\\frontAnatomy\\upperModel\\rightFrontShoulder.png"
     },
     {
