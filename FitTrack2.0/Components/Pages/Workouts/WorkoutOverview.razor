@@ -1,15 +1,10 @@
 ﻿@page "/edit-workout"
 @page "/edit-workout/{Id:int}"
 
-@inject DataContext Context
-
-@*
-    @inject NotificationMessage NotificationMessage
-    TODO: vezi cum dai inject la serviciu NotificationMessage ca sa poti sa folosesti controalele de SfToast in toate paginile
-    Adauga SfToast si in pagina de workoutList si in pagina de AnatomicModel
-*@
-
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+@inject DataContext Context
+@inject INotificationMessage NotificationMessage
 
 
 <head>
@@ -116,18 +111,6 @@ else
 
     SfToast ToastObj;
 
-    ToastModel toastModelSuccessfull = new ToastModel
-        {
-            Title = "Success!",
-            CssClass = "e-toast-success",
-        };
-
-    ToastModel toastModelFailed = new ToastModel
-        {
-            Title = "Failed!",
-            CssClass = "e-toast-danger",
-        };
-
     SfMultiSelect<List<MuscleGroup>, MuscleGroup> MultiSelectMuscleGroup = new SfMultiSelect<List<MuscleGroup>, MuscleGroup>();
 
     #endregion
@@ -176,8 +159,8 @@ else
 
         if(result != 0)
         {
-            toastModelSuccessfull.Content = "Your workout has been saved successfully";
-            await this.ToastObj.ShowAsync(toastModelSuccessfull);
+            NotificationMessage.toastModelSuccessfull.Content = "Your workout has been saved successfully";
+            await this.ToastObj.ShowAsync(NotificationMessage.toastModelSuccessfull);
         } 
     }
 
@@ -204,8 +187,8 @@ else
 
         await Context.SaveChangesAsync();
 
-        toastModelSuccessfull.Content = "Successfully added an empty exercise";
-        await this.ToastObj.ShowAsync(toastModelSuccessfull);
+        NotificationMessage.toastModelSuccessfull.Content = "Successfully added an empty exercise";
+        await this.ToastObj.ShowAsync(NotificationMessage.toastModelSuccessfull);
     }
 
 
@@ -217,8 +200,8 @@ else
         if(CurrentWorkout.ExerciseList != null)
             CurrentWorkout.ExerciseList.Remove(exerciseToRemove);
 
-        toastModelSuccessfull.Content = $"Successfully removed {exerciseToRemove.Name}";
-        await this.ToastObj.ShowAsync(toastModelSuccessfull);
+        NotificationMessage.toastModelSuccessfull.Content = $"Successfully removed {exerciseToRemove.Name}";
+        await this.ToastObj.ShowAsync(NotificationMessage.toastModelSuccessfull);
     }
 
     async Task ModifyAssociatedMuscleGroups(MultiSelectChangeEventArgs<List<MuscleGroup>> args, Exercise e)

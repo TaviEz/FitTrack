@@ -2,15 +2,15 @@
 
 namespace FitTrack2._0.Services
 {
-    public class NotificatonMessage
+    public class NotificatonMessage: INotificationMessage
     {
-        ToastModel toastModelSuccessfull = new ToastModel
+        public ToastModel toastModelSuccessfull { get; set; } = new ToastModel
         {
             Title = "Success!",
             CssClass = "e-toast-success",
         };
 
-        ToastModel toastModelFailed = new ToastModel
+        public ToastModel toastModelFailed { get; set; } = new ToastModel
         {
             Title = "Failed!",
             CssClass = "e-toast-danger",

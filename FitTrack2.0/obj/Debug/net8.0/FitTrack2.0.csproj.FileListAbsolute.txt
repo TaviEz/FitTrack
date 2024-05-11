@@ -318,3 +318,4 @@ D:\Repos\FitTrack\FitTrack2.0\obj\Debug\net8.0\refint\FitTrack2.0.dll
 D:\Repos\FitTrack\FitTrack2.0\obj\Debug\net8.0\FitTrack2.0.pdb
 D:\Repos\FitTrack\FitTrack2.0\obj\Debug\net8.0\FitTrack2.0.genruntimeconfig.cache
 D:\Repos\FitTrack\FitTrack2.0\obj\Debug\net8.0\ref\FitTrack2.0.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\obj\Debug\net8.0\scopedcss\Components\Pages\Workouts\AnatomicModel.razor.rz.scp.css

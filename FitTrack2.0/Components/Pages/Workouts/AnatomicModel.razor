@@ -4,19 +4,20 @@
 @inject DataContext Context;
 @inject AuthenticationStateProvider AuthenticationState
 @inject UserManager<ApplicationUser> UserManager
+@inject INotificationMessage NotificationMessage
 
 
 <PageTitle>Visualize anatomic model</PageTitle>
 
 
 <div class="p-3">
+    <div class="control-section toast-default-section">
+        <SfToast ID="toast_default" @ref="ToastObj" Timeout="2000">
+            <ToastPosition X="Center"></ToastPosition>
+        </SfToast>
+    </div>
+
     <button class="btn btn-primary mb-3" @onclick="ToggleAnatomicModelVisibility">Toggle View</button>
-
-    @*
-
-    Observ ca:
-    selectez un ex de piept si l adaug intrun workout dupa ce dau din nou click pe piept apare de 2 ori acelasi exercitiu
-    *@
 
     <table>
         <tr>
@@ -33,15 +34,15 @@
                             </tr>
                             <tr>
                                 <td style="display: flex; flex-direction: column;">
-                                    <img src="@leftFrontShoulder" @onclick='() => GetAssociatedExercises(2, "Front shoulders")' alt="Front Shoulders" />
-                                    <img src="@leftBicepsImg" @onclick='() => GetAssociatedExercises(3, "Biceps")' alt="Biceps" />
+                                    <img class="muscleImage" src="@leftFrontShoulder" @onclick='() => GetAssociatedExercises(2, "Front shoulders")' alt="Front Shoulders" />
+                                    <img class="muscleImage" src="@leftBicepsImg" @onclick='() => GetAssociatedExercises(3, "Biceps")' alt="Biceps" />
                                 </td>
                                 <td>
-                                    <img src="@chestImg" @onclick='() => GetAssociatedExercises(1, "Chest")' alt="Chest" />
+                                    <img class="muscleImage" src="@chestImg" @onclick='() => GetAssociatedExercises(1, "Chest")' alt="Chest" />
                                 </td>
                                 <td style="display: flex; flex-direction: column;">
-                                    <img src="@rightFrontShoulder" @onclick='() => GetAssociatedExercises(2, "Front shoulders")' alt="Front Shoulders" />
-                                    <img src="@rightBicepsImg" @onclick='() => GetAssociatedExercises(3, "Biceps")' alt="Biceps" />
+                                    <img class="muscleImage" src="@rightFrontShoulder" @onclick='() => GetAssociatedExercises(2, "Front shoulders")' alt="Front Shoulders" />
+                                    <img class="muscleImage" src="@rightBicepsImg" @onclick='() => GetAssociatedExercises(3, "Biceps")' alt="Biceps" />
                                 </td>
                             </tr>
                             <tr>
@@ -49,7 +50,7 @@
                                     <img src="@leftForearmImg" />
                                 </td>
                                 <td>
-                                    <img src="@absImg" @onclick='() => GetAssociatedExercises(4, "Abs")' alt="Abs" />
+                                    <img class="muscleImage" src="@absImg" @onclick='() => GetAssociatedExercises(4, "Abs")' alt="Abs" />
                                 </td>
                                 <td>
                                     <img src="@rightForearmImg" />
@@ -62,7 +63,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <img src="@quadsImg" @onclick='() => GetAssociatedExercises(6, "Quads")' alt="Quads" />
+                                    <img class="muscleImage" src="@quadsImg" @onclick='() => GetAssociatedExercises(6, "Quads")' alt="Quads" />
                                     <img src="@tibieImg" />
                                 </td>
                             </tr>
@@ -76,24 +77,24 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <img src="@leftPostShoulder" @onclick='() => GetAssociatedExercises(5, "Posterior Shoulders")' alt="Posterior Shoulders" />
+                                    <img class="muscleImage" src="@leftPostShoulder" @onclick='() => GetAssociatedExercises(5, "Posterior Shoulders")' alt="Posterior Shoulders" />
                                 </td>
                                 <td>
-                                    <img src="@trapsImg" @onclick='() => GetAssociatedExercises(8, "Traps")' alt="Traps" />
+                                    <img class="muscleImage" src="@trapsImg" @onclick='() => GetAssociatedExercises(8, "Traps")' alt="Traps" />
                                 </td>
                                 <td>
-                                    <img src="@rightPostShoulder" @onclick='() => GetAssociatedExercises(5, "Posterior Shoulders")' alt="Posterior Shoulders" />
+                                    <img class="muscleImage" src="@rightPostShoulder" @onclick='() => GetAssociatedExercises(5, "Posterior Shoulders")' alt="Posterior Shoulders" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="@leftTricepsImg" @onclick='() => GetAssociatedExercises(9, "Triceps")' alt="Triceps" />
+                                    <img class="muscleImage" src="@leftTricepsImg" @onclick='() => GetAssociatedExercises(9, "Triceps")' alt="Triceps" />
                                 </td>
                                 <td>
-                                    <img src="@backImg" @onclick='() => GetAssociatedExercises(7, "Back")' alt="Back" />
+                                    <img class="muscleImage" src="@backImg" @onclick='() => GetAssociatedExercises(7, "Back")' alt="Back" />
                                 </td>
                                 <td>
-                                    <img src="@rightTricepsImg" @onclick='() => GetAssociatedExercises(9, "Triceps")' alt="Triceps" />
+                                    <img class="muscleImage" src="@rightTricepsImg" @onclick='() => GetAssociatedExercises(9, "Triceps")' alt="Triceps" />
                                 </td>
                             </tr>
                         </tbody>
@@ -103,17 +104,17 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <img src="@buttockImg" alt="Butt" />
+                                    <img class="muscleImage" src="@buttockImg" alt="Butt" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="@hamsImg" @onclick='() => GetAssociatedExercises(10, "Hamstrings")' alt="Hamstrings" />
+                                    <img class="muscleImage" src="@hamsImg" @onclick='() => GetAssociatedExercises(10, "Hamstrings")' alt="Hamstrings" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="@calvesImg" @onclick='() => GetAssociatedExercises(11, "Calves")' alt="Calves" />
+                                    <img class="muscleImage" src="@calvesImg" @onclick='() => GetAssociatedExercises(11, "Calves")' alt="Calves" />
                                 </td>
                             </tr>
                             <tr>
@@ -207,7 +208,7 @@
                                                 @foreach (var workout in CorrespondingWorkouts)
                                                 {
 
-                                                    <button class="dropdown-item" type="button" @onclick="() => AddToWorkout(workout, exercise)">
+                                                    <button class="dropdown-item" type="button" @onclick="() => AddToWorkout(workout, exercise, SelectedWorkoutSplit[exercise.Id])">
                                                         @workout.Name
                                                     </button>
                                                 }
@@ -277,6 +278,8 @@
 
     #endregion
 
+    SfToast ToastObj;
+
     public ICollection<Exercise> Exercises = new List<Exercise>();
 
     public ICollection<WorkoutSplit> WorkoutSplits = new List<WorkoutSplit>();
@@ -341,15 +344,18 @@
         .Include(workoutSplit => workoutSplit.Workouts).ToListAsync();
     }
 
+
     async Task GetAssociatedExercises(int muscleGroupId, string muscleGroup)
     {
-        Exercises = await Context.Exercises
+        var exercises = await Context.Exercises
         .Where(exercise => exercise.Workout != null &&
             exercise.Workout.WorkoutSplit != null &&
             exercise.Workout.WorkoutSplit.ApplicationUserId == CurrentUser.Id &&
             exercise.MuscleGroups.Any(mg => mg.Id == muscleGroupId))
         .Include(exercise => exercise.MuscleGroups) // Include lista de grupe musculare asociate fiecărui exercițiu
         .ToListAsync();
+
+        Exercises = exercises.DistinctBy(exercise => exercise.Name).ToList(); // elimin exercitiile cu acelasi nume
 
         SelectedMuscleGroup = muscleGroup;
     }
@@ -360,7 +366,7 @@
         CorrespondingWorkouts = workoutSplit.Workouts;
     }
 
-    private async void AddToWorkout(Workout workout, Exercise exercise)
+    private async void AddToWorkout(Workout workout, Exercise exercise, string workoutSplit)
     {
         SelectedWorkout[exercise.Id] = workout.Name;
 
@@ -371,6 +377,9 @@
 
         workout.ExerciseList.Add(exerciseToAdd);
         await Context.SaveChangesAsync();
+
+        NotificationMessage.toastModelSuccessfull.Content = $"{exercise.Name} was added to\n{workoutSplit}: {workout.Name}";
+        await this.ToastObj.ShowAsync(NotificationMessage.toastModelSuccessfull);
     }
 
     private void ToggleAnatomicModelVisibility()

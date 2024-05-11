@@ -39,8 +39,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXtfcXVVRWdfUkBzXUY=");
 builder.Services.AddSyncfusionBlazor();
 
-builder.Services.AddSingleton<NotificatonMessage>();
-
+builder.Services.AddSingleton<INotificationMessage, NotificatonMessage>();
 
 var app = builder.Build();
 
