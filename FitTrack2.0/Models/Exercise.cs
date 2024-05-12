@@ -8,6 +8,8 @@
 
         public string Description { get; set; } = string.Empty;
 
+        public DateOnly Date { get; set; }
+
         public ICollection<ExerciseSet> ExerciseSets { get; set; } = new List<ExerciseSet>();
 
         public int? WorkoutId { get; set; }

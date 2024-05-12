@@ -8,6 +8,8 @@
 
         public string Description { get; set; } = string.Empty;
 
+        public bool IsCompleted { get; set; } = false;
+
         public ICollection<Exercise> ExerciseList { get; set; } = new List<Exercise>();
 
         public int? WorkoutSplitId { get; set; }

@@ -5,6 +5,7 @@
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationState
 @inject UserManager<ApplicationUser> UserManager
+@inject INotificationMessage NotifcationMessage
 
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
 
@@ -21,6 +22,11 @@
 else
 {
     <div class="p-3">
+        <div class="control-section toast-default-section">
+            <SfToast ID="toast_default" @ref="ToastObj" Timeout="2000">
+                <ToastPosition X="Center"></ToastPosition>
+            </SfToast>
+        </div>
         <InputText class="form-control w-auto" @bind-Value="@CurrentWorkoutSplit.Name" @onblur="WorkoutSplitNameChanged" />
         <table class="table">
             <thead>
@@ -60,6 +66,9 @@ else
                                 <span><i class="fa-regular fa-trash-can"></i></span>
                             </button>
                         </td>
+                        <td>
+                            <input type="checkbox" @onchange="eventArgs => CheckBox_Changed(workout, eventArgs.Value)" checked="@workout.IsCompleted"/>
+                        </td>
                     </tr>
                 }
             </tbody>
@@ -80,6 +89,10 @@ else
     public ApplicationUser CurrentUser = new();
 
     public List<WorkoutSplit> WorkoutSplits = new();
+
+    int WorkoutsCompleted = 0;
+
+    SfToast ToastObj;
 
     protected override async Task OnParametersSetAsync()
     {
@@ -104,6 +117,13 @@ else
         }
         else
             NavigationManager.NavigateTo($"split-overview/{WorkoutSplits.FirstOrDefault().Id}");
+
+
+        foreach(var workout in CurrentWorkoutSplit.Workouts)
+        {
+            if (workout.IsCompleted == true)
+                WorkoutsCompleted += 1;
+        }
 
     }
 
@@ -155,6 +175,52 @@ else
 
     async void WorkoutSplitNameChanged()
     {
+        await Context.SaveChangesAsync();
+    }
+
+    private async Task CheckBox_Changed(Workout workout, object checkedValue)
+    {
+        if((bool)checkedValue == true)
+        {
+            workout.IsCompleted = true;
+            await Context.SaveChangesAsync();
+
+            //set completion date for each exercise in the workout
+            SetExerciseDates(workout);
+
+            WorkoutsCompleted += 1;
+            CheckIfWorkoutSplitIsCompleted();
+        }
+        else
+        {
+            workout.IsCompleted = false;
+            WorkoutsCompleted -= 1;
+            await Context.SaveChangesAsync();
+        }
+    }
+
+    private async void CheckIfWorkoutSplitIsCompleted()
+    {
+        if(WorkoutsCompleted == CurrentWorkoutSplit.Workouts.Count)
+        {
+            foreach(var workout in CurrentWorkoutSplit.Workouts)
+            {
+                await CheckBox_Changed(workout, false);
+                StateHasChanged();
+            }
+
+            NotifcationMessage.toastModelSuccessfull.Content = $"Congratulations!\n You have completed {CurrentWorkoutSplit.Name} workout split.";
+            await this.ToastObj.ShowAsync(NotifcationMessage.toastModelSuccessfull);
+        }
+    }
+
+    private async void SetExerciseDates(Workout workout)
+    {
+        foreach(var exercise in workout.ExerciseList)
+        {
+            exercise.Date = DateOnly.FromDateTime(DateTime.Today);
+        }
+
         await Context.SaveChangesAsync();
     }
 }

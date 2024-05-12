@@ -4,6 +4,7 @@ using FitTrack2._0.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitTrack2._0.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240511144529_ExerciseDate")]
+    partial class ExerciseDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -326,9 +329,6 @@ namespace FitTrack2._0.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -347,7 +347,6 @@ namespace FitTrack2._0.Migrations
                         {
                             Id = 1,
                             Description = "piept si triceps",
-                            IsCompleted = false,
                             Name = "Push day",
                             WorkoutSplitId = 1
                         },
@@ -355,7 +354,6 @@ namespace FitTrack2._0.Migrations
                         {
                             Id = 2,
                             Description = "spate si biceps",
-                            IsCompleted = false,
                             Name = "Pull day",
                             WorkoutSplitId = 1
                         });
