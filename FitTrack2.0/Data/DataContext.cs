@@ -19,6 +19,11 @@ namespace FitTrack2._0.Data
                 .WithOne(es => es.Exercise)
                 .HasForeignKey(es => es.ExerciseId);
 
+            modelBuilder.Entity<Exercise>()
+                .HasMany(e => e.ExerciseRecords)
+                .WithOne(er => er.Exercise)
+                .HasForeignKey(er => er.ExerciseId);
+
             modelBuilder.Entity<Workout>()
                 .HasMany(e => e.ExerciseList)
                 .WithOne(es => es.Workout)
@@ -77,5 +82,6 @@ namespace FitTrack2._0.Data
         public DbSet<Exercise> Exercises { get; set; }
         public DbSet<ExerciseSet> ExerciseSets { get; set; }
         public DbSet<MuscleGroup> MuscleGroups { get; set;}
+        public DbSet<ExerciseRecord> ExerciseRecords { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace FitTrack2._0.Models
 
         public WorkoutSplit()
         {
-
+            Name = "New workout Split";
         }
 
         public WorkoutSplit(string userId)

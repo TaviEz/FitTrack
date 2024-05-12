@@ -2,9 +2,53 @@
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
 
 @inject DataContext Context;
+@inject AuthenticationStateProvider AuthenticationState
+@inject UserManager<ApplicationUser> UserManager
 
 
 <h3>VisualiseData</h3>
+
+<div class="dropdown mb-1">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownWorkoutSplit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        @SelectedWorkoutSplit.Name
+    </button>
+    <div class="dropdown-menu">
+        @foreach (var workoutSplit in WorkoutSplits)
+        {
+            <button class="dropdown-item" type="button" @onclick="() => SelectWorkoutSplit(workoutSplit)">
+                @workoutSplit.Name
+            </button>
+        }
+    </div>
+</div>
+
+<div class="dropdown mb-1">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownWorkout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        @SelectedWorkout.Name
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownWorkout" id="dropdownWorkoutMenu">
+        @foreach (var workout in CorrespondingWorkouts)
+        {
+            <button class="dropdown-item" type="button" @onclick="() => SelectWorkout(workout)">
+                @workout.Name
+            </button>
+        }
+    </div>
+</div>
+
+<div class="dropdown mb-1">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownWorkout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        @SelectedExercise.Name
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownWorkout" id="dropdownWorkoutMenu">
+        @foreach (var exercise in CorrespondingExercises)
+        {
+            <button class="dropdown-item" type="button" @onclick="() => SelectExercise(exercise)">
+                @exercise.Name
+            </button>
+        }
+    </div>
+</div>
 
 <SfChart Title="Sales Analysis" Background="#f5f5f5">
     <ChartTitleStyle FontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif"/>
@@ -19,18 +63,34 @@
 </SfChart>
 
 @code {
-    public List<Exercise> ExerciseProgress = new();
+    public ICollection<WorkoutSplit> WorkoutSplits = new List<WorkoutSplit>();
+
+    public WorkoutSplit SelectedWorkoutSplit = new();
+
+    public ICollection<Workout> CorrespondingWorkouts = new List<Workout>();
+
+    public Workout SelectedWorkout = new();
+
+    public ICollection<Exercise> CorrespondingExercises = new List<Exercise>();
+
+    public Exercise SelectedExercise = new();
+
+    public Exercise ExerciseToFilter = new();
+
+
+    public ApplicationUser CurrentUser = new();
+
 
     public List<SalesInfo> Sales = new List<SalesInfo>
-    {
-        new SalesInfo { Month = "Jan", SalesValue = 35 },
-        new SalesInfo { Month = "Feb", SalesValue = 28 },
-        new SalesInfo { Month = "Mar", SalesValue = 34 },
-        new SalesInfo { Month = "Apr", SalesValue = 32 },
-        new SalesInfo { Month = "May", SalesValue = 40 },
-        new SalesInfo { Month = "Jun", SalesValue = 32 },
-        new SalesInfo { Month = "Jul", SalesValue = 35 }
-    };
+{
+    new SalesInfo { Month = "Jan", SalesValue = 35 },
+    new SalesInfo { Month = "Feb", SalesValue = 28 },
+    new SalesInfo { Month = "Mar", SalesValue = 34 },
+    new SalesInfo { Month = "Apr", SalesValue = 32 },
+    new SalesInfo { Month = "May", SalesValue = 40 },
+    new SalesInfo { Month = "Jun", SalesValue = 32 },
+    new SalesInfo { Month = "Jul", SalesValue = 35 }
+};
 
     public class SalesInfo
     {
@@ -40,6 +100,36 @@
 
     protected override async Task OnInitializedAsync()
     {
-    
+        var authstate = await AuthenticationState.GetAuthenticationStateAsync();
+        var user = await UserManager.GetUserAsync(authstate.User);
+
+        if (user != null)
+            CurrentUser = user;
+
+        WorkoutSplits = await Context.WorkoutSplits
+        .Where(ws => ws.ApplicationUserId == CurrentUser.Id)
+        .Include(workoutSplit => workoutSplit.Workouts)
+            .ThenInclude(workout => workout.ExerciseList)
+                .ThenInclude(exercise => exercise.ExerciseSets)
+        .ToListAsync();
+    }
+
+    private void SelectWorkoutSplit(WorkoutSplit workoutSplit)
+    {
+        SelectedWorkoutSplit = workoutSplit;
+        CorrespondingWorkouts = workoutSplit.Workouts;
+    }
+
+    private void SelectWorkout(Workout workout)
+    {
+        SelectedWorkout = workout;
+        CorrespondingExercises = workout.ExerciseList;
+    }
+
+    private void SelectExercise(Exercise exercise)
+    {
+        SelectedExercise = exercise;
+        //maxWeight
+
     }
 }

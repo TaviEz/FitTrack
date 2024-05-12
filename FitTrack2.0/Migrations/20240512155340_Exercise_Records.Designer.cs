@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitTrack2._0.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240511144325_RemoveExerciseDateColumn")]
-    partial class RemoveExerciseDateColumn
+    [Migration("20240512155340_Exercise_Records")]
+    partial class Exercise_Records
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -158,6 +158,33 @@ namespace FitTrack2._0.Migrations
                             Name = "Triceps extensions",
                             WorkoutId = 2
                         });
+                });
+
+            modelBuilder.Entity("FitTrack2._0.Models.ExerciseRecord", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<int>("ExerciseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Repetitions")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Weight")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExerciseId");
+
+                    b.ToTable("ExerciseRecords");
                 });
 
             modelBuilder.Entity("FitTrack2._0.Models.ExerciseSet", b =>
@@ -329,6 +356,9 @@ namespace FitTrack2._0.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -347,6 +377,7 @@ namespace FitTrack2._0.Migrations
                         {
                             Id = 1,
                             Description = "piept si triceps",
+                            IsCompleted = false,
                             Name = "Push day",
                             WorkoutSplitId = 1
                         },
@@ -354,6 +385,7 @@ namespace FitTrack2._0.Migrations
                         {
                             Id = 2,
                             Description = "spate si biceps",
+                            IsCompleted = false,
                             Name = "Pull day",
                             WorkoutSplitId = 1
                         });
@@ -546,6 +578,17 @@ namespace FitTrack2._0.Migrations
                     b.Navigation("Workout");
                 });
 
+            modelBuilder.Entity("FitTrack2._0.Models.ExerciseRecord", b =>
+                {
+                    b.HasOne("FitTrack2._0.Models.Exercise", "Exercise")
+                        .WithMany("ExerciseRecords")
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Exercise");
+                });
+
             modelBuilder.Entity("FitTrack2._0.Models.ExerciseSet", b =>
                 {
                     b.HasOne("FitTrack2._0.Models.Exercise", "Exercise")
@@ -633,6 +676,8 @@ namespace FitTrack2._0.Migrations
 
             modelBuilder.Entity("FitTrack2._0.Models.Exercise", b =>
                 {
+                    b.Navigation("ExerciseRecords");
+
                     b.Navigation("ExerciseSets");
                 });
 

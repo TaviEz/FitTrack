@@ -18,7 +18,7 @@
 
         public Workout()
         {
-            
+            Name = "New Workout";
         }
 
         public Workout(int? workoutSplitId)

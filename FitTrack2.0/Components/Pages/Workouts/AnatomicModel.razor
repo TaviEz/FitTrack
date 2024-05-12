@@ -177,7 +177,7 @@
                                             <!-- Adauga fiecare workoutSplit in dropdown -->
                                             @foreach (var workoutSplit in WorkoutSplits)
                                             {
-                                                <button class="dropdown-item" type="button" @onclick="() => AddToWorkoutSplit(workoutSplit, exercise.Id)">
+                                                <button class="dropdown-item" type="button" @onclick="() => SelectWorkoutSplit(workoutSplit, exercise.Id)">
                                                     @workoutSplit.Name
                                                 </button>
                                             }
@@ -360,7 +360,7 @@
         SelectedMuscleGroup = muscleGroup;
     }
 
-    private void AddToWorkoutSplit(WorkoutSplit workoutSplit, int id)
+    private void SelectWorkoutSplit(WorkoutSplit workoutSplit, int id)
     {
         SelectedWorkoutSplit[id] = workoutSplit.Name;
         CorrespondingWorkouts = workoutSplit.Workouts;

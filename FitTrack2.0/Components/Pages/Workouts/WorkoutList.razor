@@ -106,6 +106,7 @@ else
                 .Where(ws => ws.ApplicationUserId == CurrentUser.Id)
                 .Include(workoutSplit => workoutSplit.Workouts)
                 .ThenInclude(workout => workout.ExerciseList)
+                .ThenInclude(e => e.ExerciseSets)
                 .ToListAsync();
 
         if (Id is not null)
@@ -214,13 +215,19 @@ else
         }
     }
 
+    //TODO: check if the records are saved properly
     private async void SetExerciseDates(Workout workout)
     {
         foreach(var exercise in workout.ExerciseList)
         {
-            exercise.Date = DateOnly.FromDateTime(DateTime.Today);
-        }
+            //exercise.Date = DateOnly.FromDateTime(DateTime.Today);
 
-        await Context.SaveChangesAsync();
+            foreach(var set in exercise.ExerciseSets)
+            {
+                var history = new ExerciseRecord(DateOnly.FromDateTime(DateTime.Today) ,set.Weight, set.Repetitions, set.ExerciseId);
+                Context.ExerciseRecords.Add(history);
+                await Context.SaveChangesAsync();
+            }
+        }
     }
 }

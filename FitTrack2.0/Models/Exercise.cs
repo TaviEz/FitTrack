@@ -1,4 +1,6 @@
-﻿namespace FitTrack2._0.Models
+﻿using Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure;
+
+namespace FitTrack2._0.Models
 {
     public class Exercise
     {
@@ -8,8 +10,6 @@
 
         public string Description { get; set; } = string.Empty;
 
-        public DateOnly Date { get; set; }
-
         public ICollection<ExerciseSet> ExerciseSets { get; set; } = new List<ExerciseSet>();
 
         public int? WorkoutId { get; set; }
@@ -18,8 +18,11 @@
 
         public List<MuscleGroup> MuscleGroups { get; set; } = new();
 
+        public ICollection<ExerciseRecord> ExerciseRecords { get; set; } = new List<ExerciseRecord>();
+
         public Exercise() 
         {
+            Name = "Exercise";
         }
 
         public Exercise(int? workoutId)
