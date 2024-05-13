@@ -62,6 +62,18 @@
     </ChartSeriesCollection>
 </SfChart>
 
+<SfChart Title="Sales Analysis" Background="#f5f5f5">
+    <ChartTitleStyle FontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif" />
+    <ChartPrimaryXAxis Title="Date" ValueType="Syncfusion.Blazor.Charts.ValueType.DateTimeCategory"></ChartPrimaryXAxis>
+    <ChartPrimaryYAxis Title="Weight(kg)"></ChartPrimaryYAxis>
+    <ChartLegendSettings Visible="true"></ChartLegendSettings>
+    <ChartTooltipSettings Enable="true"></ChartTooltipSettings>
+    <ChartSeriesCollection>
+        <ChartSeries DataSource="@ExerciseRecords" Name="Exercise Records" XName="Date" YName="Weight" Type="ChartSeriesType.Column">
+        </ChartSeries>
+    </ChartSeriesCollection>
+</SfChart>
+
 @code {
     public ICollection<WorkoutSplit> WorkoutSplits = new List<WorkoutSplit>();
 
@@ -75,8 +87,7 @@
 
     public Exercise SelectedExercise = new();
 
-    public Exercise ExerciseToFilter = new();
-
+    public List<ExerciseRecord> ExerciseRecords = new(); 
 
     public ApplicationUser CurrentUser = new();
 
@@ -126,10 +137,9 @@
         CorrespondingExercises = workout.ExerciseList;
     }
 
-    private void SelectExercise(Exercise exercise)
+    private async void SelectExercise(Exercise exercise)
     {
         SelectedExercise = exercise;
-        //maxWeight
-
+        ExerciseRecords = await Context.ExerciseRecords.Where(er => er.ExerciseId == exercise.Id).ToListAsync();
     }
 }

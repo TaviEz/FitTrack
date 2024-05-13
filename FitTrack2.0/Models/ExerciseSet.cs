@@ -18,6 +18,12 @@
             ExerciseId = exerciseId;
         }
 
+        public ExerciseSet(int reps, int weight, int exerciseId)
+        {
+            Repetitions = reps;
+            Weight = weight;
+            ExerciseId = exerciseId;
+        }
     }
 
 }

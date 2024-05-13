@@ -191,6 +191,8 @@ else
 
             WorkoutsCompleted += 1;
             CheckIfWorkoutSplitIsCompleted();
+
+            await Context.SaveChangesAsync();
         }
         else
         {
@@ -198,6 +200,7 @@ else
             WorkoutsCompleted -= 1;
             await Context.SaveChangesAsync();
         }
+
     }
 
     private async void CheckIfWorkoutSplitIsCompleted()
@@ -206,7 +209,8 @@ else
         {
             foreach(var workout in CurrentWorkoutSplit.Workouts)
             {
-                await CheckBox_Changed(workout, false);
+                workout.IsCompleted = false;
+                WorkoutsCompleted -= 1;
                 StateHasChanged();
             }
 
@@ -215,19 +219,35 @@ else
         }
     }
 
-    //TODO: check if the records are saved properly
     private async void SetExerciseDates(Workout workout)
     {
         foreach(var exercise in workout.ExerciseList)
         {
-            //exercise.Date = DateOnly.FromDateTime(DateTime.Today);
+            //Add only max records
+            var set = GetMaxWeightPerExercise(exercise);
+            var history = new ExerciseRecord(DateOnly.FromDateTime(DateTime.Today), set.Repetitions, set.Weight, set.ExerciseId);
+            Context.ExerciseRecords.Add(history);
 
-            foreach(var set in exercise.ExerciseSets)
-            {
+            // Add all records
+            /*foreach (var set in exerciseSets)
+                {
                 var history = new ExerciseRecord(DateOnly.FromDateTime(DateTime.Today) ,set.Weight, set.Repetitions, set.ExerciseId);
                 Context.ExerciseRecords.Add(history);
-                await Context.SaveChangesAsync();
-            }
+            }*/
         }
+    }
+
+    private ExerciseSet GetMaxWeightPerExercise(Exercise exercise)
+    {
+        var max = new ExerciseSet(reps: 0, weight: 0, exerciseId: exercise.Id);
+
+        foreach(var set in exercise.ExerciseSets)
+        {
+            // if set weight is > than the max then reinitialize max
+            if (set.Weight > max.Weight || (set.Weight == max.Weight && set.Repetitions > max.Repetitions))
+                max = set;
+        }
+
+        return max;
     }
 }
