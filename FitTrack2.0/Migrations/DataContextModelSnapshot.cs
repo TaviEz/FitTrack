@@ -34,7 +34,7 @@ namespace FitTrack2._0.Migrations
 
                     b.HasIndex("MuscleGroupsId");
 
-                    b.ToTable("ExerciseMuscleGroup", (string)null);
+                    b.ToTable("ExerciseMuscleGroup");
                 });
 
             modelBuilder.Entity("FitTrack2._0.Data.ApplicationUser", b =>
@@ -110,9 +110,6 @@ namespace FitTrack2._0.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateOnly>("Date")
-                        .HasColumnType("date");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -128,13 +125,12 @@ namespace FitTrack2._0.Migrations
 
                     b.HasIndex("WorkoutId");
 
-                    b.ToTable("Exercises", (string)null);
+                    b.ToTable("Exercises");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            Date = new DateOnly(1, 1, 1),
                             Description = "description bench press",
                             Name = "Bench Press",
                             WorkoutId = 1
@@ -142,7 +138,6 @@ namespace FitTrack2._0.Migrations
                         new
                         {
                             Id = 2,
-                            Date = new DateOnly(1, 1, 1),
                             Description = "description Overhead Press",
                             Name = "Overhead Press",
                             WorkoutId = 1
@@ -150,7 +145,6 @@ namespace FitTrack2._0.Migrations
                         new
                         {
                             Id = 3,
-                            Date = new DateOnly(1, 1, 1),
                             Description = "description Triceps extensions",
                             Name = "Triceps extensions",
                             WorkoutId = 2
@@ -181,7 +175,7 @@ namespace FitTrack2._0.Migrations
 
                     b.HasIndex("ExerciseId");
 
-                    b.ToTable("ExerciseRecords", (string)null);
+                    b.ToTable("ExerciseRecords");
                 });
 
             modelBuilder.Entity("FitTrack2._0.Models.ExerciseSet", b =>
@@ -205,7 +199,7 @@ namespace FitTrack2._0.Migrations
 
                     b.HasIndex("ExerciseId");
 
-                    b.ToTable("ExerciseSets", (string)null);
+                    b.ToTable("ExerciseSets");
 
                     b.HasData(
                         new
@@ -270,7 +264,7 @@ namespace FitTrack2._0.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MuscleGroups", (string)null);
+                    b.ToTable("MuscleGroups");
 
                     b.HasData(
                         new
@@ -367,7 +361,7 @@ namespace FitTrack2._0.Migrations
 
                     b.HasIndex("WorkoutSplitId");
 
-                    b.ToTable("Workouts", (string)null);
+                    b.ToTable("Workouts");
 
                     b.HasData(
                         new
@@ -407,7 +401,7 @@ namespace FitTrack2._0.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("WorkoutSplits", (string)null);
+                    b.ToTable("WorkoutSplits");
 
                     b.HasData(
                         new

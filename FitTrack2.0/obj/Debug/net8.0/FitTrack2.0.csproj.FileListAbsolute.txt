@@ -320,3 +320,5 @@ D:\Repos\FitTrack\FitTrack2.0\obj\Debug\net8.0\FitTrack2.0.genruntimeconfig.cach
 D:\Repos\FitTrack\FitTrack2.0\obj\Debug\net8.0\ref\FitTrack2.0.dll
 E:\Developer\C#\FitTrack2.0\FitTrack2.0\obj\Debug\net8.0\scopedcss\Components\Pages\Workouts\AnatomicModel.razor.rz.scp.css
 D:\Repos\FitTrack\FitTrack2.0\obj\Debug\net8.0\scopedcss\Components\Pages\Workouts\AnatomicModel.razor.rz.scp.css
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.Blazor.Calendars.dll
+E:\Developer\C#\FitTrack2.0\FitTrack2.0\bin\Debug\net8.0\Syncfusion.Blazor.Lists.dll

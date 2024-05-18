@@ -70,7 +70,7 @@
         var result = await SignInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
         if (result.Succeeded)
         {
-            NavigationManager.NavigateTo("Account/Manage");
+            NavigationManager.NavigateTo("split-overview");
         }
         else
         {

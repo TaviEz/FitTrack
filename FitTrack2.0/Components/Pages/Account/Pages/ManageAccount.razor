@@ -1,30 +1,110 @@
 ﻿@page "/Account/Manage"
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
 
+@inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationState
 @inject UserManager<ApplicationUser> UserManager
+@inject DataContext Context;
+@inject SignInManager<ApplicationUser> SignInManager
+
 
 <div class="row p-3">
     <div class="col-md-6">
         <div class="form-floating mb-3">
-            <input type="text" value="@username" class="form-control" placeholder="Please choose your username." disabled />
+            <input type="text" @bind-value="@CurrentUsername" class="form-control" placeholder="Please choose your username." />
             <label for="username" class="form-label">Username</label>
         </div>
+        <button type="submit" class="btn btn-primary" @onclick="SaveUsername">Save Username</button>
     </div>
+
+    <StatusMessage Message="@message" />
+    <EditForm Model="Input" OnValidSubmit="OnValidSubmitAsync" method="post">
+        <DataAnnotationsValidator/>
+        <ValidationSummary class="text-danger" role="alert"/>
+        <div class="form-floating mb-3">
+            <InputText type="password" @bind-Value="Input.OldPassword" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Please enter your old password." />
+            <label for="old-password" class="form-label">Old password</label>
+            <ValidationMessage For="() => Input.OldPassword" class="text-danger" />
+        </div>
+        <div class="form-floating mb-3">
+            <InputText type="password" @bind-Value="Input.NewPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Please enter your new password." />
+            <label for="new-password" class="form-label">New password</label>
+            <ValidationMessage For="() => Input.NewPassword" class="text-danger" />
+        </div>
+        <div class="form-floating mb-3">
+            <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Please confirm your new password." />
+            <label for="confirm-password" class="form-label">Confirm password</label>
+            <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
+        </div>
+        <button type="submit" class="w-100 btn btn-lg btn-primary">Update password</button>
+    </EditForm>
 </div>
 
-
 @code {
-    private ApplicationUser user = default!;
+    private string? message;
+    private string? CurrentUsername;
+    private ApplicationUser? CurrentUser;
 
-    private string? username;
-
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
         var authstate = await AuthenticationState.GetAuthenticationStateAsync();
-        var user = await UserManager.GetUserAsync(authstate.User);
-        
-        username = user?.UserName;
+        CurrentUser = await UserManager.GetUserAsync(authstate.User);
+        CurrentUsername = CurrentUser?.UserName;
+    }
+
+    private async void SaveUsername()
+    {
+        if (CurrentUser != null && CurrentUsername != null)
+        {
+            CurrentUser.UserName = CurrentUsername;
+            await Context.SaveChangesAsync();
+            NavigationManager.NavigateTo("Account/Manage");
+        }
+    }
+
+
+    private async Task OnValidSubmitAsync()
+    {
+        var changePasswordResult = await UserManager.ChangePasswordAsync(CurrentUser!, Input.OldPassword, Input.NewPassword);
+        message = GetErrorMessage(changePasswordResult);
+
+        if (message == null)
+        {
+            message = "Your password has been changed";
+            //await SignInManager.RefreshSignInAsync(CurrentUser!);
+            await Context.SaveChangesAsync();
+        }
+    }
+
+    private string GetErrorMessage(IdentityResult changePasswordResult)
+    {
+        if (!changePasswordResult.Succeeded)
+        {
+            return "Error: " + string.Join(",", changePasswordResult.Errors.Select(error => error.Description));
+        }
+        return null;
+    }
+
+
+    private sealed class InputModel
+    {
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Current password")]
+        public string OldPassword { get; set; } = "";
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "New password")]
+        public string NewPassword { get; set; } = "";
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm new password")]
+        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; } = "";
     }
 }

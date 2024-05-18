@@ -7,5 +7,7 @@ namespace FitTrack2._0.Data
     public class ApplicationUser : IdentityUser
     {
         public ICollection<WorkoutSplit>? WorkoutSplits { get; set; } = new List<WorkoutSplit>();
+
+        public string ProfileName = string.Empty;
     }
 }

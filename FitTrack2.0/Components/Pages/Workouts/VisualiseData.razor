@@ -6,75 +6,96 @@
 @inject UserManager<ApplicationUser> UserManager
 
 
-<h3>VisualiseData</h3>
+<div class="p-3" style="background-color:#f5f5f5">
 
-<div class="dropdown mb-1">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownWorkoutSplit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        @SelectedWorkoutSplit.Name
-    </button>
-    <div class="dropdown-menu">
-        @foreach (var workoutSplit in WorkoutSplits)
-        {
-            <button class="dropdown-item" type="button" @onclick="() => SelectWorkoutSplit(workoutSplit)">
-                @workoutSplit.Name
+    <p class="m-4 fs-2">
+        Start by selecting a workout split from the first dropdown, followed by choosing a workout from the second dropdown, and then select an exercise from the third dropdown.
+        The graph displayed illustrates the maximum weight lifted over a user-selected period, offering insights into your progress over time.
+    </p>
+
+    <div class="m-1" style="display: flex;">
+        <div class="dropdown m-1">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownWorkoutSplit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @SelectedWorkoutSplit.Name
             </button>
-        }
+            <div class="dropdown-menu">
+                @foreach (var workoutSplit in WorkoutSplits)
+                {
+                    <button class="dropdown-item" type="button" @onclick="() => SelectWorkoutSplit(workoutSplit)">
+                        @workoutSplit.Name
+                    </button>
+                }
+            </div>
+        </div>
+
+        <div class="dropdown m-1">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownWorkout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @SelectedWorkout.Name
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownWorkout" id="dropdownWorkoutMenu">
+                @foreach (var workout in CorrespondingWorkouts)
+                {
+                    <button class="dropdown-item" type="button" @onclick="() => SelectWorkout(workout)">
+                        @workout.Name
+                    </button>
+                }
+            </div>
+        </div>
+
+        <div class="dropdown m-1">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownWorkout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @SelectedExercise.Name
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownWorkout" id="dropdownWorkoutMenu">
+                @foreach (var exercise in CorrespondingExercises)
+                {
+                    <button class="dropdown-item" type="button" @onclick="() => DisplayExerciseRecords(exercise)">
+                        @exercise.Name
+                    </button>
+                }
+            </div>
+        </div>
     </div>
+
+    <SfDatePicker TValue="DateTime?" Value="@StartDate" style="width: 373;">
+        <DatePickerEvents TValue="DateTime?" ValueChange="dp => DatePickerOnChange(dp)" />
+    </SfDatePicker>
+
+    <SfChart @attributes="@chartAttributes" Background="#f5f5f5">
+        <ChartTitleStyle FontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif" />
+
+        <ChartPrimaryXAxis Format="d MMM yyyy" ValueType="Syncfusion.Blazor.Charts.ValueType.DateTimeCategory" />
+        <ChartPrimaryYAxis></ChartPrimaryYAxis>
+
+        <ChartSeriesCollection>
+            <ChartSeries DataSource="@ExerciseRecords" Name="Weight" XName="Date" YName="Weight" ColumnWidth="0.7" ColumnSpacing="0.1" Type="ChartSeriesType.Column">
+                <ChartMarker>
+                    <ChartDataLabel Visible="true" Position="LabelPosition.Top">
+                        <ChartDataLabelFont Color="#ffffff" FontWeight="600"></ChartDataLabelFont>
+                    </ChartDataLabel>
+                </ChartMarker>
+            </ChartSeries>
+            <ChartSeries DataSource="@ExerciseRecords" Name="Repetitions" XName="Date" YName="Repetitions" ColumnWidth="0.5" ColumnSpacing="0.1" Type="ChartSeriesType.Column">
+                <ChartMarker>
+                    <ChartDataLabel Visible="true" Position="LabelPosition.Top">
+                        <ChartDataLabelFont Color="#ffffff" FontWeight="600"></ChartDataLabelFont>
+                    </ChartDataLabel>
+                </ChartMarker>
+            </ChartSeries>
+        </ChartSeriesCollection>
+
+        <ChartLegendSettings Visible="true" />
+        <ChartTooltipSettings Enable="true" />
+
+    </SfChart>
+
 </div>
 
-<div class="dropdown mb-1">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownWorkout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        @SelectedWorkout.Name
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownWorkout" id="dropdownWorkoutMenu">
-        @foreach (var workout in CorrespondingWorkouts)
-        {
-            <button class="dropdown-item" type="button" @onclick="() => SelectWorkout(workout)">
-                @workout.Name
-            </button>
-        }
-    </div>
-</div>
 
-<div class="dropdown mb-1">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownWorkout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        @SelectedExercise.Name
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownWorkout" id="dropdownWorkoutMenu">
-        @foreach (var exercise in CorrespondingExercises)
-        {
-            <button class="dropdown-item" type="button" @onclick="() => SelectExercise(exercise)">
-                @exercise.Name
-            </button>
-        }
-    </div>
-</div>
-
-<SfChart Title="Sales Analysis" Background="#f5f5f5">
-    <ChartTitleStyle FontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif"/>
-    <ChartPrimaryXAxis Title="Month" ValueType="Syncfusion.Blazor.Charts.ValueType.Category"></ChartPrimaryXAxis>
-    <ChartPrimaryYAxis Title="Sales in Dollar"></ChartPrimaryYAxis>
-    <ChartLegendSettings Visible="true"></ChartLegendSettings>
-    <ChartTooltipSettings Enable="true"></ChartTooltipSettings>
-    <ChartSeriesCollection>
-        <ChartSeries DataSource="@Sales" Name="Sales" XName="Month" YName="SalesValue" Type="ChartSeriesType.Column">
-        </ChartSeries>
-    </ChartSeriesCollection>
-</SfChart>
-
-<SfChart Title="Sales Analysis" Background="#f5f5f5">
-    <ChartTitleStyle FontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif" />
-    <ChartPrimaryXAxis Title="Date" ValueType="Syncfusion.Blazor.Charts.ValueType.DateTimeCategory"></ChartPrimaryXAxis>
-    <ChartPrimaryYAxis Title="Weight(kg)"></ChartPrimaryYAxis>
-    <ChartLegendSettings Visible="true"></ChartLegendSettings>
-    <ChartTooltipSettings Enable="true"></ChartTooltipSettings>
-    <ChartSeriesCollection>
-        <ChartSeries DataSource="@ExerciseRecords" Name="Exercise Records" XName="Date" YName="Weight" Type="ChartSeriesType.Column">
-        </ChartSeries>
-    </ChartSeriesCollection>
-</SfChart>
 
 @code {
+    // schimba widthul datePickerului sa fie acelasi cu dropdownurile
+
     public ICollection<WorkoutSplit> WorkoutSplits = new List<WorkoutSplit>();
 
     public WorkoutSplit SelectedWorkoutSplit = new();
@@ -87,26 +108,22 @@
 
     public Exercise SelectedExercise = new();
 
-    public List<ExerciseRecord> ExerciseRecords = new(); 
+    private string defaultExerciseName = string.Empty;
+
+    public List<ChartData> ExerciseRecords = new(); 
+
+    private Dictionary<string, object> chartAttributes = new Dictionary<string, object>();
 
     public ApplicationUser CurrentUser = new();
 
+    public DateTime? StartDate = new();
 
-    public List<SalesInfo> Sales = new List<SalesInfo>
-{
-    new SalesInfo { Month = "Jan", SalesValue = 35 },
-    new SalesInfo { Month = "Feb", SalesValue = 28 },
-    new SalesInfo { Month = "Mar", SalesValue = 34 },
-    new SalesInfo { Month = "Apr", SalesValue = 32 },
-    new SalesInfo { Month = "May", SalesValue = 40 },
-    new SalesInfo { Month = "Jun", SalesValue = 32 },
-    new SalesInfo { Month = "Jul", SalesValue = 35 }
-};
 
-    public class SalesInfo
+    public class ChartData
     {
-        public string Month { get; set; }
-        public double SalesValue { get; set; }
+        public DateTime Date { get; set; }
+        public int Weight { get; set; }
+        public int Repetitions { get; set; }
     }
 
     protected override async Task OnInitializedAsync()
@@ -123,6 +140,10 @@
             .ThenInclude(workout => workout.ExerciseList)
                 .ThenInclude(exercise => exercise.ExerciseSets)
         .ToListAsync();
+
+        defaultExerciseName = "Exercise";
+
+        SelectDefaultExercise(WorkoutSplits);
     }
 
     private void SelectWorkoutSplit(WorkoutSplit workoutSplit)
@@ -137,9 +158,42 @@
         CorrespondingExercises = workout.ExerciseList;
     }
 
-    private async void SelectExercise(Exercise exercise)
+    private async void DisplayExerciseRecords(Exercise exercise)
     {
+        //default display: display history from the first exercise record of the selected exercise
+        if (SelectedExercise.Name == defaultExerciseName)
+        {
+            var firstExerciseRecord = Context.ExerciseRecords.Where(er => er.ExerciseId == exercise.Id).FirstOrDefault();
+
+            StartDate = new DateTime(firstExerciseRecord.Date.Year, firstExerciseRecord.Date.Month, firstExerciseRecord.Date.Day);
+        }
+
         SelectedExercise = exercise;
-        ExerciseRecords = await Context.ExerciseRecords.Where(er => er.ExerciseId == exercise.Id).ToListAsync();
+        chartAttributes["Title"] = $"Track progress on {SelectedExercise.Name}";
+
+        var exerciseRecords = await Context.ExerciseRecords.Where(er => er.ExerciseId == exercise.Id && er.Date >= DateOnly.FromDateTime(StartDate!.Value)).ToListAsync();
+
+        ExerciseRecords = exerciseRecords.Select(er => new ChartData
+            {
+                Date = new DateTime(er.Date.Year, er.Date.Month, er.Date.Day),
+                Weight = er.Weight,
+                Repetitions = er.Repetitions
+            }).ToList();
+
+        StateHasChanged();
+    }
+
+    private void SelectDefaultExercise(ICollection<WorkoutSplit> WorkwoutSplits)
+    {
+
+        SelectWorkoutSplit(WorkoutSplits.FirstOrDefault()!);
+        SelectWorkout(SelectedWorkoutSplit.Workouts.FirstOrDefault()!);
+        DisplayExerciseRecords(SelectedWorkout.ExerciseList.FirstOrDefault()!);
+    }
+
+    private void DatePickerOnChange(Syncfusion.Blazor.Calendars.ChangedEventArgs<DateTime?> args)
+    {
+        StartDate = args.Value;
+        DisplayExerciseRecords(SelectedExercise);
     }
 }

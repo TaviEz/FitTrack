@@ -67,7 +67,7 @@ else
                             </button>
                         </td>
                         <td>
-                            <input type="checkbox" @onchange="eventArgs => CheckBox_Changed(workout, eventArgs.Value)" checked="@workout.IsCompleted"/>
+                            <input type="checkbox" @onchange="eventArgs => CheckBox_Changed(workout, eventArgs.Value ?? false)" checked="@workout.IsCompleted" />
                         </td>
                     </tr>
                 }
@@ -92,7 +92,7 @@ else
 
     int WorkoutsCompleted = 0;
 
-    SfToast ToastObj;
+    SfToast ToastObj = new();
 
     protected override async Task OnParametersSetAsync()
     {
@@ -117,9 +117,18 @@ else
                 CurrentWorkoutSplit = defaultWorkoutSplit;
         }
         else
-            NavigationManager.NavigateTo($"split-overview/{WorkoutSplits.FirstOrDefault().Id}");
+        {
+            var firstWorkoutSplit = WorkoutSplits.FirstOrDefault();
+
+            if (firstWorkoutSplit != null)
+            {
+                NavigationManager.NavigateTo($"split-overview/{firstWorkoutSplit.Id}");
+            }
+
+        }
 
 
+        //count the number of workouts completed on initialization
         foreach(var workout in CurrentWorkoutSplit.Workouts)
         {
             if (workout.IsCompleted == true)
@@ -219,7 +228,7 @@ else
         }
     }
 
-    private async void SetExerciseDates(Workout workout)
+    private void SetExerciseDates(Workout workout)
     {
         foreach(var exercise in workout.ExerciseList)
         {
@@ -227,13 +236,6 @@ else
             var set = GetMaxWeightPerExercise(exercise);
             var history = new ExerciseRecord(DateOnly.FromDateTime(DateTime.Today), set.Repetitions, set.Weight, set.ExerciseId);
             Context.ExerciseRecords.Add(history);
-
-            // Add all records
-            /*foreach (var set in exerciseSets)
-                {
-                var history = new ExerciseRecord(DateOnly.FromDateTime(DateTime.Today) ,set.Weight, set.Repetitions, set.ExerciseId);
-                Context.ExerciseRecords.Add(history);
-            }*/
         }
     }
 

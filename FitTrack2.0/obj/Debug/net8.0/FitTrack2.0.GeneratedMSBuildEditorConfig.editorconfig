@@ -9,79 +9,79 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = FitTrack2.0
 build_property.RootNamespace = FitTrack2.0
-build_property.ProjectDir = D:\Repos\FitTrack\FitTrack2.0\
+build_property.ProjectDir = E:\Developer\C#\FitTrack2.0\FitTrack2.0\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Repos\FitTrack\FitTrack2.0
+build_property.MSBuildProjectDirectory = E:\Developer\C#\FitTrack2.0\FitTrack2.0
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Repos/FitTrack/FitTrack2.0/Components/App.razor]
+[E:/Developer/C\#/FitTrack2.0/FitTrack2.0/Components/App.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repos/FitTrack/FitTrack2.0/Components/Pages/Account/Pages/Login.razor]
+[E:/Developer/C\#/FitTrack2.0/FitTrack2.0/Components/Pages/Account/Pages/Login.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBY2NvdW50XFBhZ2VzXExvZ2luLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repos/FitTrack/FitTrack2.0/Components/Pages/Account/Pages/ManageAccount.razor]
+[E:/Developer/C\#/FitTrack2.0/FitTrack2.0/Components/Pages/Account/Pages/ManageAccount.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBY2NvdW50XFBhZ2VzXE1hbmFnZUFjY291bnQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repos/FitTrack/FitTrack2.0/Components/Pages/Account/Pages/Register.razor]
+[E:/Developer/C\#/FitTrack2.0/FitTrack2.0/Components/Pages/Account/Pages/Register.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBY2NvdW50XFBhZ2VzXFJlZ2lzdGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repos/FitTrack/FitTrack2.0/Components/Pages/Default Template/Error.razor]
+[E:/Developer/C\#/FitTrack2.0/FitTrack2.0/Components/Pages/Default Template/Error.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xEZWZhdWx0IFRlbXBsYXRlXEVycm9yLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repos/FitTrack/FitTrack2.0/Components/Pages/Default Template/Weather.razor]
+[E:/Developer/C\#/FitTrack2.0/FitTrack2.0/Components/Pages/Default Template/Weather.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xEZWZhdWx0IFRlbXBsYXRlXFdlYXRoZXIucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repos/FitTrack/FitTrack2.0/Components/Pages/Index.razor]
+[E:/Developer/C\#/FitTrack2.0/FitTrack2.0/Components/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xJbmRleC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repos/FitTrack/FitTrack2.0/Components/Pages/StatusMessage.razor]
+[E:/Developer/C\#/FitTrack2.0/FitTrack2.0/Components/Pages/StatusMessage.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTdGF0dXNNZXNzYWdlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repos/FitTrack/FitTrack2.0/Components/Pages/Workouts/VisualiseData.razor]
+[E:/Developer/C\#/FitTrack2.0/FitTrack2.0/Components/Pages/Workouts/VisualiseData.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xXb3Jrb3V0c1xWaXN1YWxpc2VEYXRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repos/FitTrack/FitTrack2.0/Components/Pages/Workouts/WorkoutList.razor]
+[E:/Developer/C\#/FitTrack2.0/FitTrack2.0/Components/Pages/Workouts/WorkoutList.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xXb3Jrb3V0c1xXb3Jrb3V0TGlzdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repos/FitTrack/FitTrack2.0/Components/Pages/Workouts/WorkoutOverview.razor]
+[E:/Developer/C\#/FitTrack2.0/FitTrack2.0/Components/Pages/Workouts/WorkoutOverview.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xXb3Jrb3V0c1xXb3Jrb3V0T3ZlcnZpZXcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repos/FitTrack/FitTrack2.0/Components/Routes.razor]
+[E:/Developer/C\#/FitTrack2.0/FitTrack2.0/Components/Routes.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSb3V0ZXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repos/FitTrack/FitTrack2.0/Components/_Imports.razor]
+[E:/Developer/C\#/FitTrack2.0/FitTrack2.0/Components/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xfSW1wb3J0cy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repos/FitTrack/FitTrack2.0/Components/Layout/MainLayout.razor]
+[E:/Developer/C\#/FitTrack2.0/FitTrack2.0/Components/Layout/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTWFpbkxheW91dC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-bht8j7cdk6
 
-[D:/Repos/FitTrack/FitTrack2.0/Components/Layout/NavMenu.razor]
+[E:/Developer/C\#/FitTrack2.0/FitTrack2.0/Components/Layout/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-785smq7yz0
 
-[D:/Repos/FitTrack/FitTrack2.0/Components/Pages/Home.razor]
+[E:/Developer/C\#/FitTrack2.0/FitTrack2.0/Components/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-1xlzoqqpl2
 
-[D:/Repos/FitTrack/FitTrack2.0/Components/Pages/Workouts/AnatomicModel.razor]
+[E:/Developer/C\#/FitTrack2.0/FitTrack2.0/Components/Pages/Workouts/AnatomicModel.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xXb3Jrb3V0c1xBbmF0b21pY01vZGVsLnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-l36826wmwg

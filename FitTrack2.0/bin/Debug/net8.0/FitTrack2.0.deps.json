@@ -13,6 +13,7 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.3",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.3",
           "Syncfusion.Blazor.Buttons": "25.1.39",
+          "Syncfusion.Blazor.Calendars": "25.1.39",
           "Syncfusion.Blazor.Charts": "25.1.39",
           "Syncfusion.Blazor.DropDowns": "25.1.39",
           "Syncfusion.Blazor.Notifications": "25.1.39",
@@ -725,6 +726,20 @@
           }
         }
       },
+      "Syncfusion.Blazor.Calendars/25.1.39": {
+        "dependencies": {
+          "Syncfusion.Blazor.Buttons": "25.1.39",
+          "Syncfusion.Blazor.Core": "25.1.39",
+          "Syncfusion.Blazor.Inputs": "25.1.39",
+          "Syncfusion.Blazor.Lists": "25.1.39"
+        },
+        "runtime": {
+          "lib/net8.0/Syncfusion.Blazor.Calendars.dll": {
+            "assemblyVersion": "25.1.39.0",
+            "fileVersion": "25.1.39.0"
+          }
+        }
+      },
       "Syncfusion.Blazor.Charts/25.1.39": {
         "dependencies": {
           "Syncfusion.Blazor.Core": "25.1.39",
@@ -801,6 +816,19 @@
         },
         "runtime": {
           "lib/net8.0/Syncfusion.Blazor.Inputs.dll": {
+            "assemblyVersion": "25.1.39.0",
+            "fileVersion": "25.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.Blazor.Lists/25.1.39": {
+        "dependencies": {
+          "Syncfusion.Blazor.Buttons": "25.1.39",
+          "Syncfusion.Blazor.Core": "25.1.39",
+          "Syncfusion.Blazor.Data": "25.1.39"
+        },
+        "runtime": {
+          "lib/net8.0/Syncfusion.Blazor.Lists.dll": {
             "assemblyVersion": "25.1.39.0",
             "fileVersion": "25.1.39.0"
           }
@@ -1541,6 +1569,13 @@
       "path": "syncfusion.blazor.buttons/25.1.39",
       "hashPath": "syncfusion.blazor.buttons.25.1.39.nupkg.sha512"
     },
+    "Syncfusion.Blazor.Calendars/25.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-inmBDy3Zc85puv/oMWYll1/AjRUYvk6Xhkd9UPHe1ubpavsfZZQlDc+Sl22ooLTsDRdcOGSLNT20GRdv8OPonA==",
+      "path": "syncfusion.blazor.calendars/25.1.39",
+      "hashPath": "syncfusion.blazor.calendars.25.1.39.nupkg.sha512"
+    },
     "Syncfusion.Blazor.Charts/25.1.39": {
       "type": "package",
       "serviceable": true,
@@ -1582,6 +1617,13 @@
       "sha512": "sha512-5TA8C0ZUr+1bz+v+uL0KCQK7CcEDiO+WCmFc8Z6UKXKOiryM9xocNO75hxF5+Fuk3CgRB00jtJw+DmP9KxQGkQ==",
       "path": "syncfusion.blazor.inputs/25.1.39",
       "hashPath": "syncfusion.blazor.inputs.25.1.39.nupkg.sha512"
+    },
+    "Syncfusion.Blazor.Lists/25.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0Kq84dfbo+mKCf4P2Py+WSrX6xYCjOENfnPV/wb+87XycpyATcoIvuvk0T0d52fPB2d7sxAxYpCuZsmSVatAvg==",
+      "path": "syncfusion.blazor.lists/25.1.39",
+      "hashPath": "syncfusion.blazor.lists.25.1.39.nupkg.sha512"
     },
     "Syncfusion.Blazor.Notifications/25.1.39": {
       "type": "package",

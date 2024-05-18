@@ -1,6 +1,7 @@
 ﻿@inject NavigationManager NavigationManager
-@inject DataContext Context
+@inject AuthenticationStateProvider AuthenticationState
 @inject UserManager<ApplicationUser> UserManager
+@inject DataContext Context;
 
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
@@ -19,11 +20,7 @@
         <AuthorizeView>
             <Authorized>
                 <div class="nav-item px-3">
-                    @if (context != null)
-                    {
-                        email = context.User.Identity?.Name;
-                    }
-                    <NavLink class="nav-link" href="@($"split-overview/{GetFirstWorkoutSplitId()}")">
+                    <NavLink class="nav-link" href="@($"split-overview")">
                         <span class="bi bi-list-nested-nav-menu"/>
                         Workout Split Overview
                     </NavLink>
@@ -42,17 +39,21 @@
                         </svg>Visualize Data
                     </NavLink>
                 </div>
-                <div class="nav-item px-3">
+
+                @*
+                    Removed account page because changing username password normalized email
+                    <div class="nav-item px-3">
                     <NavLink class="nav-link" href="Account/Manage">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                        </svg>@email
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                    </svg>@userName
                     </NavLink>
-                </div>
+                    </div>
+                *@
                 <div class="nav-item px-3">
                     <form action="Account/Logout" method="post">
                         <AntiforgeryToken />
-                        <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                        <input type="hidden" name="ReturnUrl"/>
                         <button type="submit" class="nav-link">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5" />
@@ -82,55 +83,22 @@
     </nav>
 </div>
 
+@*
+    //TODO: add icons for login and register
+*@
 
 @code
 {
-    private string? currentUrl;
+    private string? userName;
 
-    private string? email;
+    private ApplicationUser? CurrentUser;
 
-    protected override void OnInitialized()
+
+    protected override async Task OnInitializedAsync()
     {
-        currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
-        NavigationManager.LocationChanged += OnLocationChanged;
+        var authstate = await AuthenticationState.GetAuthenticationStateAsync();
+        CurrentUser = await UserManager.GetUserAsync(authstate.User);
+        userName = CurrentUser?.UserName;
     }
-
-    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
-    {
-        currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
-        StateHasChanged();
-    }
-
-    private int? GetFirstWorkoutSplitId()
-    {
-        //salvez userul ce are emailul cu cel stocat in variabila "email"
-        //include si workoutSpliturile
-
-        var user = UserManager.Users.Include(u => u.WorkoutSplits).FirstOrDefault(u => u.Email == email);
-
-        if (user == null)
-        {
-            return null;
-        }
-        else
-        {
-            //daca nu exista workoutSplituri
-            if (user.WorkoutSplits == null || user.WorkoutSplits.Count == 0)
-            {
-                var workoutSplitToAdd = new WorkoutSplit(userId: user.Id);
-                Context.WorkoutSplits.Add(workoutSplitToAdd);
-                Context.SaveChanges();
-            }
-
-            var firstWorkoutSplit = user.WorkoutSplits?.FirstOrDefault();
-
-            if (firstWorkoutSplit == null)
-                return null;
-
-        
-            return firstWorkoutSplit.Id;
-        }
-    }
-
 
 }
