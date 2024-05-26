@@ -1,18 +1,15 @@
 ﻿@page "/"
 
-@rendermode @(new InteractiveServerRenderMode(prerender: false))
-
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationState
-@inject UserManager<ApplicationUser> UserManager
 
 @code {
     protected override async Task OnInitializedAsync()
     {
         var authstate = await AuthenticationState.GetAuthenticationStateAsync();
-        var user = await UserManager.GetUserAsync(authstate.User);
+        var user = authstate.User;
 
-        if (user == null)
+        if (user?.Identity?.IsAuthenticated == false)
         {
             NavigationManager.NavigateTo("/home");
         }

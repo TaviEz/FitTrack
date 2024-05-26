@@ -22,8 +22,6 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(conne
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<AuthenticationStateProvider, ServerAuthenticationStateProvider>();
 
-//builder.Services.AddScoped<CircuitHandler, ScriptManagerCircuitHandler>();
-
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(options =>
 {
