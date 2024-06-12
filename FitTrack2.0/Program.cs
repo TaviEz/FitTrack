@@ -5,11 +5,7 @@ using Microsoft.AspNetCore.Components.Server;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Syncfusion.Blazor;
-using Microsoft.AspNetCore.Components.Server.Circuits;
 using FitTrack2._0.Services;
-
-
-//TODO: aranjeaza in ordinea recomandata de microsoft injecturile si page urlurile din fiecare page
 
 var builder = WebApplication.CreateBuilder(args);
 

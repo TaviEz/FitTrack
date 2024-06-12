@@ -1,13 +1,11 @@
 ﻿@page "/split-overview"
 @page "/split-overview/{Id:int}"
-
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
 @inject DataContext Context
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationState
 @inject UserManager<ApplicationUser> UserManager
 @inject INotificationMessage NotifcationMessage
-
-@rendermode @(new InteractiveServerRenderMode(prerender: false))
 
 <head>
     <script src="https://kit.fontawesome.com/8d42c9993f.js" crossorigin="anonymous"></script>
@@ -67,7 +65,7 @@ else
                             </button>
                         </td>
                         <td>
-                            <input type="checkbox" @onchange="eventArgs => CheckBox_Changed(workout, eventArgs.Value ?? false)" checked="@workout.IsCompleted" />
+                            <input type="checkbox" @onchange="eventArgs => WorkoutState_Changed(workout, eventArgs.Value ?? false)" checked="@workout.IsCompleted" />
                         </td>
                     </tr>
                 }
@@ -127,14 +125,12 @@ else
 
         }
 
-
         //count the number of workouts completed on initialization
         foreach(var workout in CurrentWorkoutSplit.Workouts)
         {
             if (workout.IsCompleted == true)
                 WorkoutsCompleted += 1;
         }
-
     }
 
     async Task AddWorkoutSplit()
@@ -188,28 +184,35 @@ else
         await Context.SaveChangesAsync();
     }
 
-    private async Task CheckBox_Changed(Workout workout, object checkedValue)
+    private async Task WorkoutState_Changed(Workout workout, object checkedValue)
     {
+        workout.IsCompleted = (bool)checkedValue;
+        await Context.SaveChangesAsync();
+
         if((bool)checkedValue == true)
         {
-            workout.IsCompleted = true;
-            await Context.SaveChangesAsync();
-
             //set completion date for each exercise in the workout
-            SetExerciseDates(workout);
+            var datesAreSet = SetExerciseDates(workout);
 
-            WorkoutsCompleted += 1;
-            CheckIfWorkoutSplitIsCompleted();
+            if (datesAreSet == true)
+            {
+                WorkoutsCompleted += 1;
+                CheckIfWorkoutSplitIsCompleted();
+            }
+            //if the SetExerciseDate is false then reps for the exercise are set to 0 => message for the user
+            else
+            {
+                workout.IsCompleted = false;
+                await Context.SaveChangesAsync();
 
-            await Context.SaveChangesAsync();
+                NotifcationMessage.toastModelFailed.Content = $"Failed to finish {workout.Name}! Set the repetitions for this exercise before marking it as completed";
+                await this.ToastObj.ShowAsync(NotifcationMessage.toastModelFailed);
+            }
         }
         else
         {
-            workout.IsCompleted = false;
             WorkoutsCompleted -= 1;
-            await Context.SaveChangesAsync();
         }
-
     }
 
     private async void CheckIfWorkoutSplitIsCompleted()
@@ -220,23 +223,30 @@ else
             {
                 workout.IsCompleted = false;
                 WorkoutsCompleted -= 1;
-                StateHasChanged();
             }
+
+            await Context.SaveChangesAsync();
 
             NotifcationMessage.toastModelSuccessfull.Content = $"Congratulations!\n You have completed {CurrentWorkoutSplit.Name} workout split.";
             await this.ToastObj.ShowAsync(NotifcationMessage.toastModelSuccessfull);
         }
     }
 
-    private void SetExerciseDates(Workout workout)
+    private bool SetExerciseDates(Workout workout)
     {
         foreach(var exercise in workout.ExerciseList)
         {
             //Add only max records
             var set = GetMaxWeightPerExercise(exercise);
+
+            if (set.Repetitions <= 0)
+                return false;
+
             var history = new ExerciseRecord(DateOnly.FromDateTime(DateTime.Today), set.Repetitions, set.Weight, set.ExerciseId);
             Context.ExerciseRecords.Add(history);
         }
+
+        return true;
     }
 
     private ExerciseSet GetMaxWeightPerExercise(Exercise exercise)

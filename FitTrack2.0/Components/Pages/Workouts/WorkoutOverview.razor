@@ -1,19 +1,14 @@
 ﻿@page "/edit-workout"
 @page "/edit-workout/{Id:int}"
-
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
-
 @inject DataContext Context
 @inject INotificationMessage NotificationMessage
-
 
 <head>
     <script src="https://kit.fontawesome.com/8d42c9993f.js" crossorigin="anonymous"></script>
 </head>
 
-
 <PageTitle>Edit @CurrentWorkout.Name</PageTitle>
-
 
 @if (Id is null)
 {

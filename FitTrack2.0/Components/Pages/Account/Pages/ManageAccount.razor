@@ -1,12 +1,10 @@
 ﻿@page "/Account/Manage"
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
-
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationState
 @inject UserManager<ApplicationUser> UserManager
 @inject DataContext Context;
 @inject SignInManager<ApplicationUser> SignInManager
-
 
 <div class="row p-3">
     <div class="col-md-6">

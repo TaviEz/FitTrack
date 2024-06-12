@@ -1,6 +1,5 @@
 ﻿@page "/anatomic-model"
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
-
 @inject DataContext Context;
 @inject AuthenticationStateProvider AuthenticationState
 @inject UserManager<ApplicationUser> UserManager
@@ -355,7 +354,7 @@
         .Include(exercise => exercise.MuscleGroups) // Include lista de grupe musculare asociate fiecărui exercițiu
         .ToListAsync();
 
-        Exercises = exercises.DistinctBy(exercise => exercise.Name).ToList(); // elimin exercitiile cu acelasi nume
+        Exercises = exercises.DistinctBy(exercise => exercise.Name).ToList(); // elimin exercitiile cu acelasi nume pentru cazul in care se regaseste acelasi exercitiu in mai multe antrenamente
 
         SelectedMuscleGroup = muscleGroup;
     }

@@ -1,10 +1,8 @@
 ﻿@page "/visualize-data"
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
-
 @inject DataContext Context;
 @inject AuthenticationStateProvider AuthenticationState
 @inject UserManager<ApplicationUser> UserManager
-
 
 <div class="p-3" style="background-color:#f5f5f5">
 
@@ -57,37 +55,56 @@
         </div>
     </div>
 
-    <SfDatePicker TValue="DateTime?" Value="@StartDate" style="width: 373;">
-        <DatePickerEvents TValue="DateTime?" ValueChange="dp => DatePickerOnChange(dp)" />
-    </SfDatePicker>
+    @if(!DisplayCalendar)
+    {
+        <p>
+            @SelectedExercise.Name has no records at all.
+        </p>
+    }
+    else
+    {
+        <SfDatePicker TValue="DateTime?" Value="@StartDate" style="width: 373;">
+            <DatePickerEvents TValue="DateTime?" ValueChange="dp => DatePickerOnChange(dp)" />
+        </SfDatePicker>
 
-    <SfChart @attributes="@chartAttributes" Background="#f5f5f5">
-        <ChartTitleStyle FontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif" />
+        @if (!HasHistoricalData)
+        {
+            <p>
+                @SelectedExercise.Name has no records on the selected date.
+            </p>
+        }
+        else
+        {
+            <SfChart @attributes="@chartAttributes" Background="#f5f5f5">
+                <ChartTitleStyle FontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif" />
 
-        <ChartPrimaryXAxis Format="d MMM yyyy" ValueType="Syncfusion.Blazor.Charts.ValueType.DateTimeCategory" />
-        <ChartPrimaryYAxis></ChartPrimaryYAxis>
+                <ChartPrimaryXAxis Format="d MMM yyyy" ValueType="Syncfusion.Blazor.Charts.ValueType.DateTimeCategory" />
+                <ChartPrimaryYAxis></ChartPrimaryYAxis>
 
-        <ChartSeriesCollection>
-            <ChartSeries DataSource="@ExerciseRecords" Name="Weight" XName="Date" YName="Weight" ColumnWidth="0.7" ColumnSpacing="0.1" Type="ChartSeriesType.Column">
-                <ChartMarker>
-                    <ChartDataLabel Visible="true" Position="LabelPosition.Top">
-                        <ChartDataLabelFont Color="#ffffff" FontWeight="600"></ChartDataLabelFont>
-                    </ChartDataLabel>
-                </ChartMarker>
-            </ChartSeries>
-            <ChartSeries DataSource="@ExerciseRecords" Name="Repetitions" XName="Date" YName="Repetitions" ColumnWidth="0.5" ColumnSpacing="0.1" Type="ChartSeriesType.Column">
-                <ChartMarker>
-                    <ChartDataLabel Visible="true" Position="LabelPosition.Top">
-                        <ChartDataLabelFont Color="#ffffff" FontWeight="600"></ChartDataLabelFont>
-                    </ChartDataLabel>
-                </ChartMarker>
-            </ChartSeries>
-        </ChartSeriesCollection>
+                <ChartSeriesCollection>
+                    <ChartSeries DataSource="@ExerciseRecords" Name="Weight" XName="Date" YName="Weight" ColumnWidth="0.7" ColumnSpacing="0.1" Type="ChartSeriesType.Column">
+                        <ChartMarker>
+                            <ChartDataLabel Visible="true" Position="LabelPosition.Top">
+                                <ChartDataLabelFont Color="#ffffff" FontWeight="600"></ChartDataLabelFont>
+                            </ChartDataLabel>
+                        </ChartMarker>
+                    </ChartSeries>
+                    <ChartSeries DataSource="@ExerciseRecords" Name="Repetitions" XName="Date" YName="Repetitions" ColumnWidth="0.5" ColumnSpacing="0.1" Type="ChartSeriesType.Column">
+                        <ChartMarker>
+                            <ChartDataLabel Visible="true" Position="LabelPosition.Top">
+                                <ChartDataLabelFont Color="#ffffff" FontWeight="600"></ChartDataLabelFont>
+                            </ChartDataLabel>
+                        </ChartMarker>
+                    </ChartSeries>
+                </ChartSeriesCollection>
 
-        <ChartLegendSettings Visible="true" />
-        <ChartTooltipSettings Enable="true" />
+                <ChartLegendSettings Visible="true" />
+                <ChartTooltipSettings Enable="true" />
 
-    </SfChart>
+            </SfChart>
+        }
+    }
+
 
 </div>
 
@@ -118,6 +135,10 @@
 
     public DateTime? StartDate = new();
 
+    private bool HasHistoricalData = true;
+
+    private bool DisplayCalendar = true;
+
 
     public class ChartData
     {
@@ -141,38 +162,61 @@
                 .ThenInclude(exercise => exercise.ExerciseSets)
         .ToListAsync();
 
-        defaultExerciseName = "Exercise";
+        defaultExerciseName = "Select Exercise";
 
-        SelectDefaultExercise(WorkoutSplits);
+        //Select the first workout split by default
+        SelectWorkoutSplit(WorkoutSplits.FirstOrDefault()!);
     }
 
     private void SelectWorkoutSplit(WorkoutSplit workoutSplit)
     {
         SelectedWorkoutSplit = workoutSplit;
         CorrespondingWorkouts = workoutSplit.Workouts;
+
+        //Whenever user changes workout split
+        //Select the first workout from the selected workoutSplit
+        SelectWorkout(SelectedWorkoutSplit.Workouts.FirstOrDefault()!);
     }
 
     private void SelectWorkout(Workout workout)
     {
         SelectedWorkout = workout;
         CorrespondingExercises = workout.ExerciseList;
+
+        // Whenever user changes workout, reset StartDate
+        StartDate = DateTime.MinValue;
+
+        //Whenever user changes workout
+        //Select the first exercise from the selected workout
+        DisplayExerciseRecords(SelectedWorkout.ExerciseList.FirstOrDefault()!);
     }
 
     private async void DisplayExerciseRecords(Exercise exercise)
     {
-        //default display: display history from the first exercise record of the selected exercise
-        if (SelectedExercise.Name == defaultExerciseName)
-        {
-            var firstExerciseRecord = Context.ExerciseRecords.Where(er => er.ExerciseId == exercise.Id).FirstOrDefault();
+        SelectedExercise = exercise;
+        DisplayCalendar = true;
 
-            StartDate = new DateTime(firstExerciseRecord.Date.Year, firstExerciseRecord.Date.Month, firstExerciseRecord.Date.Day);
+        var firstExerciseRecord = Context.ExerciseRecords.Where(er => er.ExerciseId == exercise.Id).FirstOrDefault();
+
+        //if the workout was changed then display by default history from the first exercise record of the selected exercise
+        if(StartDate == DateTime.MinValue)
+        {
+            //if there are exerciseRecords then set the start date
+            if (firstExerciseRecord != null)
+            {
+                StartDate = new DateTime(firstExerciseRecord.Date.Year, firstExerciseRecord.Date.Month, firstExerciseRecord.Date.Day);
+            }
         }
 
-        SelectedExercise = exercise;
         chartAttributes["Title"] = $"Track progress on {SelectedExercise.Name}";
 
-        var exerciseRecords = await Context.ExerciseRecords.Where(er => er.ExerciseId == exercise.Id && er.Date >= DateOnly.FromDateTime(StartDate!.Value)).ToListAsync();
+        if(firstExerciseRecord == null)
+        {
+            DisplayCalendar = false;
+            return;
+        }
 
+        var exerciseRecords = await Context.ExerciseRecords.Where(er => er.ExerciseId == exercise.Id && er.Date >= DateOnly.FromDateTime(StartDate!.Value)).ToListAsync();
         ExerciseRecords = exerciseRecords.Select(er => new ChartData
             {
                 Date = new DateTime(er.Date.Year, er.Date.Month, er.Date.Day),
@@ -180,15 +224,20 @@
                 Repetitions = er.Repetitions
             }).ToList();
 
+        // if there are exerciseRecords
+        HasHistoricalData = exerciseRecords.Any();
+        /*if (exerciseRecords.Any())
+        {
+            var validExerciseRecordsCount = await Context.ExerciseRecords
+                .Where(er => er.ExerciseId == exercise.Id && er.Date >= DateOnly.FromDateTime(StartDate!.Value))
+                .CountAsync();
+
+            //if there are exercise records with weight and reps > 0
+
+            HasHistoricalData = true;
+        }*/
+
         StateHasChanged();
-    }
-
-    private void SelectDefaultExercise(ICollection<WorkoutSplit> WorkwoutSplits)
-    {
-
-        SelectWorkoutSplit(WorkoutSplits.FirstOrDefault()!);
-        SelectWorkout(SelectedWorkoutSplit.Workouts.FirstOrDefault()!);
-        DisplayExerciseRecords(SelectedWorkout.ExerciseList.FirstOrDefault()!);
     }
 
     private void DatePickerOnChange(Syncfusion.Blazor.Calendars.ChangedEventArgs<DateTime?> args)
