@@ -146,7 +146,7 @@ else
 
     async Task AddWorkout()
     {
-        Workout workoutToAdd = new Workout(workoutSplitId: 1);
+        Workout workoutToAdd = new Workout(workoutSplitId: CurrentWorkoutSplit.Id);
 
         if (workoutToAdd != null)
         {

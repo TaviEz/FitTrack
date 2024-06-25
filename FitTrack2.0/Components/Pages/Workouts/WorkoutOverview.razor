@@ -10,7 +10,15 @@
 
 <PageTitle>Edit @CurrentWorkout.Name</PageTitle>
 
-@if (Id is null)
+@*
+    TODO: repetitions and weight check if you can change the type from int to float in code if not then use form validation
+    finish adding all the remaining exercises
+    Adding a sets looks weird only if description is filled
+
+    When you add an workout in a second workoutsplit it will be added only in the first workoutSplit
+*@
+
+@if (CurrentWorkout.Id == null)
 {
     <p><em>Loading exercises...</em></p>
 }
@@ -22,8 +30,9 @@ else
         </SfToast>
     </div>
     <div class="p-3">
-        <div class="mb-3">
+        <div class="form-floating mb-3">
             <InputText class="form-control w-auto" id="workoutName" @bind-Value="@CurrentWorkout.Name" />
+            <label class="form-label">Workout </label>
         </div>
 
         <table class="table">
@@ -39,20 +48,21 @@ else
                             <div>
                                 <button type="submit" class="btn btn-danger mb-2" @onclick="() => RemoveExercise(exercise)">Remove Exercise</button>
                             </div>
+
                             <div class="form-floating mb-3">
                                 <InputText class="form-control" placeholder="Exercise Name" @bind-Value="@exercise.Name" />
                                 <label class="form-label">Exercise </label>
                             </div>
-                            <div class="form-floating mb-3">
-                                <InputText class="form-control" @bind-Value="@exercise.Description" />
-                                <label class="form-label">Description</label>
+
+                            <div class="multiline mb-3">
+                                <SfTextBox Multiline=true FloatLabelType="@FloatLabelType.Auto" Placeholder="Description" style="height:80px;" @bind-Value="@exercise.Description"></SfTextBox>
                             </div>
                         </td>
                     </tr>
                     <tr>
-                        <SfMultiSelect @ref="MultiSelectMuscleGroup" TItem="MuscleGroup" TValue="List<MuscleGroup>" Placeholder="Select muscle group" DataSource="@MuscleGroups" EnableChangeOnBlur="false"
+                        <SfMultiSelect @ref="MultiSelectMuscleGroup" TItem="MuscleGroup" TValue="List<MuscleGroup>" Placeholder="Select the associated muscle groups" DataSource="@MuscleGroups" EnableChangeOnBlur="false"
                                        @bind-Value="exercise.MuscleGroups">
-                            <MultiSelectEvents TItem="MuscleGroup" TValue="List<MuscleGroup>" ValueChange="((e) => ModifyAssociatedMuscleGroups(e, exercise))"></MultiSelectEvents>
+                            <MultiSelectEvents TItem="MuscleGroup" TValue="List<MuscleGroup>"></MultiSelectEvents>
                             <MultiSelectFieldSettings Text="Name"></MultiSelectFieldSettings>
                         </SfMultiSelect>
                     </tr>
@@ -126,20 +136,13 @@ else
     {
         if (Id is not null)
         {
-            var workouts = await Context.Workouts
+            CurrentWorkout = await Context.Workouts
                 .Include(workout => workout.ExerciseList)
                     .ThenInclude(exercise => exercise.ExerciseSets)
                 .Include(workout => workout.ExerciseList)
                     .ThenInclude(exercise => exercise.MuscleGroups)
                         .ThenInclude(muscleGroup => muscleGroup.AssociatedExcercises)
-                .ToListAsync();
-
-            var workout = workouts.FirstOrDefault(w => w.Id == Id);
-
-            if (workout is not null)
-            {
-                CurrentWorkout = workout;
-            }
+                .FirstOrDefaultAsync(w => w.Id == Id);
 
             MuscleGroups = await Context.MuscleGroups.ToListAsync();
         }
@@ -150,11 +153,11 @@ else
     {
         var result = await Context.SaveChangesAsync();
 
-        if(result != 0)
+        if (result != 0)
         {
             NotificationMessage.toastModelSuccessfull.Content = "Your workout has been saved successfully";
             await this.ToastObj.ShowAsync(NotificationMessage.toastModelSuccessfull);
-        } 
+        }
     }
 
     async Task AddSet(Exercise exercise)
@@ -190,7 +193,7 @@ else
         Context.Exercises.Remove(exerciseToRemove);
         await Context.SaveChangesAsync();
 
-        if(CurrentWorkout.ExerciseList != null)
+        if (CurrentWorkout.ExerciseList != null)
             CurrentWorkout.ExerciseList.Remove(exerciseToRemove);
 
         NotificationMessage.toastModelSuccessfull.Content = $"Successfully removed {exerciseToRemove.Name}";
@@ -202,40 +205,6 @@ else
         var newMuscleGroups = args.Value;
         var oldMuscleGroups = args.OldValue;
 
-        // Daca nu exista grupuri musculare vechi, adaugam prima data
-        if (oldMuscleGroups == null || oldMuscleGroups.Count == 0)
-        {
-            var addedItem = newMuscleGroups.FirstOrDefault();
-            if (addedItem != null)
-            {
-                e.MuscleGroups.Add(addedItem);
-                SelectedMuscleGroups = e.MuscleGroups;
-                addedItem.AssociatedExcercises.Add(e);
-            }
-        }
-        else
-        {
-            // Daca numarul de elemente a crescut, adaugam grupa musculara noua
-            if (newMuscleGroups.Count > oldMuscleGroups.Count)
-            {
-                var addedItem = newMuscleGroups.Except(oldMuscleGroups).FirstOrDefault();
-                if (addedItem != null)
-                {
-                    e.MuscleGroups.Add(addedItem);
-                    addedItem.AssociatedExcercises.Add(e);
-                }
-            }
-            // Daca numarul de elemente a scazut, elimina grupa musculara stearsa de utilizator
-            else if (newMuscleGroups.Count < oldMuscleGroups.Count)
-            {
-                var removedItems= oldMuscleGroups.Except(newMuscleGroups).FirstOrDefault();
-                if (removedItems != null)
-                {
-                    e.MuscleGroups.Remove(removedItems);
-                    removedItems.AssociatedExcercises.Remove(e);
-                }
-            }
-        }
         await Context.SaveChangesAsync();
     }
 }

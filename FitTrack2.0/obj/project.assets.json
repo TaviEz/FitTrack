@@ -5348,6 +5348,7 @@
       "Syncfusion.Blazor.Calendars >= 25.1.39",
       "Syncfusion.Blazor.Charts >= 25.1.39",
       "Syncfusion.Blazor.DropDowns >= 25.1.39",
+      "Syncfusion.Blazor.Inputs >= 25.1.39",
       "Syncfusion.Blazor.Notifications >= 25.1.39",
       "Syncfusion.Blazor.Themes >= 25.1.39"
     ]
@@ -5432,6 +5433,10 @@
             "version": "[25.1.39, )"
           },
           "Syncfusion.Blazor.DropDowns": {
+            "target": "Package",
+            "version": "[25.1.39, )"
+          },
+          "Syncfusion.Blazor.Inputs": {
             "target": "Package",
             "version": "[25.1.39, )"
           },

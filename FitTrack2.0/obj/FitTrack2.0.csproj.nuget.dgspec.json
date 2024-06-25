@@ -83,6 +83,10 @@
               "target": "Package",
               "version": "[25.1.39, )"
             },
+            "Syncfusion.Blazor.Inputs": {
+              "target": "Package",
+              "version": "[25.1.39, )"
+            },
             "Syncfusion.Blazor.Notifications": {
               "target": "Package",
               "version": "[25.1.39, )"
