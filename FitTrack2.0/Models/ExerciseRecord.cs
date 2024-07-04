@@ -8,7 +8,7 @@
 
         public int Repetitions { get; set; }
 
-        public int Weight { get; set; }
+        public float Weight { get; set; }
 
         public int ExerciseId { get; set; }
 
@@ -18,7 +18,7 @@
         {
         }
 
-        public ExerciseRecord(DateOnly date, int reps,  int weight, int exerciseId)
+        public ExerciseRecord(DateOnly date, int reps, float weight, int exerciseId)
         {
             Date = date;
             Repetitions = reps;

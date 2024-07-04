@@ -5,7 +5,7 @@
         public int Id { get; set; }
         public int Repetitions { get; set; }
 
-        public int Weight { get; set; }
+        public float Weight { get; set; }
 
         public int ExerciseId { get; set; }
 
@@ -18,7 +18,7 @@
             ExerciseId = exerciseId;
         }
 
-        public ExerciseSet(int reps, int weight, int exerciseId)
+        public ExerciseSet(int reps, float weight, int exerciseId)
         {
             Repetitions = reps;
             Weight = weight;

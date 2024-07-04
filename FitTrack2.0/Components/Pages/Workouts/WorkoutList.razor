@@ -177,6 +177,9 @@ else
     {
         Context.WorkoutSplits.Remove(CurrentWorkoutSplit);
         await Context.SaveChangesAsync();
+
+        NavigationManager.NavigateTo("/split-overview");
+
     }
 
     async void WorkoutSplitNameChanged()

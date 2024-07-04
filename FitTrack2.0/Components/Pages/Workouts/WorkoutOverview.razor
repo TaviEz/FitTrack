@@ -11,14 +11,12 @@
 <PageTitle>Edit @CurrentWorkout.Name</PageTitle>
 
 @*
-    TODO: repetitions and weight check if you can change the type from int to float in code if not then use form validation
-    finish adding all the remaining exercises
+    TODO: use form validation
     Adding a sets looks weird only if description is filled
 
-    When you add an workout in a second workoutsplit it will be added only in the first workoutSplit
 *@
 
-@if (CurrentWorkout.Id == null)
+@if (IsLoading)
 {
     <p><em>Loading exercises...</em></p>
 }
@@ -118,6 +116,7 @@ else
 
     #endregion
 
+    private bool IsLoading { get; set; } = false;
 
     List<MuscleGroup> SelectedMuscleGroups = new();
 
@@ -136,17 +135,32 @@ else
     {
         if (Id is not null)
         {
-            CurrentWorkout = await Context.Workouts
-                .Include(workout => workout.ExerciseList)
-                    .ThenInclude(exercise => exercise.ExerciseSets)
-                .Include(workout => workout.ExerciseList)
-                    .ThenInclude(exercise => exercise.MuscleGroups)
-                        .ThenInclude(muscleGroup => muscleGroup.AssociatedExcercises)
-                .FirstOrDefaultAsync(w => w.Id == Id);
+            IsLoading = true;
+            try
+            {
+                CurrentWorkout = await Context.Workouts
+                    .Include(workout => workout.ExerciseList)
+                        .ThenInclude(exercise => exercise.ExerciseSets)
+                    .Include(workout => workout.ExerciseList)
+                        .ThenInclude(exercise => exercise.MuscleGroups)
+                            .ThenInclude(muscleGroup => muscleGroup.AssociatedExcercises)
+                    .FirstOrDefaultAsync(w => w.Id == Id);
 
-            MuscleGroups = await Context.MuscleGroups.ToListAsync();
+                MuscleGroups = await Context.MuscleGroups.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                NotificationMessage.toastModelFailed.Content = $"Failed to load data: {ex.Message}";
+                await this.ToastObj.ShowAsync(NotificationMessage.toastModelFailed);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
     }
+
+
 
 
     async Task SaveWorkout()
@@ -192,9 +206,6 @@ else
     {
         Context.Exercises.Remove(exerciseToRemove);
         await Context.SaveChangesAsync();
-
-        if (CurrentWorkout.ExerciseList != null)
-            CurrentWorkout.ExerciseList.Remove(exerciseToRemove);
 
         NotificationMessage.toastModelSuccessfull.Content = $"Successfully removed {exerciseToRemove.Name}";
         await this.ToastObj.ShowAsync(NotificationMessage.toastModelSuccessfull);

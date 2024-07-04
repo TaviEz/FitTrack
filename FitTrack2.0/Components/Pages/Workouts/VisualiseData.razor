@@ -143,7 +143,7 @@
     public class ChartData
     {
         public DateTime Date { get; set; }
-        public int Weight { get; set; }
+        public float Weight { get; set; }
         public int Repetitions { get; set; }
     }
 
@@ -226,6 +226,7 @@
 
         // if there are exerciseRecords
         HasHistoricalData = exerciseRecords.Any();
+
         /*if (exerciseRecords.Any())
         {
             var validExerciseRecordsCount = await Context.ExerciseRecords
